@@ -4,8 +4,8 @@ const DEFAULT_PAGE_NAME = "Chevaleresk";
 const BUNDLE_PATH_STYLES = "bundles/stylesBundle.html";
 const BUNDLE_PATH_SCRIPTS = "bundles/scriptsBundle.html";
 
-include "views/header.php";
-require "php/phpUtilities.php";
+include_once "views/header.php";
+require_once "php/phpUtilities.php";
 
 // Name of the page
 isset_default($page_title, DEFAULT_PAGE_NAME);

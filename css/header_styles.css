@@ -1,28 +1,160 @@
 #header {
+    display: flex;
+
     background-color: #352F44;
 
     width: 100%;
-    min-height: 15vh;
+}
+
+#header *,
+#header {
+    user-select: none;
+}
+
+/* SECTIONS */
+.header-section {
+    display: flex;
+}
+
+.header-section>* {
+    display: inline-block;
+}
+
+/* LOGO */
+#header_logo {
+    width: fit-content;
     height: fit-content;
+}
+
+#header_logo>* {
+    width: 100%;
+    height: 100%;
+}
+
+#header_logo>img {
+    width: 100px;
+    height: 75px;
+}
+
+/* ICONS */
+.header-icon {
+    color: black;
+    font-size: 2.5em;
+    text-decoration: none;
+
+    height: fit-content;
+    width: fit-content;
+
+    margin: auto;
+    margin-right: 0.4em;
+}
+
+#header_cart,
+#header_money {
+    color: #FAF0E6;
+    position: relative;
+}
+
+#header_cart>* {
+    position: absolute;
+    top: -0.5em;
+    right: -0.25em;
+
+    color: black;
+    font-size: 0.3em;
+
+    background-color: #B9B4C7;
+    padding: 0.25em;
+    border-radius: 0.2em;
+}
+
+#header_money {
+    color: #B9B4C7;
+}
+
+#header_money>* {
+    position: absolute;
+    bottom: -0.3em;
+
+    color: white;
+    font-size: 0.5em;
+
+    width: 100%;
+}
+
+#header_money span {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+#header_profile {
+    font-size: 1.5em;
+    padding: 0.5em;
+    background-color: #FAF0E6;
+    border-radius: 1em;
+}
+
+
+/* #header {
+    background-color: #352F44;
+
+    width: 100%;
+
+    min-height: 3rem;
+    max-height: 20vh;
+    height: 10vh;
 
     display: flex;
 
-    align-items: center;
+    color: #FAF0E6;
 }
 
-.header_section {
-    height: fit-content;
+#header *,
+#header {
+    user-select: none;
 }
 
+#header p,
+#header span {
+    font-size: 1rem;
+}
+
+/* SECTIONS
 .header_section>* {
-    display: inline;
+    display: inline-block;
+    height: fit-content;
+    margin: auto 0;
 }
 
 #header_left {
-    width: 20%;
+    display: flex;
+    width: 15%;
 }
 
 #header_right {
     flex: 1;
-    text-align: right;
+    text-align: end;
+    margin: auto;
 }
+
+/* LOGO
+#header_logo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: center;
+
+    width: 100%;
+
+    height: unset;
+    margin: unset;
+}
+
+/* OPTIONS
+#header_options {}
+
+@media screen and (max-width: 400px) {
+    #header {
+        background-color: aqua;
+    }
+} */
