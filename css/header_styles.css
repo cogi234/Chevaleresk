@@ -1,0 +1,28 @@
+#header {
+    background-color: #352F44;
+
+    width: 100%;
+    min-height: 15vh;
+    height: fit-content;
+
+    display: flex;
+
+    align-items: center;
+}
+
+.header_section {
+    height: fit-content;
+}
+
+.header_section>* {
+    display: inline;
+}
+
+#header_left {
+    width: 20%;
+}
+
+#header_right {
+    flex: 1;
+    text-align: right;
+}
