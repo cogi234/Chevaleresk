@@ -1,0 +1,10 @@
+:root {
+    --main: #B9B4C7;
+    --second: #5C5470;
+    --dark: #352F44;
+    --light: #FAF0E6;
+}
+
+*:has(#main) {
+    background-color: var(--second);
+}

@@ -1,57 +1,50 @@
 <?php
-include 'views/header.php';
-if (!isset($pageTitle))
-    $pageTitle = "";
-if (!isset($viewHead))
-    $viewHead = "";
-if (!isset($viewStyle))
-    $viewStyle = "";
-if (!isset($viewContent))
-    $viewContent = "";
-if (!isset($viewScript))
-    $viewScript = "";
-    
-$stylesBundle = "";
-if (file_exists("views/stylesBundle.html"))
-    $stylesBundle = file_get_contents("views/stylesBundle.html");
 
-$scriptsBundle = "";
-if (file_exists("views/scriptsBundle.html"))
-    $scriptsBundle = file_get_contents("views/scriptsBundle.html");
+const DEFAULT_PAGE_NAME = "Chevaleresk";
+const BUNDLE_PATH_STYLES = "bundles/stylesBundle.html";
+const BUNDLE_PATH_SCRIPTS = "bundles/scriptsBundle.html";
 
-$localScript = "";
+include_once "views/header.php";
+require_once "php/phpUtilities.php";
 
-if (isset($_SESSION["validUser"]) || isset($_SESSION["validAdmin"])) {
-    $timeout = (int)$_SESSION["timeout"];
-    $localScript = <<<HTML
-    <script> $(document).ready(()=>{  timeout($timeout); }) </script>
-    HTML;
-} 
+// Name of the page
+isset_default($page_title, DEFAULT_PAGE_NAME);
 
+// Header
+isset_default($header_content);
+
+// Body
+isset_default($body_content);
+
+// Bundles
+$styles_bundle = getContentOrDefault(BUNDLE_PATH_STYLES);
+$scripts_bundle = getContentOrDefault(BUNDLE_PATH_SCRIPTS);
+
+// Views
+isset_default($styles_view);
+isset_default($scripts_view);
+
+// Print
 echo <<<HTML
     <!DOCTYPE html>
     <html>
-    <header>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>$pageTitle</title>
-        $stylesBundle
-        $viewStyle
-    </header>
-    <body>
-        <div id="main">
-            <div id="header">
-                $viewHead
+        <header>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>$page_title</title>
+            
+            $styles_bundle
+            $styles_view
+        </header>
+
+        <body>
+            <div id="main">
+                <div id="header">$header_content</div>
+                <div id="body">$body_content</div>
             </div>
-            $viewHeadCustom
-            <div id="content">
-                $viewContent
-            </div>
-        </div>
-        $scriptsBundle
-        $viewScript
-        $localScript
-    </body>
+            
+            $scripts_bundle
+            $scripts_view
+        </body>
     </html>
-    HTML;
-?>
+HTML;

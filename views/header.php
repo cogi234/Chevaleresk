@@ -1,141 +1,55 @@
 <?php
-$pageTitle = "Photos Cloud";
-if (!isset($viewTitle))
-    $viewTitle = "";
-if (!isset($viewHeadCustom))
-    $viewHeadCustom = "";
-if (!isset($viewName))
-    $viewName = "";
 
-$loggedUserMenu = "";
-$connectedUserAvatar = "";
+require_once "php/htmlUtilities.php";
 
-if (isset($_SESSION["validUser"])) {
+// Values
+$cart_amount = 3;
+$money_amount = 33;
 
-    $avatar = $_SESSION["avatar"];
-    $userName = $_SESSION["userName"];
-    $loggedUserMenu = "";
-    if (isset($_SESSION["isAdmin"]) && (bool) $_SESSION["isAdmin"]) {
-        $loggedUserMenu = <<<HTML
-            <a href="manageUsers.php" class="dropdown-item">
-                <i class="menuIcon fas fa-user-cog mx-2"></i> Gestion des usagers
-            </a>
-            <div class="dropdown-divider"></div>
-        HTML;
-    }
+// Links
+$icon_money_url = "";
+$icon_cart_url = "";
+$icon_profile_url = "";
 
-    $loggedUserMenu .= <<<HTML
-        <a href="logout.php" class="dropdown-item">
-            <i class="menuIcon fa fa-sign-out mx-2"></i> Déconnexion
-        </a>
-        <a href="editProfilForm.php" class="dropdown-item">
-            <i class="menuIcon fa fa-user-edit mx-2"></i> Modifier votre profil
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="photosList.php" class="dropdown-item">
-            <i class="menuIcon fa fa-image mx-2"></i> Liste des photos
-        </a>
-    HTML;
-    $connectedUserAvatar = <<<HTML
-        <div class="UserAvatarSmall" style="background-image:url('$avatar')" title="$userName"></div>
-    HTML;
-} else {
-    $loggedUserMenu = <<<HTML
-        <a href="loginForm.php" class="dropdown-item" id="loginCmd">
-            <i class="menuIcon fa fa-sign-in mx-2"></i> Connexion
-        </a> 
-    HTML;
-    $connectedUserAvatar = <<<HTML
-        <div>&nbsp;</div>
-    HTML;
-}
+// Dropdown
+$dropdown = dropdown("", [
+    dropdown_item("Lorem Upon 1", "#"),
+    dropdown_item("Lorem Upon 2", "#"),
+], "fa-solid fa-angle-down header_dropdown");
 
-
-
-$viewMenu = "";
-if (strcmp($viewName, "photoList") == 0) {
-    $sortType = isset($_SESSION["photoSortType"]) ? $_SESSION["photoSortType"] : "date";
-    $checkIcon = '<i class="menuIcon fa fa-check mx-2"></i>';
-    $uncheckIcon = '<i class="menuIcon fa fa-fw mx-2"></i>';
-    $sortByDateCheck = ($sortType == "date") ? $checkIcon : $uncheckIcon;
-    $sortByLikeCheck = ($sortType == "likes") ? $checkIcon : $uncheckIcon;
-    $sortByOwners = ($sortType == "owners") ? $checkIcon : $uncheckIcon;
-    $sortByKeywords = ($sortType == "keywords") ? $checkIcon : $uncheckIcon;
-    $ownerOnly = ($sortType == "owner") ? $checkIcon : $uncheckIcon;
-    $viewMenu = <<<HTML
-         <a href="photosList.php?sort=date" class="dropdown-item">
-            $sortByDateCheck <i class="menuIcon fa fa-calendar mx-2"></i>Photos par date de création
-         </a>
-         <a href="photosList.php?sort=likes" class="dropdown-item">
-            $sortByLikeCheck <i class="menuIcon fa fa-heart mx-2"></i>Photos les plus aimées
-         </a>
-         <a href="photosList.php?sort=keywords" class="dropdown-item">
-            $sortByKeywords <i class="menuIcon fa fa-search mx-2"></i>Photos par mots-clés
-         </a> 
-         <a href="photosList.php?sort=owners" class="dropdown-item">
-            $sortByOwners <i class="menuIcon fa fa-users mx-2"></i>Photos par créateur
-         </a>
-         <a href="photosList.php?sort=owner" class="dropdown-item">
-            $ownerOnly <i class="menuIcon fa fa-user mx-2"></i>Mes photos
-         </a>
-        HTML;
-    if ($sortType == "owners") {
-        $users = UsersTable()->get();
-        $userOptions = "";
-        $selected = -1;
-        if (isset($_GET["owner"]))
-            $selected = $_GET["owner"];
-
-        foreach ($users as $u) {
-            if ($u->Id == $selected)
-                $userOptions .= "<option selected=\"selected\" value=" . $u->Id . "> " . $u->Name . "</option>\n";
-            else
-                $userOptions .= "<option value=" . $u->Id . "> " . $u->Name . "</option>\n";
-        }
-
-        $viewHeadCustom = <<<HTML
-            <div class="searchContainer">
-                <select class="form-select userSelector" id="userSelector"> 
-                    <option value="-1"> Tous les usagers</option>
-                    $userOptions
-                </select>
-                <i class="cmdIcon fa fa-search" id="setPhotoOwnerSearchIdCmd"></i>
-            </div>
-        HTML;
-    }
-    if ($sortType == "keywords") {
-        $viewHeadCustom = <<<HTML
-           <div class="searchContainer">
-                <input type="search" class="form-control" placeholder="Recherche par mots-clés" id="keywords" />
-                <i class="cmdIcon fa fa-search" id="setSearchKeywordsCmd"></i>
-            </div>
-        HTML;
-    }
-}
-
-$viewHead = <<<HTML
-        <a href="photosList.php" title="Liste des photos"><img src="images/PhotoCloudLogo.png" class="appLogo"></a>
-        <span class="viewTitle">$viewTitle 
-            <a href="newPhotoForm.php" class="cmdIcon fa fa-plus" id="addPhotoCmd" title="Ajouter une photo"></a>
-        </span>
-        
-        <div class="headerMenusContainer">
-            <span>&nbsp</span> <!--filler-->
-            <a href="editProfilForm.php" title="Modifier votre profil"> $connectedUserAvatar </a>         
-            <div class="dropdown ms-auto dropdownLayout">
-                <div data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="cmdIcon fa fa-ellipsis-vertical"></i>
-                </div>
-                <div class="dropdown-menu noselect">
-                    $loggedUserMenu
-                    $viewMenu
-                    <div class="dropdown-divider"></div>
-                    <a href="about.php" class="dropdown-item" id="aboutCmd">
-                        <i class="menuIcon fa fa-info-circle mx-2"></i> À propos...
-                    </a>
-                </div>
-            </div>
-
+// Content
+$header_content = <<<HTML
+     <!-- LEFT -->
+     <div id="header-section-left" class="header-section">
+        <!-- LOGO  -->
+        <div id="header_logo">
+            <img src="images/logo.png" />
         </div>
-    HTML;
+        
+        <!-- OPTIONS  -->
+        <div id="header_options">
+            $dropdown
+        </div>
+    </div>
 
+    <!-- MIDDLE -->
+    <div id="header-section-middle" class="header-section" style="width: 100%"></div> 
+
+     <!-- RIGHT  -->
+     <div id="header-section-right" class="header-section">
+        <!-- MONEY -->
+        <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url" target="blank">
+            <div>
+                <span>$money_amount</span>
+            </div>
+        </a>
+
+        <!-- CART -->
+        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" target="blank">
+            <span>$cart_amount</span>
+        </a>
+        
+        <!-- PROFILE -->
+        <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" target="blank"></a>
+     </div>
+HTML;
