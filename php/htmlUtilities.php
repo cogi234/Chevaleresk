@@ -1,6 +1,7 @@
 <?php
 
 require_once "php/phpUtilities.php";
+include_once "php/guid.php";
 
 const DROPDOWN_TAG_URL = "url";
 const DROPDOWN_TAG_TEXT = "text";
@@ -9,12 +10,12 @@ const DROPDOWN_TAG_TEXT = "text";
  * Creates a dropdown with the given name and the given items
  * @author @WarperSan
  * Date of creation    : 2024/03/11
- * Date of modification: 2024/03/11
+ * Date of modification: 2024/03/12
  */
 function dropdown(string $name, array $items = [], string $buttonClass = ""): string
 {
     $itemsHTML = "";
-    $guid = com_create_guid();
+    $guid = function_exists("GUIDv4") ? GUIDv4() : com_create_guid();
 
     foreach ($items as $key => $value) {
         isset_default($value[DROPDOWN_TAG_URL], "#");
