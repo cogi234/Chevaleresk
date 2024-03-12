@@ -19,8 +19,8 @@ $dropdown = dropdown("", [
 
 // Content
 $header_content = <<<HTML
-     <!-- LEFT   -->
-     <div class="header-section">
+     <!-- LEFT -->
+     <div id="header-section-left" class="header-section">
         <!-- LOGO  -->
         <div id="header_logo">
             <img src="images/logo.png" />
@@ -33,23 +33,23 @@ $header_content = <<<HTML
     </div>
 
     <!-- MIDDLE -->
-    <div class="header-section" style="width: 100%"></div> 
+    <div id="header-section-middle" class="header-section" style="width: 100%"></div> 
 
      <!-- RIGHT  -->
-     <div class="header-section">
+     <div id="header-section-right" class="header-section">
         <!-- MONEY -->
-        <a id="header_money" class="header-icon fa-solid fa-money-bill" href=`$icon_money_url` target="blank">
+        <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url" target="blank">
             <div>
                 <span>$money_amount</span>
             </div>
         </a>
 
         <!-- CART -->
-        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href=`$icon_cart_url` target="blank">
+        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" target="blank">
             <span>$cart_amount</span>
         </a>
         
         <!-- PROFILE -->
-        <a id="header_profile" class="header-icon fa-solid fa-user" href=`$icon_profile_url` target="blank"></a>
+        <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" target="blank"></a>
      </div>
 HTML;
