@@ -23,7 +23,7 @@ $header_content = <<<HTML
      <div id="header-section-left" class="header-section">
         <!-- LOGO  -->
         <div id="header_logo">
-            <img src="images/logo.png" />
+            <img src="images/header/logo.png" />
         </div>
         
         <!-- OPTIONS  -->
