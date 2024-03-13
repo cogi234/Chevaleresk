@@ -1,45 +1,22 @@
 CREATE SCHEMA IF NOT EXISTS dbchevalersk9 DEFAULT CHARACTER SET utf8 ;
 USE dbchevalersk9 ;
 
--- Ingredients
-DROP TRIGGER CTRLInsertionIngredient;
+
+-- ItemsCTRLInsertionIngredient
+DROP TRIGGER IF EXISTS CTRLInsertionItem;
 DELIMITER |
-CREATE TRIGGER CTRLInsertionIngredient
+CREATE TRIGGER CTRLInsertionItem
 	BEFORE INSERT ON items FOR EACH ROW
 BEGIN
 	DECLARE minPrixPotions INT;
-    IF (new.type = "ingredient") THEN
-		SELECT MIN(prix) INTO minPrixPotions FROM items WHERE type = "potion";
-        IF (new.prix >= minPrixPotions) THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix dépasse celui des potions";
-		END IF;
-	END IF;
-END |
-DELIMITER ;
-
-DROP TRIGGER CTRLUpdateIngredient;
-DELIMITER |
-CREATE TRIGGER CTRLUpdateIngredient
-	BEFORE UPDATE ON items FOR EACH ROW
-BEGIN
-	DECLARE minPrixPotions INT;
-    IF (new.type = "ingredient") THEN
-		SELECT MIN(prix) INTO minPrixPotions FROM items WHERE type = "potion";
-        IF (new.prix >= minPrixPotions) THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix dépasse celui des potions";
-		END IF;
-	END IF;
-END |
-DELIMITER ;
-
-
--- Potions
-DROP TRIGGER CTRLInsertionPotion; 
-DELIMITER |
-CREATE TRIGGER CTRLInsertionPotion
-	BEFORE INSERT ON items FOR EACH ROW
-BEGIN
 	DECLARE maxPrixIngredients INT;
+    IF (new.type = "ingredient") THEN
+		SELECT MIN(prix) INTO minPrixPotions FROM items WHERE type = "potion";
+        IF (new.prix >= minPrixPotions) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix dépasse celui des potions";
+		END IF;
+	END IF;
+    
     IF (new.type = "potion") THEN
 		SELECT MAX(prix) INTO maxPrixIngredients FROM items WHERE type = "ingredient";
         IF (new.prix <= maxPrixIngredients) THEN
@@ -49,12 +26,20 @@ BEGIN
 END |
 DELIMITER ;
 
-DROP TRIGGER CTRLUpdatePotion; 
+DROP TRIGGER IF EXISTS CTRLUpdateItem;
 DELIMITER |
-CREATE TRIGGER CTRLUpdatePotion
+CREATE TRIGGER CTRLUpdateItem
 	BEFORE UPDATE ON items FOR EACH ROW
 BEGIN
+	DECLARE minPrixPotions INT;
 	DECLARE maxPrixIngredients INT;
+    IF (new.type = "ingredient") THEN
+		SELECT MIN(prix) INTO minPrixPotions FROM items WHERE type = "potion";
+        IF (new.prix >= minPrixPotions) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix dépasse celui des potions";
+		END IF;
+	END IF;
+    
     IF (new.type = "potion") THEN
 		SELECT MAX(prix) INTO maxPrixIngredients FROM items WHERE type = "ingredient";
         IF (new.prix <= maxPrixIngredients) THEN
@@ -66,7 +51,7 @@ DELIMITER ;
 
 
 -- Recettes
-DROP TRIGGER CTRLInsertionRecette; 
+DROP TRIGGER IF EXISTS CTRLInsertionRecette; 
 DELIMITER |
 CREATE TRIGGER CTRLInsertionRecette
 	BEFORE INSERT ON ingredientRecette FOR EACH ROW
@@ -83,7 +68,7 @@ BEGIN
 END |
 DELIMITER ;
 
-DROP TRIGGER CTRLUpdateRecette; 
+DROP TRIGGER IF EXISTS CTRLUpdateRecette; 
 DELIMITER |
 CREATE TRIGGER CTRLUpdateRecette
 	BEFORE UPDATE ON ingredientRecette FOR EACH ROW

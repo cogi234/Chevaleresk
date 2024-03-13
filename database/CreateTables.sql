@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `dbchevalersk9`.`joueurs` (
   `alias` VARCHAR(40) NOT NULL,
   `prenom` VARCHAR(40) NULL,
   `nom` VARCHAR(40) NULL,
-  `avatar` TEXT NOT NULL DEFAULT 'default',
+  `avatar` TEXT NOT NULL,
   `solde` INT NOT NULL DEFAULT 1000,
   `soldeParAdmin` INT NOT NULL DEFAULT 0,
   `niveauAlchimie` INT NOT NULL DEFAULT 0 COMMENT 'de 0 a 3\n',
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `dbchevalersk9`.`items` (
   `quantiteStock` INT NOT NULL DEFAULT 0,
   `type` ENUM("arme", "armure", "potion", "ingredient") NOT NULL,
   `vendable` TINYINT NOT NULL,
-  `image` TEXT NOT NULL DEFAULT 'default',
+  `image` TEXT NOT NULL,
   PRIMARY KEY (`idItem`),
   UNIQUE INDEX `nom_UNIQUE` (`nom` ASC))
 ENGINE = InnoDB;
