@@ -13,7 +13,7 @@ $styles_view .= '<link rel="stylesheet" href="css/store_styles.css">';
  * Creates the visual for an item in the store
  * @author @WarperSan
  * Date of creation    : 2024/03/12
- * Date of modification: 2024/03/13
+ * Date of modification: 2024/03/14
  */
 function store_item(
     int $id,
@@ -36,7 +36,9 @@ function store_item(
 
             <!-- INFO -->
             <div class="store-item-info"> 
-                <i class="store-item-icon" style="mask: url('$icon') no-repeat center;"></i>
+                <i class="store-item-icon" style="mask-image: url('$icon');">
+                    <div class="store-item-icon-background"></div>
+                </i>
                 <div class="store-item-labels">
                     <p class="store-item-name">$name</p>
                     <p class="store-item-price">$ $price</p>
@@ -52,19 +54,4 @@ function store_item(
             </div>
         </a>
     HTML;
-
-    // return <<<HTML
-    //     <a class="store-item" id="store-item-$id" href="$url" style="background-image: url('$image');">
-    //         <div class="store-item-bottom">
-    //             <i class="store-item-icon" style="mask: url('$icon') no-repeat center;"></i>
-    //             <div class="store-item-labels">
-    //                 <p class="store-item-name">$name</p>
-    //                 <p class="store-item-price">$$price</p>
-    //             </div>
-    //         </div>
-    //         <div>
-    //             $quantity
-    //         </div>
-    //     </a>
-    // HTML;
 }
