@@ -48,7 +48,7 @@ function initFormValidation() {
     });
 
     $("input[type='password']").each(function () {
-        $(this).attr("pattern", String.raw`^\S{6,}$`);
+        $(this).attr("pattern", String.raw`^\S{8,}$`);
     });
 
     $("input, select").each(function () {
