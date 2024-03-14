@@ -93,3 +93,31 @@ function callProcedure(string $procedure_name, ...$arguments) : bool{
     }
     return $statement->execute();
 }
+
+function callFunction(string $function_name, ...$arguments) : array {
+    if (!isset($DB_CONNECTION))
+        $DB_CONNECTION = connect();
+    // We build the query
+    $query = "SELECT " . $function_name . "(";
+    for ($i = 0; $i < count($arguments); $i++){
+        if ($i != 0)
+            $query .= ",";
+        $query .= "?";
+    }
+    $query .= ")";
+
+    // Prepare statement
+    $statement = $DB_CONNECTION->prepare($query);
+    if ($statement == false)
+        return [];
+
+    for ($i = 0; $i < count($arguments); $i++){
+        $statement->bindValue($i+1, $arguments[$i]);
+    }
+
+    if ($statement->execute()){
+        return $statement->fetchAll();
+    } else {
+        return [];
+    }
+}
