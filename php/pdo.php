@@ -63,3 +63,33 @@ function selectAll(
 ): array {
     return query($selectors, $table, $condition)->fetchAll();
 }
+
+/**
+ * Executes a procedure with the given parameters
+ * @author @Colin_Bougie
+ * Date of creation    : 2024/03/14
+ * Date of modification: 2024/03/14
+ * @return bool True if it was a success, False on failure
+ */
+function callProcedure(string $procedure_name, ...$arguments) : bool{
+    if (!isset($DB_CONNECTION))
+        $DB_CONNECTION = connect();
+    // We build the query
+    $query = "CALL " . $procedure_name . "(";
+    for ($i = 0; $i < count($arguments); $i++){
+        if ($i != 0)
+            $query .= ",";
+        $query .= "?";
+    }
+    $query .= ")";
+
+    // Prepare statement
+    $statement = $DB_CONNECTION->prepare($query);
+    if ($statement == false)
+        return false;
+
+    for ($i = 0; $i < count($arguments); $i++){
+        $statement->bindValue($i+1, $arguments[$i]);
+    }
+    return $statement->execute();
+}
