@@ -1,5 +1,4 @@
 <?php
-
 require_once "php/htmlUtilities.php";
 
 // Links
@@ -13,7 +12,14 @@ $icon_connection_url = "";
 $money_section = "";
 $cart_section = "";
 $profile_section = "";
-if (isset($_SESSION["connected"]) && $_SESSION["connected"] == true) {
+$dropdown = "";
+if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
+    // Dropdown
+    $dropdown = dropdown("", [
+        dropdown_item("Enigma", "#"),
+        dropdown_item("Panoramix", "#"),
+    ], "fa-solid fa-angle-down header_dropdown");
+
     //Money amount
     $money_amount = select("solde", "joueurs", "idJoueur = " . $_SESSION["idJoueur"])[0];
     $money_section = <<<HTML
@@ -25,7 +31,7 @@ if (isset($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 
     //Cart amount
-    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];   
+    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
     $cart_section = <<<HTML
     <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url">
         <span>$cart_amount</span>
@@ -44,20 +50,15 @@ if (isset($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 }
 
-// Dropdown
-$dropdown = dropdown("", [
-    dropdown_item("Enigma", "#"),
-    dropdown_item("Panoramix", "#"),
-], "fa-solid fa-angle-down header_dropdown");
 
 // Content
 $header_content = <<<HTML
      <!-- LEFT -->
      <div id="header-section-left" class="header-section">
         <!-- LOGO  -->
-        <div id="header_logo">
+        <a id="header_logo" href="" title="Chevaleresk">
             <img src="images/header/logo.png" />
-        </div>
+        </a>
         
         <!-- OPTIONS  -->
         <div id="header_options">
