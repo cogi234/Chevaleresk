@@ -29,6 +29,25 @@ function store_item(
 
     $url = "";
 
+    // Initialize variables
+    isset_default($oos_html);
+    isset_default($quantity_html);
+
+    // React depending on the quantity given
+    if ($quantity <= 0) {
+        $oos_html = <<<HTML
+            <div class="store-item-oos-background">
+                <p class="store-item-oss-label">OUT OF STOCK</p>
+            </div>
+        HTML;
+    } else {
+        $quantity_html = <<<HTML
+            <div class="store-item-quantity">
+                <p class="store-item-quantity-label">$quantity</p>
+            </div>
+        HTML;
+    }
+
     return <<<HTML
         <a class="store-item" href="$url" title="Voir les détails de $name">
             <!-- IMAGE -->
@@ -49,9 +68,10 @@ function store_item(
             <i class="store-item-border"></i>
 
             <!-- QUANTITY -->
-            <div class="store-item-quantity">
-                <p class="store-item-quantity-label">$quantity</p>
-            </div>
+            $quantity_html
+
+            <!-- OUT OF STOCK -->
+            $oos_html
         </a>
     HTML;
 }

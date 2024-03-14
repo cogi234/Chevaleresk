@@ -20,10 +20,16 @@
     border-radius: 20px;
 
     background-color: var(--main);
+
+    transition: scale 0.1s ease-in-out;
 }
 
 .store-item * {
     user-select: none;
+}
+
+.store-item:hover {
+    scale: 1.1;
 }
 
 /* IMAGE */
@@ -135,4 +141,32 @@
 
     transform: translateY(-50%);
     text-align: center;
+
+    font-size: 1.25em;
+}
+
+/* OUT OF STOCK */
+.store-item-oos-background {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background-color: var(--dark);
+    opacity: 85%;
+
+    color: var(--light);
+
+    /* rotate: -15deg; */
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.store-item-oss-label {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
 }
