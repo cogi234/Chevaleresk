@@ -10,12 +10,14 @@
     padding: 1em;
 }
 
+.store-item-holder>* {
+    width: 160px;
+    height: 160px;
+}
+
 /* ITEM */
 .store-item {
     position: relative;
-
-    width: 160px;
-    height: 160px;
 
     border-radius: 20px;
 
