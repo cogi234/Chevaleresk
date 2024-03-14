@@ -11,7 +11,7 @@ HTML;
 for($i = 0; $i < 10; $i++){
     $body_content .= <<<HTML
         <div class="cart-item">
-            <div class="cart-item-image"><img src="Images/Item-placeholder.png"/></div>
+            <div class="cart-item-image"><img src="images/items/images/Placeholder.png"/></div>
                 <div class="cart-item-info">
                     <p class="name-item">Nom</p>
                     <div class="number-item"><p>x</p><input value="1" type="number"/></div>

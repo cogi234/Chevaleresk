@@ -6,7 +6,7 @@
     background-color: var(--second);
 }
 .cart-recept-preview-container {
-    height: 70%;
+    height: 60%;
     width: 25%;
     position: sticky;
     top: 0;
@@ -49,7 +49,7 @@
     max-width: 150px;
     height: 100%;
     width: auto;
-    border-right: solid 2px var(--dark);
+    border-right: solid 2px var(--second);
     padding-right: 10px;
 }
 .cart-item-image>img{
