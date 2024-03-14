@@ -1,5 +1,6 @@
 <?php
 require 'php/sessionManager.php';
+require 'php/pdo.php';
 $viewTitle = "Création de compte";
 
 anonymousAccess();
@@ -9,13 +10,14 @@ $viewContent = <<< HTML
 
 <div class="">
     <br>
-    <form method='post' action='newUser.php'>
+    <form method='post' action=''>
     <fieldset>
             <legend>Identifiant de connexion</legend>
             <input  type="text" 
                     class="form-control" 
                     name="alias" 
                     id="alias"
+                    value= "{$_POST['alias']}"
                     placeholder="Identifiant" 
                     required 
                     RequireMessage = 'Veuillez entrer votre Identifiant'
@@ -30,6 +32,7 @@ $viewContent = <<< HTML
                     class="form-control" 
                     name="Password" 
                     id="Password"
+                    value= "{$_POST['password']}"
                     placeholder="Mot de passe" 
                     required 
                     RequireMessage = 'Veuillez entrer un mot de passe'
@@ -50,9 +53,25 @@ $viewContent = <<< HTML
             <button class="form-control btn-secondary">Annuler</button>
         </a>
     </div>
-
+    
 </div>
 HTML;
+
+if ($_SERVER['REQUEST_METHOD'] == "POST")
+{
+    $playerList = selectAll('alias','joueur');
+    foreach($playerList as $player)
+    {
+        if ($_POST["alias"] == $player)
+        {
+
+        }
+        else{
+
+        }
+    }
+}
+
 $viewScript = <<<HTML
     <script src='js/validation.js'></script>
 

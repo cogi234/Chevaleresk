@@ -9,7 +9,7 @@ $money_amount = 33;
 // Links
 $icon_money_url = "";
 $icon_cart_url = "";
-$icon_profile_url = "";
+$icon_profile_url = "newUser.php";
 
 // Dropdown
 $dropdown = dropdown("", [
