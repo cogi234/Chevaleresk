@@ -1,6 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS dbchevalersk9 DEFAULT CHARACTER SET utf8 ;
 USE dbchevalersk9 ;
 
+-- Ajouts d'items
 DROP PROCEDURE IF EXISTS ajouterArme;
 DELIMITER |
 CREATE PROCEDURE ajouterArme(
@@ -94,3 +95,5 @@ BEGIN
     COMMIT;
 END |
 DELIMITER ;
+
+-- Inscriptions
