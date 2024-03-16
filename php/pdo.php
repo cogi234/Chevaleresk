@@ -10,13 +10,45 @@ require_once "php/phpUtilities.php";
  */
 abstract class PDO_Object
 {
-    protected function getValue(mixed $data, string $identifier, mixed $defaultValue = ''): string
-    {
-        isset_default($data[$identifier], $defaultValue);
+    // --- EXAMPLE ---
+    // public const IDENTIFIER = "db_name";
+    // #[PDO_Object_Id( TYPE::IDENTIFIER )]
+    // public mixed $Var = DEFAULT_VALUE;
+    // ---
 
-        return $data[$identifier];
+    public function __construct(mixed $data)
+    {
+        // TODO: Make it so that you just need the attribute without the constant (Item::$Nom instead of Item::NAME)
+        // Get properties
+        $class = new ReflectionClass(get_called_class());
+
+        foreach ($class->getProperties() as $key => $prop) {
+            $attributes = $prop->getAttributes(PDO_Object_Id::class);
+
+            if (count($attributes) < 1)
+                continue;
+
+            // Get infos
+            $identifier = $attributes[0]->getArguments()[0];
+            $default = $prop->getDefaultValue();
+
+            isset_default($data[$identifier], $default);
+
+            // Set value
+            $value = $data[$identifier];
+            settype($value, $prop->getType()->getName());
+
+            $name = $prop->getName();
+            $this->$name = $value;
+        }
     }
 
+    /**
+     * Fetches every result of the given select request with the given parameters
+     * @author @WarperSan
+     * Date of creation    : 2024/03/16
+     * Date of modification: 2024/03/16
+     */
     public static function selectAll(
         array $selectors,
         string $condition = "",
@@ -29,12 +61,29 @@ abstract class PDO_Object
         if (!defined($table))
             return [];
 
-        return selectAll(
+        $items = selectAll(
             join(", ", $selectors),
             constant($table),
             $condition,
             $other
         );
+
+        $parsed_items = [];
+
+        for ($i = 0; $i < count($items); $i++)
+            array_push($parsed_items, new $className($items[$i]));
+
+        return $parsed_items;
+    }
+}
+
+#[Attribute]
+class PDO_Object_Id
+{
+    public string $id;
+    public function __construct(string $id)
+    {
+        $this->id = $id;
     }
 }
 
@@ -48,7 +97,7 @@ $DB_CONNECTION = connect();
  */
 function connect(): PDO
 {
-    if (isset($DB_CONNECTION))
+    if (isset ($DB_CONNECTION))
         $DB_CONNECTION = null;
 
     return new PDO('mysql:host=167.114.152.54;dbname=dbchevalersk9;charset=utf8', 'chevalier9', 's748jcs2');
@@ -66,7 +115,7 @@ function query(
     string $condition = "",
     string $other = ""
 ): bool|PDOStatement {
-    if (!isset($DB_CONNECTION))
+    if (!isset ($DB_CONNECTION))
         $DB_CONNECTION = connect();
 
     if (strlen(trim($condition)) != 0)
@@ -76,7 +125,7 @@ function query(
 }
 
 /**
- * Executes a select request with the given parameters
+ * Fetches the first result of the given select request with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
  * Date of modification: 2024/03/16
@@ -91,7 +140,7 @@ function select(
 }
 
 /**
- * Executes a select request with the given parameters
+ * Fetches every result of the given select request with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
  * Date of modification: 2024/03/16
@@ -102,7 +151,7 @@ function selectAll(
     string $condition = "",
     string $other = ""
 ): array {
-    return query($selectors, $table, $condition)->fetchAll(PDO::FETCH_ASSOC);
+    return query($selectors, $table, $condition, $other)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -113,7 +162,7 @@ function selectAll(
  */
 function callFP(string $action_name, string $procedure_name, ...$arguments): bool|PDOStatement
 {
-    if (!isset($DB_CONNECTION))
+    if (!isset ($DB_CONNECTION))
         $DB_CONNECTION = connect();
 
     // We build the query
