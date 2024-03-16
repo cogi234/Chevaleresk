@@ -8,21 +8,23 @@ $DB_CONNECTION = connect();
  * Creates a connection to the database
  * @author @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/14
+ * Date of modification: 2024/03/16
+ * @return PDO Current connection to the database
  */
 function connect(): PDO
 {
-    if (isset ($DB_CONNECTION))
-        $DB_CONNECTION = null;
+    // Create the connection if not set
+    isset_default($DB_CONNECTION, new PDO('mysql:host=167.114.152.54;dbname=dbchevalersk9;charset=utf8', 'chevalier9', 's748jcs2'));
 
-    return new PDO('mysql:host=167.114.152.54;dbname=dbchevalersk9;charset=utf8', 'chevalier9', 's748jcs2');
+    return $DB_CONNECTION;
 }
 
 /**
  * Creates a request to the database with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/14
+ * Date of modification: 2024/03/16
+ * @return bool|PDOStatement An PDOStatement instance or false if an error occured
  */
 function query(
     string $selectors,
@@ -30,13 +32,11 @@ function query(
     string $condition = "",
     string $other = ""
 ): bool|PDOStatement {
-    if (!isset ($DB_CONNECTION))
-        $DB_CONNECTION = connect();
-
+    // Create the where clause
     if (strlen(trim($condition)) != 0)
         $condition = "WHERE " . $condition;
 
-    return $DB_CONNECTION->query("SELECT $selectors FROM $table $condition $other");
+    return connect()->query("SELECT $selectors FROM $table $condition $other");
 }
 
 /**
@@ -50,8 +50,13 @@ function select(
     string $table,
     string $condition = "",
     string $other = ""
-): mixed {
-    return query($selectors, $table, $condition, $other)->fetch(PDO::FETCH_ASSOC);
+): bool|array {
+    $result = query($selectors, $table, $condition, $other);
+
+    if ($result == false)
+        return false;
+
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -66,7 +71,12 @@ function selectAll(
     string $condition = "",
     string $other = ""
 ): array {
-    return query($selectors, $table, $condition, $other)->fetchAll(PDO::FETCH_ASSOC);
+    $result = query($selectors, $table, $condition, $other);
+
+    if ($result == false)
+        return [];
+
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
