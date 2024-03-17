@@ -1,5 +1,6 @@
 <?php
 require_once "php/htmlUtilities.php";
+require_once "php/pdo.php";
 
 // Links
 $icon_money_url = "";
