@@ -7,6 +7,7 @@ $icon_cart_url = "";
 $icon_profile_url = "";
 $icon_inscription_url = "";
 $icon_connection_url = "";
+$icon_disconnect_url = "";
 
 //Display only when connected
 $money_section = "";
@@ -33,16 +34,17 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     //Cart amount
     $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
     $cart_section = <<<HTML
-    <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url">
+    <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
         <span>$cart_amount</span>
     </a>
     HTML;
 
     //Profile
     $profile_section = <<<HTML
-    <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url"></a>
+    <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Profile"></a>
+    <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Disconnect"></a>
     HTML;
-} else {
+} else { //Display when disconnected
     //Profile
     $profile_section = <<<HTML
     <a id="header_profile" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
