@@ -56,7 +56,7 @@ function select(
     if ($result == false)
         return false;
 
-    return $result->fetch(PDO::FETCH_ASSOC);
+    return $result->fetch();
 }
 
 /**
@@ -76,7 +76,7 @@ function selectAll(
     if ($result == false)
         return [];
 
-    return $result->fetchAll(PDO::FETCH_ASSOC);
+    return $result->fetchAll();
 }
 
 /**
@@ -91,16 +91,14 @@ function callFP(string $action_name, string $procedure_name, ...$arguments): boo
         $DB_CONNECTION = connect();
 
     // We build the query
-    $args = join(",?", $arguments) . "?";
-    $query = "$action_name $procedure_name($args)";
+    $query = "$action_name $procedure_name(";
 
-    // TODO: Test if this new way also works
-    // for ($i = 0; $i < count($arguments); $i++) {
-    //     if ($i != 0)
-    //         $query .= ",";
-    //     $query .= "?";
-    // }
-    // $query .= ")";
+    for ($i = 0; $i < count($arguments); $i++) {
+        if ($i != 0)
+            $query .= ",";
+        $query .= "?";
+    }
+    $query .= ")";
 
     // Prepare statement
     $statement = $DB_CONNECTION->prepare($query);
