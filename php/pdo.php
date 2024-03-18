@@ -23,7 +23,7 @@ function connect(): PDO
  * Creates a request to the database with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
  * @return bool|PDOStatement An PDOStatement instance or false if an error occured
  */
 function query(
@@ -43,54 +43,57 @@ function query(
  * Fetches the first result of the given select request with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
+ * @return array|bool Result of the request or false if an error occured
  */
 function select(
     string $selectors,
     string $table,
     string $condition = "",
     string $other = ""
-): bool|array {
+): array|bool {
     $result = query($selectors, $table, $condition, $other);
 
     if ($result == false)
         return false;
 
-    return $result->fetch();
+    return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
  * Fetches every result of the given select request with the given parameters
  * @author @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
+ * @return array|bool Results of the request or false if an error occured
  */
 function selectAll(
     string $selectors,
     string $table,
     string $condition = "",
     string $other = ""
-): array {
+): array|bool {
     $result = query($selectors, $table, $condition, $other);
 
     if ($result == false)
-        return [];
+        return false;
 
-    return $result->fetchAll();
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
  * Executes the given action with the given parameters
- * @author @WarperSan
+ * @author @Colin_Bougie, @WarperSan
  * Date of creation    : 2024/03/16
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
+ * @return bool|PDOStatement Statement of the request or false if an error occured
  */
 function callFP(string $action_name, string $procedure_name, ...$arguments): bool|PDOStatement
 {
     if (!isset ($DB_CONNECTION))
         $DB_CONNECTION = connect();
 
-    // We build the query
+    // We build the query "action name(?,?,?)"
     $query = "$action_name $procedure_name(";
 
     for ($i = 0; $i < count($arguments); $i++) {
@@ -102,7 +105,7 @@ function callFP(string $action_name, string $procedure_name, ...$arguments): boo
 
     // Prepare statement
     $statement = $DB_CONNECTION->prepare($query);
-    if ($statement == false)
+    if (!$statement)
         return false;
 
     for ($i = 0; $i < count($arguments); $i++)
@@ -115,30 +118,28 @@ function callFP(string $action_name, string $procedure_name, ...$arguments): boo
  * Executes a procedure with the given parameters
  * @author @Colin_Bougie, @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
  * @return bool True if it was a success, False on failure
  */
 function callProcedure(string $procedure_name, ...$arguments): bool
 {
     $result = callFP("CALL", $procedure_name, $arguments);
 
-    if ($result == false)
-        return false;
-    return $result->execute();
+    return $result && $result->execute();
 }
 
 /**
  * Executes a function with the given parameters
  * @author @Colin_Bougie, @WarperSan
  * Date of creation    : 2024/03/14
- * Date of modification: 2024/03/16
+ * Date of modification: 2024/03/18
+ * @return array|bool Results of the call or false if an error occured
  */
-function callFunction(string $function_name, ...$arguments): array
+function callFunction(string $function_name, ...$arguments): array|bool
 {
     $result = callFP("SELECT", $function_name, $arguments);
 
-    if ($result == false || !$result->execute())
-        return [];
-
-    return $result->fetchAll();
+    return $result && $result->execute()
+        ? $result->fetchAll(PDO::FETCH_ASSOC)
+        : false;
 }
