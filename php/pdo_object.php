@@ -3,10 +3,7 @@
 require_once "php/pdo.php";
 
 /**
- * Class that allows to fetch objects from the DB more easily
- * @author @WarperSan
- * Date of creation    : 2024/03/16
- * Date of modification: 2024/03/16
+ * Class that allows to fetch objects from the database more easily
  */
 abstract class PDO_Object
 {
@@ -16,11 +13,29 @@ abstract class PDO_Object
     // public mixed $Var = DEFAULT_VALUE;
     // ---
 
-    public function __construct(mixed $data)
+    #region Public
+
+    public function __construct(array $data)
+    {
+        $this->set_values($data);
+    }
+
+    #endregion
+
+    #region Private
+
+    /**
+     * Initializes every given parameter to the given value
+     * @author @WarperSan
+     * Date of creation    : 2024/03/18
+     * Date of modification: 2024/03/18
+     */
+    private function set_values(array $data): void
     {
         // TODO: Make it so that you just need the attribute without the constant (Item::$Nom instead of Item::NAME)
+
         // Get properties
-        $class = new ReflectionClass(get_called_class());
+        $class = new ReflectionClass($this::class);
 
         foreach ($class->getProperties() as $key => $prop) {
             $attributes = $prop->getAttributes(PDO_Object_Id::class);
@@ -30,9 +45,10 @@ abstract class PDO_Object
 
             // Get infos
             $identifier = $attributes[0]->getArguments()[0];
-            $default = $prop->getDefaultValue();
 
-            isset_default($data[$identifier], $default);
+            // If not set
+            if (!isset ($data[$identifier]))
+                continue;
 
             // Set value
             $value = $data[$identifier];
@@ -43,11 +59,15 @@ abstract class PDO_Object
         }
     }
 
+    #endregion
+
+    #region Public Static
+
     /**
      * Fetches every result of the given select request with the given parameters
      * @author @WarperSan
      * Date of creation    : 2024/03/16
-     * Date of modification: 2024/03/16
+     * Date of modification: 2024/03/18
      */
     public static function selectAll(
         array $selectors,
@@ -55,26 +75,55 @@ abstract class PDO_Object
         string $other = ""
     ): array {
 
-        $className = get_called_class();
-        $table = "$className::TABLE";
+        $tableName = static::get_table_name();
 
-        if (!defined($table))
+        if ($tableName == false)
             return [];
 
         $items = selectAll(
             join(", ", $selectors),
-            constant($table),
+            $tableName,
             $condition,
             $other
         );
 
-        $parsed_items = [];
-
-        for ($i = 0; $i < count($items); $i++)
-            array_push($parsed_items, new $className($items[$i]));
-
-        return $parsed_items;
+        return array_map(function ($value) {
+            return static::create_self($value);
+        }, $items);
     }
+
+    #endregion
+
+    #region Private Static
+
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/03/18
+     * Date of modification: 2024/03/18
+     * @return string|bool Name of the table of the given object. If not found, returns false
+     */
+    private static function get_table_name(string $class = null): string|bool
+    {
+        $class ??= static::class;
+        $table = "$class::TABLE";
+
+        return defined($table) ? constant($table) : false;
+    }
+
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/03/18
+     * Date of modification: 2024/03/18
+     * @return object New instance of this object with the given data
+     */
+    private static function create_self(array $data, string $class = null): object
+    {
+        $class ??= static::class;
+
+        return new $class($data);
+    }
+
+    #endregion
 }
 
 #[Attribute]
