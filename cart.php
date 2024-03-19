@@ -1,6 +1,10 @@
 <?php
+include("php/pdo.php");
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
+
+$itemsId = selectAll("idItem", "panier");
+$test = var_dump($itemsId);
 
 $total = 0;
 
@@ -10,6 +14,7 @@ $body_content = <<<HTML
 HTML;
 for($i = 0; $i < 10; $i++){
     $body_content .= <<<HTML
+    
         <div class="cart-item">
             <div class="cart-item-image"><img src="images/items/images/Placeholder.png"/></div>
                 <div class="cart-item-info">
