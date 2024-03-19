@@ -28,3 +28,6 @@ CALL ajouterIngredient("Ail", "De l'ail normal.", 3, 200, TRUE, "default_ingredi
 CALL ajouterIngredient("Sang de sangsue", "Du sang pris d'une sangsue juste après qu'elle l'aie mangée.", 10, 100, TRUE, "default_ingredient.png", "sang", 2, 2);
 CALL ajouterIngredient("Ongles de goblins", "Les ongles d'un goblin.", 5, 150, TRUE, "default_ingredient.png", "ongle", 2, 3);
 CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Dure comme l'acier et invincible à la chaleur.", 75, 50, TRUE, "default_ingredient.png", "écaille", 9, 10);
+
+-- Joueur
+CALL inscription("admin", "admin", TRUE);

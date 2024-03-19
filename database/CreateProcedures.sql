@@ -96,4 +96,34 @@ BEGIN
 END |
 DELIMITER ;
 
--- Inscriptions
+-- Inscription et connection
+DROP PROCEDURE IF EXISTS inscription;
+DELIMITER |
+CREATE PROCEDURE inscription(
+	in pAlias VARCHAR(40),
+    in pMotDePasse TEXT,
+    in pEstAdmin BOOLEAN)
+BEGIN
+	DECLARE pMotDePasseEncrypte TEXT;
+    START TRANSACTION;
+		SET pMotDePasseEncrypte = sha2(pMotDePasse, 512);
+		INSERT INTO joueurs(alias, motDePasse, estAdmin, avatar) VALUES(pAlias, pMotDePasseEncrypte, pEstAdmin, "default.png");
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS connect;
+DELIMITER |
+CREATE FUNCTION connect(pAlias VARCHAR(40), pMotDePasse TEXT) RETURNS BOOLEAN
+BEGIN
+	DECLARE pMotDePasseEncrypte TEXT;
+    DECLARE pCount INT;
+	SET pMotDePasseEncrypte = sha2(pMotDePasse, 512);
+	SELECT COUNT(idJoueur) INTO pCount FROM joueurs WHERE alias = pAlias AND motDePasse = pMotDePasseEncrypte;
+    IF (pCount = 1) THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END |
+DELIMITER ;
