@@ -8,3 +8,7 @@
 *:has(#main) {
     background-color: var(--second);
 }
+
+#body {
+    padding-top: 75px;
+}

@@ -4,6 +4,9 @@
     background-color: var(--dark);
 
     width: 100%;
+
+    position: fixed;
+    z-index: 10;
 }
 
 #header *,
