@@ -1,10 +1,19 @@
 <?php
-include("php/pdo.php");
+require_once("php/pdo.php");
+require_once("php/items.php");
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
-$itemsId = selectAll("idItem", "panier");
-$test = var_dump($itemsId);
+$currentPlayerId = 1;
+
+$items = Item::selectAll(
+    [
+        Item::NAME,
+        Item::PRICE,
+        Item::IMAGE,
+        Item::QUANTITY
+    ]
+);
 
 $total = 0;
 
@@ -12,18 +21,23 @@ $body_content = <<<HTML
 <form class="cart-main" action="">
     <div class="cart-itemList-scroll-container">
 HTML;
-for($i = 0; $i < 10; $i++){
+foreach($items as $item){
     $body_content .= <<<HTML
-    
         <div class="cart-item">
-            <div class="cart-item-image"><img src="images/items/images/Placeholder.png"/></div>
+            <div class="cart-item-image"><img src="$item->Image"/></div>
                 <div class="cart-item-info">
-                    <p class="name-item">Nom</p>
+                    <p class="name-item">$item->Nom</p>
                     <div class="number-item"><p>x</p><input value="1" type="number"/></div>
                 </div>
                 <div class="cart-item-remove-error">
-                    <p hidden class="item-errorMessage" color="red">ErrorMessage</p>
                 <a class="remove-item" href="#"><img src="images/icons/remove-icon"></a>
+    HTML;
+    if($item->Quantite < 1){
+        $body_content .= <<<HTML
+                <p class="item-errorMessage" color="red">Hors Stock...</p>
+        HTML;
+    }
+    $body_content .= <<<HTML
             </div>
         </div>
     HTML;
@@ -33,16 +47,14 @@ $body_content .= <<<HTML
     <div class="cart-recept-preview-container">
         <div class="cart-recept-text">
 HTML;
-for($i = 0; $i < 10; $i++){
+foreach($items as $item){
     $body_content .= <<<HTML
-    <p>Item $i : 1.00$</p>
+    <p>$item->Nom : $item->Prix</p>
     HTML;
-    //<p>$item.name : $item.price</p>
-    //$total += $item.price
+    $total += $item->Prix;
 }
-$total = 1*10;
 $body_content .= <<<HTML
-            <p>Total: $total$</p>
+            <p>Total: $total Écus</p>
             </div>
             <button type="submit" class='cart-submit-button'>Submit</button>
             <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
