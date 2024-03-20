@@ -2,6 +2,7 @@
 require 'php/sessionManager.php';
 require 'php/pdo.php';
 $page_title = "Création de compte";
+require_once "php/joueurs.php";
 
 anonymousAccess();
 if (isset($_POST['alias']))
@@ -56,6 +57,15 @@ if (isset($_POST['alias']))
         
     </div>
     HTML;
+    if ($_SESSION['exists'] == true)
+    {
+        $body_content.= <<<HTML
+        <div class="error-message">
+            <span >Un joueur avec ce nom existe déjà</span>
+        </div>
+
+        HTML;
+    }
 }
 else
 {
@@ -115,16 +125,22 @@ else
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
     $bool = false;
-    $playerList = selectAll('alias','joueurs');
+    $inscription= $_POST['alias'];
+    $playerList = Joueur::selectAll(
+        [Joueur::ALIAS],
+        Joueur::ALIAS." = '$inscription'"
+    );
     foreach($playerList as $player)
     {
-        if (isset($_POST['alias']) &&$_POST["alias"] == $player && isset($_POST['Password']))
+        
+        if (isset($_POST['alias']) &&$_POST["alias"] == $player->alias && isset($_POST['Password']))
         {
+            $_SESSION['exists'] = true;
             $bool = true;
         }
         
     }
-    if ($bool ==false &&isset($_POST['Password']) && isset($_POST['alias']))
+    if ($bool ==false &&isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player)
     {
         callProcedure("inscription", $_POST['alias'],$_POST['Password'],false);
         redirect('index.php');
