@@ -23,6 +23,7 @@ function store_item(
     string $icon
 ): string {
 
+
     $url = "";
 
     // Initialize variables
