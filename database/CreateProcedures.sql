@@ -164,17 +164,21 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS enleverPanier;
 DELIMITER |
-CREATE PROCEDURE enleverPanier(in pIdJoueur INT, in pIdItem INT)
+CREATE PROCEDURE enleverPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
 BEGIN
 	DECLARE pExistant INT;
     SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     START TRANSACTION;
-		IF (pExistant > 0) THEN
+		IF (pExistant = pQuantite) THEN
             DELETE FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
-        ELSE
-			ROLLBACK;
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Il manque du stock pour les achats";
-        END IF;
+		ELSE 
+			IF (pExistant > pQuantite) THEN
+				UPDATE panier SET quantite = quantite - pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+			ELSE
+				ROLLBACK;
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Il manque du stock pour les achats";
+			END IF;
+		END IF;
     COMMIT;
 END |
 DELIMITER ;
@@ -224,7 +228,7 @@ BEGIN
 			SELECT quantite INTO pQuantite FROM vPanier WHERE idJoueur = pIdJoueur LIMIT 1;
             CALL ajouterInventaire(pIdJoueur, pIdItem, pQuantite);
             UPDATE items SET quantiteStock = quantiteStock - pQuantite;
-            CALL enleverPanier(pIdJoueur, pIdItem);
+            CALL enleverPanier(pIdJoueur, pIdItem, pQuantite);
             SET i = i + 1;
         END WHILE;
     COMMIT;
