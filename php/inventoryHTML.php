@@ -27,7 +27,7 @@ function inventory_item(
     $image = PATH_IMAGES . $image;
     $icon = PATH_ICONS . $icon;
 
-    $url = "";
+    $url = "item.php?id=$idItem";
 
     return <<<HTML
         <a class="store-item" href="$url" title="Voir les détails de $name">
