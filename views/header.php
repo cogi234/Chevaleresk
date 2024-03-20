@@ -70,7 +70,9 @@ $header_content = <<<HTML
     </div>
 
     <!-- MIDDLE -->
-    <div id="header-section-middle" class="header-section" style="width: 100%"></div> 
+    <div id="header-section-middle" class="header-section" style="width: 100%">
+        <h1 id="header_title">$page_title</h1>
+    </div> 
 
      <!-- RIGHT  -->
      <div id="header-section-right" class="header-section">
