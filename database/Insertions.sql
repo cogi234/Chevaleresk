@@ -31,3 +31,8 @@ CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Du
 
 -- Joueur
 CALL inscription("admin", "admin", TRUE);
+
+
+
+-- TEST
+INSERT INTO inventaire(idJoueur, idItem, quantite) VALUES (1,1,1);
