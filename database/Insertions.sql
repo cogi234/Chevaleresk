@@ -19,7 +19,7 @@ CALL ajouterArmure("Chapeau de magicien", "Un chapeau conique classique pour tou
 CALL ajouterPotion("Potion de peau de pierre", "Une bouteille remplie d'un liquide gris brillant.", 100, 25, TRUE, "default_potion.png", "defense", "Rend la peau dure comme la pierre", 180);
 CALL ajouterPotion("Potion de la force de l'ours", "Une bouteille remplie d'un liquide brun.", 100, 25, TRUE, "default_potion.png", "offense", "Rend fort comme un ours", 180);
 CALL ajouterPotion("Potion du poisson", "Une bouteille remplie d'un liquide vert. Des algues luisantes sont visible à l'intérieur.", 125, 20, TRUE, "default_potion.png", "defense", "Permet de respirer sous l'eau", 600);
-CALL ajouterPotion("Potion d'écaille de dragon", "Une bouteille remplie d'un liquide rouge brulant.", 150, 15, TRUE, "default_potion.png", "defense", "Rend résistant à la chaleur", 120);
+CALL ajouterPotion("Potion d'écaille de dragon", "Une bouteille remplie d'un liquide rouge brulant.", 150, 0, TRUE, "default_potion.png", "defense", "Rend résistant à la chaleur", 120);
 CALL ajouterPotion("Potion d'intelligence", "Une bouteille remplie d'un liquide presque invisible.", 300, 0, FALSE, "default_potion.png", "defense", "Rend plus intelligent", 600);
 
 -- Ingrédients
