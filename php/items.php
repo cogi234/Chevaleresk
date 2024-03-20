@@ -7,6 +7,9 @@ class Item extends PDO_Object
 {
     protected const TABLE = "items";
 
+    const PATH_IMAGES = "images/items/images/";
+    const PATH_ICONS = "images/items/icons/";
+
     public const ID = "idItem";
     #[PDO_Object_Id(Item::ID)]
     public int $Id = -1;
@@ -41,16 +44,28 @@ class Item extends PDO_Object
 
     public function getIcon(): string
     {
+        $icon = "";
         switch ($this->Type) {
             case "armure":
-                return "shield.svg";
+                $icon = "shield.svg";
+                break;
             case "potion":
-                return "potion.svg";
+                $icon = "potion.svg";
+                break;
             case "ingredient":
-                return "plant.svg";
+                $icon = "plant.svg";
+                break;
             case "arme":
             default:
-                return "nuh uh.svg";
+                $icon = "nuh uh.svg";
+                break;
         }
+
+        return Item::PATH_ICONS . $icon;
+    }
+
+    public function getImage(): string
+    {
+        return Item::PATH_IMAGES . $this->Image;
     }
 }

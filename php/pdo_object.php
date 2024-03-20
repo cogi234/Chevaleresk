@@ -92,6 +92,19 @@ abstract class PDO_Object
         }, $items);
     }
 
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/03/18
+     * Date of modification: 2024/03/18
+     * @return object New instance of this object with the given data
+     */
+    public static function create_self(array $data, string $class = null): object
+    {
+        $class ??= static::class;
+
+        return new $class($data);
+    }
+
     #endregion
 
     #region Private Static
@@ -108,19 +121,6 @@ abstract class PDO_Object
         $table = "$class::TABLE";
 
         return defined($table) ? constant($table) : false;
-    }
-
-    /**
-     * @author @WarperSan
-     * Date of creation    : 2024/03/18
-     * Date of modification: 2024/03/18
-     * @return object New instance of this object with the given data
-     */
-    private static function create_self(array $data, string $class = null): object
-    {
-        $class ??= static::class;
-
-        return new $class($data);
     }
 
     #endregion
