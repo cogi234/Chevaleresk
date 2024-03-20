@@ -4,7 +4,7 @@ require_once "php/pdo.php";
 
 // Links
 $icon_money_url = "";
-$icon_cart_url = "";
+$icon_cart_url = "cart.php";
 $icon_profile_url = "";
 $icon_inventory_irl = "inventory.php";
 $icon_inscription_url = "";
