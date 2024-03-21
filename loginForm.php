@@ -5,9 +5,8 @@ require_once "php/joueurs.php";
 
 anonymousAccess();
 
-if (isset($_POST['alias']))
-{
-    $body_content = <<< HTML
+if (isset ($_POST['alias'])) {
+    $body_content = <<<HTML
 
     <div class="">
         <br>
@@ -46,17 +45,16 @@ if (isset($_POST['alias']))
     </div>
     HTML;
 
-    if (isset($_SESSION['error']) &&$_SESSION['error'] == true)
-    {
-        $body_content.= <<<HTML
+    if (isset ($_SESSION['error']) && $_SESSION['error'] == true) {
+        $body_content .= <<<HTML
         <div class="error-message">
             <span >Erreur dans la connexion</span>
         </div>
 
         HTML;
     }
-}else{
-    $body_content = <<< HTML
+} else {
+    $body_content = <<<HTML
 
     <div class="">
         <br>
@@ -97,29 +95,25 @@ if (isset($_POST['alias']))
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
-{
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
-    $connectionName= $_POST['alias'];
+    $connectionName = $_POST['alias'];
     $connectionPword = $_POST['Password'];
-    
-    $bool = intval(callFunction('connect',$connectionName,$connectionPword)[0][0]); 
-    
-    if ($bool !=0)
-    {
-        $player = Joueur::select([Joueur::ID,Joueur::ALIAS,Joueur::PRENOM,Joueur::NOM,Joueur::AVATAR,Joueur::SOLDE,Joueur::SOLDEPARADMIN,Joueur::NIVEAUALCHIMIE,
-    Joueur::ESTADMIN,Joueur::NBQUETEALCHIMIE,Joueur::NBQUETEREUSSIE,Joueur::NBQUETEECHOUE,Joueur::NBPOTIONCREE,Joueur::NBECUGAGNE,Joueur::NBECUDEPENSE,Joueur::MOTDEPASSE],Joueur::ALIAS." = '$connectionName' ");
-        $_SESSION['joueur'] = $player;
+
+    $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
+
+    if ($bool != 0) {
+        updateJoueur($connectionName);
         $_SESSION['connected'] = true;
-        
+
 
         redirect('index.php');
     }
-        
-    
-    
+
+
+
     $_SESSION['error'] = true;
-        
-    
+
+
 }
 require "views/master.php";

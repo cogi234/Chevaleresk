@@ -1,14 +1,37 @@
 <?php
-
+require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 require_once "php/pdo_object.php";
+
+function updateJoueur(string $alias)
+{
+    $player = Joueur::select([
+        Joueur::ID,
+        Joueur::ALIAS,
+        Joueur::PRENOM,
+        Joueur::NOM,
+        Joueur::AVATAR,
+        Joueur::SOLDE,
+        Joueur::SOLDEPARADMIN,
+        Joueur::NIVEAUALCHIMIE,
+        Joueur::ESTADMIN,
+        Joueur::NBQUETEALCHIMIE,
+        Joueur::NBQUETEREUSSIE,
+        Joueur::NBQUETEECHOUE,
+        Joueur::NBPOTIONCREE,
+        Joueur::NBECUGAGNE,
+        Joueur::NBECUDEPENSE,
+        Joueur::MOTDEPASSE
+    ], Joueur::ALIAS . " = '$alias' ");
+    $_SESSION['joueur'] = $player;
+}
 
 class Joueur extends PDO_Object
 {
     protected const TABLE = "joueurs";
 
     const PATH_PFP = "images/pfp/images/";
-    
+
     public const ID = "idJoueur";
     #[PDO_Object_Id(Joueur::ID)]
     public int $Id = -1;
