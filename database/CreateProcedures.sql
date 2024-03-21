@@ -167,7 +167,7 @@ DELIMITER |
 CREATE PROCEDURE enleverPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
 BEGIN
 	DECLARE pExistant INT;
-    SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+    SELECT quantite INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     START TRANSACTION;
 		IF (pExistant > pQuantite) THEN
 			UPDATE panier SET quantite = quantite - pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
