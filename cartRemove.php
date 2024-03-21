@@ -1,6 +1,10 @@
 <?php
 require_once("php/pdo.php");
 
+if(!(isset($_GET['item']) && isset($_GET['quantite']))){
+    //throw forbidden
+}
+
 $idJoueur = 1;
 
 $Item = (int)$_GET['item'];
