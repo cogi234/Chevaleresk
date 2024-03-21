@@ -20,6 +20,8 @@ abstract class PDO_Object
         $this->set_values($data);
     }
 
+    public const ALL = ["*"];
+
     #endregion
 
     #region Private
@@ -102,6 +104,9 @@ abstract class PDO_Object
             return false;
 
         $item = select(join(", ", $selectors), $tableName, $condition, $other);
+        
+        if ($item == false)
+            return false;
         
         return static::create_self($item);
     }
