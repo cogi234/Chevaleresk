@@ -28,14 +28,14 @@ $items = CartItem::selectAll(
 $total = 0;
 
 $body_content = <<<HTML
-<form class="cart-main" action="">
+<form class="cart-main" action="#">
     <div class="cart-itemList-scroll-container">
 HTML;
 //Check if there's something in the cart
 if($items != null && count($items)>0){
     //if true show them
     foreach($items as $item){
-        cartItem(
+        $body_content .= cartItem(
             $item->image,
             $item->nom,
             $item->Quantite,
@@ -58,9 +58,9 @@ HTML;
 //add the name and price of all the cart in the preview
 foreach($items as $item){
     $body_content .= <<<HTML
-    <p>$item->Nom : $item->Prix x $item->Quantite</p>
+    <p>$item->nom : $item->prix x $item->Quantite</p>
     HTML;
-    $total += $item->Prix * $item->Quantite;
+    $total += $item->prix * $item->Quantite;
 }
 //show total cost
 //submit to buy everything in the cart

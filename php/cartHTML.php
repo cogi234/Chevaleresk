@@ -1,4 +1,7 @@
 <?php
+
+const PATH_IMAGES = "images/items/images/";
+
 /**
  * Creates the visual for an item in the cart
  * @author Akuma
@@ -21,10 +24,15 @@ function cartItem(
                 <a href="#" class="cart-item-image"><img src="$image"/></a>
                     <div class="cart-item-info">
                         <p class="name-item">$nom</p>
-                        <div class="number-item"><p>x</p><input value="$quantite" type="number"/></div>
+                        <div class="number-item">
+                            <p>x</p>
+                            <p class="cart-quantity">$quantite</p>
+                            <a href="#" class="fa fa-plus cart-quantity-modifier"></a>
+                            <a href="#" class="fa fa-minus cart-quantity-modifier"></a>
+                        </div>
                     </div>
                     <div class="cart-item-remove-error">
-                    <a class="remove-item" href="#"><img src="images/icons/remove-icon"></a>
+                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem"></a>
             HTML;   
         }else{
             //if false show message
@@ -33,10 +41,15 @@ function cartItem(
                 <div class="cart-item-image"><img src="$image"/></div>
                     <div class="cart-item-info">
                         <p class="name-item">$nom</p>
-                        <div class="number-item"><p>x</p><input value="$quantite" type="number"/></div>
+                        <div class="number-item">
+                            <p>x</p>
+                            <p class="cart-quantity">$quantite</p>
+                            <a href="#" class="fa fa-plus cart-quantity-modifier"></a>
+                            <a href="#" class="fa fa-minus cart-quantity-modifier"></a>
+                        </div>
                     </div>
                     <div class="cart-item-remove-error">
-                    <a class="remove-item" href="cartRemove.php?item=$idItem"><img src="images/icons/remove-icon"></a>
+                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem"></a>
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
             HTML;
         }
