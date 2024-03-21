@@ -1,7 +1,7 @@
 <?php
 require_once("php/pdo.php");
-require_once("php/items.php");
 require_once("php/cartItem.php");
+require_once("php/cartHTML.php");
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
@@ -35,36 +35,13 @@ HTML;
 if($items != null && count($items)>0){
     //if true show them
     foreach($items as $item){
-        //check if the item is still in stock
-        if($item->quantiteStock > 0){
-            //if true show a message
-            $body_content .= <<<HTML
-            <div class="cart-item">
-                <div class="cart-item-image"><img src="$item->Image"/></div>
-                    <div class="cart-item-info">
-                        <p class="name-item">$item->Nom</p>
-                        <div class="number-item"><p>x</p><input value="$item->Quantite" type="number"/></div>
-                    </div>
-                    <div class="cart-item-remove-error">
-                    <a class="remove-item" href="#"><img src="images/icons/remove-icon"></a>
-            HTML;   
-        }else{
-            $body_content .= <<<HTML
-                <div class="cart-item-outofstock">
-                <div class="cart-item-image"><img src="$item->Image"/></div>
-                    <div class="cart-item-info">
-                        <p class="name-item">$item->Nom</p>
-                        <div class="number-item"><p>x</p><input value="$item->Quantite" type="number"/></div>
-                    </div>
-                    <div class="cart-item-remove-error">
-                    <a class="remove-item" href="cartRemove.php?id=$item->idItem"><img src="images/icons/remove-icon"></a>
-                    <p class="item-errorMessage" color="red">Hors Stock...</p>
-            HTML;
-        }
-        $body_content .= <<<HTML
-                </div>
-            </div>
-        HTML;
+        cartItem(
+            $item->image,
+            $item->nom,
+            $item->Quantite,
+            $item->QuantiteStock,
+            $item->idItem
+        );
     }
     //if false show a message
 }else{
@@ -81,9 +58,9 @@ HTML;
 //add the name and price of all the cart in the preview
 foreach($items as $item){
     $body_content .= <<<HTML
-    <p>$item->Nom : $item->Prix</p>
+    <p>$item->Nom : $item->Prix x $item->Quantite</p>
     HTML;
-    $total += $item->Prix;
+    $total += $item->Prix * $item->Quantite;
 }
 //show total cost
 //submit to buy everything in the cart

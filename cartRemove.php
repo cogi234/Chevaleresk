@@ -1,9 +1,11 @@
 <?php
 require_once("php/cartItem.php");
+require("php/pdo.php");
 
-$idItem = $_GET['id'];
+$idJoueur = 1;
 
-//remove item
+//$Item = $_GET['item'];
+//callProcedure("viderPanier", $idJoueur);
 
 header('Location: cart.php', true, 303);
 die();
