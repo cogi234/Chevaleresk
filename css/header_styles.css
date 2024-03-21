@@ -4,6 +4,9 @@
     background-color: var(--dark);
 
     width: 100%;
+
+    position: fixed;
+    z-index: 10;
 }
 
 #header *,
@@ -49,6 +52,14 @@
     width: 3em;
     height: 3em;
     border-radius: 0.5em;
+}
+
+/* TITLE */
+#header_title{
+    width: 100%;
+    text-align: center;
+    color: var(--light);
+    padding-top: 10px;
 }
 
 /* OPTIONS */

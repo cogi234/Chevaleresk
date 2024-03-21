@@ -38,6 +38,8 @@
 .store-item-image {
     width: 100%;
     height: 100%;
+
+    border-radius: 20px;
 }
 
 /* INFO */
@@ -98,6 +100,7 @@
 
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .store-item-name {
@@ -114,10 +117,13 @@
 .store-item-border {
     width: 100%;
     height: 100%;
+
     border-radius: 20px;
     border: 2px solid var(--dark);
+
     position: absolute;
     top: 0;
+    right: 0;
 }
 
 /* QUANTITY */

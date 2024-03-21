@@ -96,7 +96,7 @@ BEGIN
 END |
 DELIMITER ;
 
--- Inscription et connection
+-- Inscription et connexion
 DROP PROCEDURE IF EXISTS inscription;
 DELIMITER |
 CREATE PROCEDURE inscription(
@@ -125,5 +125,112 @@ BEGIN
 	ELSE
 		RETURN FALSE;
 	END IF;
+END |
+DELIMITER ;
+
+-- Inventaire
+DROP PROCEDURE IF EXISTS ajouterInventaire;
+DELIMITER |
+CREATE PROCEDURE ajouterInventaire(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant INT;
+    SELECT COUNT(*) INTO pExistant FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+    START TRANSACTION;
+		IF (pExistant > 0) THEN
+			UPDATE inventaire SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+        ELSE
+			INSERT INTO inventaire(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
+        END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
+-- Panier
+DROP PROCEDURE IF EXISTS ajouterPanier;
+DELIMITER |
+CREATE PROCEDURE ajouterPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant INT;
+    SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+    START TRANSACTION;
+		IF (pExistant > 0) THEN
+			UPDATE panier SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+        ELSE
+			INSERT INTO panier(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
+        END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS enleverPanier;
+DELIMITER |
+CREATE PROCEDURE enleverPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant INT;
+    SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+    START TRANSACTION;
+		IF (pExistant = pQuantite) THEN
+            DELETE FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+		ELSE 
+			IF (pExistant > pQuantite) THEN
+				UPDATE panier SET quantite = quantite - pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+			ELSE
+				ROLLBACK;
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Il manque du stock pour les achats";
+			END IF;
+		END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS viderPanier;
+DELIMITER |
+CREATE PROCEDURE viderPanier(in pIdJoueur INT)
+BEGIN
+    START TRANSACTION;
+		DELETE FROM panier WHERE idJoueur = pIdJoueur;
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS acheterPanier;
+DELIMITER |
+CREATE PROCEDURE acheterPanier(in pIdJoueur INT)
+BEGIN
+	DECLARE pPrixTotal INT;
+	DECLARE pSolde INT;
+    DECLARE pStockManquant INT;
+    DECLARE i INT;
+    DECLARE pCountPanier INT;
+    DECLARE pIdItem INT;
+    DECLARE pQuantite INT;
+    START TRANSACTION;
+		SELECT SUM(quantite - quantiteStock) INTO pStockManquant FROM vPanier WHERE idJoueur = pIdJoueur;
+        SELECT SUM(prix * quantite) INTO pPrixTotal FROM vPanier WHERE idJoueur = pIdJoueur;
+        SELECT COUNT(*) INTO pCountPanier FROM vPanier WHERE idJoueur = pIdJoueur;
+        SELECT solde INTO pSolde FROM joueurs WHERE idJoueur = pIdJoueur;
+        IF (pStockManquant > 0) THEN
+			ROLLBACK;
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Il manque du stock pour les achats";
+		END IF;
+        IF (pPrixTotal > pSolde) THEN
+			ROLLBACK;
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Il n'y a pas assez de solde pour les achats";
+		END IF;
+        
+        -- Baisser solde
+        UPDATE joueurs SET solde = solde - pPrixTotal WHERE idJoueur = pIdJoueur;
+        
+        -- Ajout a l'inventaire, diminue stock et vide panier
+		SET i = 0;
+        WHILE i < pCountPanier DO
+			SELECT idItem INTO pIdItem FROM vPanier WHERE idJoueur = pIdJoueur LIMIT 1;
+			SELECT quantite INTO pQuantite FROM vPanier WHERE idJoueur = pIdJoueur LIMIT 1;
+            CALL ajouterInventaire(pIdJoueur, pIdItem, pQuantite);
+            UPDATE items SET quantiteStock = quantiteStock - pQuantite;
+            CALL enleverPanier(pIdJoueur, pIdItem, pQuantite);
+            SET i = i + 1;
+        END WHILE;
+    COMMIT;
 END |
 DELIMITER ;
