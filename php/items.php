@@ -78,7 +78,7 @@ class Item extends PDO_Object
                 break;
             case "arme":
             default:
-                $icon = "nuh uh.svg";
+                $icon = "nuh-uh.svg";
                 break;
         }
 
