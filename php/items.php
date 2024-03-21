@@ -5,10 +5,27 @@ require_once "php/pdo_object.php";
 
 class Item extends PDO_Object
 {
+    #region PDO_Object
+
     protected const TABLE = "items";
+
+    #endregion
+
+    #region Constants
 
     const PATH_IMAGES = "images/items/images/";
     const PATH_ICONS = "images/items/icons/";
+
+    public const TYPES = [
+        "armure",
+        "arme",
+        "potion",
+        "ingredient"
+    ];
+
+    #endregion
+
+    #region Properties
 
     public const ID = "idItem";
     #[PDO_Object_Id(Item::ID)]
@@ -42,6 +59,10 @@ class Item extends PDO_Object
     #[PDO_Object_Id(Item::IMAGE)]
     public string $Image = "";
 
+    #endregion
+
+    #region Functions 
+
     public function getIcon(): string
     {
         $icon = "";
@@ -68,4 +89,6 @@ class Item extends PDO_Object
     {
         return Item::PATH_IMAGES . $this->Image;
     }
+
+    #endregion
 }

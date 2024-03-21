@@ -2,46 +2,32 @@
 
 require_once "php/phpUtilities.php";
 
-
+const PATH_IMAGES = "images/items/images/";
+const PATH_ICONS = "images/items/icons/";
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/store_styles.css">';
 
 /**
- * Creates the visual for an item in the store
- * @author @WarperSan
- * Date of creation    : 2024/03/12
- * Date of modification: 2024/03/14
+ * Creates the visual for an item in the inventory
+ * @author Colin Bougie
+ * Date of creation    : 2024/03/19
+ * Date of modification: 2024/03/19
  */
-function store_item(
-    int $id,
+function inventory_item(
+    int $idJoueur,
+    int $idItem,
     string $name,
-    int $price,
     int $quantity,
     string $image,
     string $icon
 ): string {
-    $url = "";
 
-    // Initialize variables
-    isset_default($oos_html);
-    isset_default($quantity_html);
+    $image = PATH_IMAGES . $image;
+    $icon = PATH_ICONS . $icon;
 
-    // React depending on the quantity given
-    if ($quantity <= 0) {
-        $oos_html = <<<HTML
-            <div class="store-item-oos-background">
-                <p class="store-item-oss-label">OUT OF STOCK</p>
-            </div>
-        HTML;
-    } else {
-        $quantity_html = <<<HTML
-            <div class="store-item-quantity">
-                <p class="store-item-quantity-label">$quantity</p>
-            </div>
-        HTML;
-    }
+    $url = "item.php?id=$idItem";
 
     return <<<HTML
         <a class="store-item" href="$url" title="Voir les détails de $name">
@@ -55,7 +41,6 @@ function store_item(
                 </i>
                 <div class="store-item-labels">
                     <p class="store-item-name">$name</p>
-                    <p class="store-item-price">$ $price</p>
                 </div>
             </div>
 
@@ -63,10 +48,9 @@ function store_item(
             <i class="store-item-border"></i>
 
             <!-- QUANTITY -->
-            $quantity_html
-
-            <!-- OUT OF STOCK -->
-            $oos_html
+            <div class="store-item-quantity">
+                <p class="store-item-quantity-label">$quantity</p>
+            </div>
         </a>
     HTML;
 }
