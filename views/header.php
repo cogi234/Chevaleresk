@@ -1,6 +1,8 @@
 <?php
 require_once "php/htmlUtilities.php";
 require_once "php/pdo.php";
+require_once "php/joueurs.php";
+require_once 'php/sessionManager.php';
 
 // Links
 $icon_money_url = "";
@@ -24,7 +26,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     ], "fa-solid fa-angle-down header_dropdown");
 
     //Money amount
-    $money_amount = select("solde", "joueurs", "idJoueur = " . $_SESSION["idJoueur"])[0];
+    $money_amount = $_SESSION['joueur']->solde;
     $money_section = <<<HTML
     <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
         <div>
@@ -34,12 +36,12 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 
     //Cart amount
-    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
-    $cart_section = <<<HTML
-    <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
-        <span>$cart_amount</span>
-    </a>
-    HTML;
+    //$cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
+    //$cart_section = <<<HTML
+    //<a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
+    //    <span>$cart_amount</span>
+    //</a>
+    //HTML;
 
     //Profile
     $profile_section = <<<HTML
@@ -47,6 +49,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Profile"></a>
     <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Déconnexion"></a>
     HTML;
+    
 } else { //Display when disconnected
     //Profile
     $profile_section = <<<HTML
