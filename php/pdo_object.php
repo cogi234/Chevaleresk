@@ -74,7 +74,6 @@ abstract class PDO_Object
         string $condition = "",
         string $other = ""
     ): array {
-
         $tableName = static::get_table_name();
 
         if ($tableName == false)
@@ -90,6 +89,21 @@ abstract class PDO_Object
         return array_map(function ($value) {
             return static::create_self($value);
         }, $items);
+    }
+
+    public static function select(
+        array $selectors,
+        string $condition = "",
+        string $other = ""
+    ): PDO_Object | bool {
+        $tableName = static::get_table_name();
+
+        if ($tableName == false)
+            return false;
+
+        $item = select(join(", ", $selectors), $tableName, $condition, $other);
+        
+        return static::create_self($item);
     }
 
     /**

@@ -141,6 +141,6 @@ function callFunction(string $function_name, ...$arguments): array|bool
     $result = callFP("SELECT", $function_name, $arguments);
 
     return $result && $result->execute()
-        ? $result->fetchAll(PDO::FETCH_ASSOC)
+        ? $result->fetchAll()
         : false;
 }
