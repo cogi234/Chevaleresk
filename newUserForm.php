@@ -1,6 +1,6 @@
 <?php
-require 'php/sessionManager.php';
-require 'php/pdo.php';
+require_once 'php/sessionManager.php';
+require_once 'php/pdo.php';
 $page_title = "Création de compte";
 require_once "php/joueurs.php";
 
