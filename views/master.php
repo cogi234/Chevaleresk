@@ -4,11 +4,13 @@ const DEFAULT_PAGE_NAME = "Chevaleresk";
 const BUNDLE_PATH_STYLES = "bundles/stylesBundle.html";
 const BUNDLE_PATH_SCRIPTS = "bundles/scriptsBundle.html";
 
-include_once "views/header.php";
 require_once "php/phpUtilities.php";
 
 // Name of the page
-isset_default($page_title, DEFAULT_PAGE_NAME);
+isset_default($page_title);
+$page_name = DEFAULT_PAGE_NAME . " - " . $page_title;
+
+include_once "views/header.php";
 
 // Header
 isset_default($header_content);
@@ -31,7 +33,7 @@ echo <<<HTML
         <header>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>$page_title</title>
+            <title>$page_name</title>
             
             $styles_bundle
             $styles_view

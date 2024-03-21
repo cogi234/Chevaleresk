@@ -13,6 +13,7 @@ require_once "php/storeHTML.php";
 require_once "php/filterHTML.php";
 
 $is_admin = false;
+$page_title = "Magasin";
 
 // Pagination
 $show_count = 18;
