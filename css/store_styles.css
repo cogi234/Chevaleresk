@@ -178,3 +178,8 @@
     transform: translateY(-50%);
     top: 50%;
 }
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
