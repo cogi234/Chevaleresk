@@ -27,8 +27,8 @@ function cartItem(
                         <div class="number-item">
                             <p>x</p>
                             <p class="cart-quantity">$quantite</p>
-                            <a href="#" class="fa fa-plus cart-quantity-modifier"></a>
-                            <a href="#" class="fa fa-minus cart-quantity-modifier"></a>
+                            <a href="cartAddQuantity.php?item=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
+                            <a href="cartReduceQuantity?item=$idItem" class="fa fa-minus cart-quantity-modifier"></a>
                         </div>
                     </div>
                     <div class="cart-item-remove-error">
@@ -44,8 +44,8 @@ function cartItem(
                         <div class="number-item">
                             <p>x</p>
                             <p class="cart-quantity">$quantite</p>
-                            <a href="#" class="fa fa-plus cart-quantity-modifier"></a>
-                            <a href="#" class="fa fa-minus cart-quantity-modifier"></a>
+                            <a href="cartAddQuantity.php?item=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
+                            <a href="cartReduceQuantity?item=$idItem" class="fa fa-minus cart-quantity-modifier"></a>
                         </div>
                     </div>
                     <div class="cart-item-remove-error">
