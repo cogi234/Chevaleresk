@@ -106,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         updateJoueur($connectionName);
         $_SESSION['connected'] = true;
 
-
         redirect('index.php');
     }
 
