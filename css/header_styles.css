@@ -54,6 +54,14 @@
     border-radius: 0.5em;
 }
 
+/* TITLE */
+#header_title{
+    width: 100%;
+    text-align: center;
+    color: var(--light);
+    padding-top: 10px;
+}
+
 /* OPTIONS */
 #header_options {
     align-self: center;

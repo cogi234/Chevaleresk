@@ -6,7 +6,7 @@ require_once "php/storeHTML.php";
 require_once "php/pdo.php";
 require_once "php/items.php";
 
-$is_admin = false;
+$page_title = "Magasin";
 
 $items = Item::selectAll(
     [
