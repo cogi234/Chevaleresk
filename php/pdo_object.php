@@ -20,6 +20,8 @@ abstract class PDO_Object
         $this->set_values($data);
     }
 
+    public const ALL = ["*"];
+
     #endregion
 
     #region Private
