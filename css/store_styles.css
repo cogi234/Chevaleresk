@@ -17,7 +17,7 @@
     padding: 1em;
 }
 
-.store-item-holder>* {
+.store-item-holder>.store-item {
     width: 160px;
     height: 160px;
 

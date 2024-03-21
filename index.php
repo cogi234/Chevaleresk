@@ -12,72 +12,43 @@ require_once "php/pdoUtilities.php";
 require_once "php/storeHTML.php";
 require_once "php/filterHTML.php";
 
-$is_admin = false;
+isset_default($scripts_view);
+$scripts_view .= <<<HTML
+<script defer>
+    var c = 0;
+
+    function fetch_items(isAdmin = false, pageIndex = 0) {
+        c++;
+        
+        htmx.ajax('GET', 'php/store_items?isAdmin=' + isAdmin + "&page=" + pageIndex, '.store-item-holder');
+    }
+
+    const parent = $(".store-item-holder")[0];
+
+    // Clear current items
+    parent.innerHTML = '';
+
+    // Add loader
+    const loader = document.createElement("div");
+    loader.classList.add("loader");
+
+    parent.append(loader);
+
+    // Fetch new items
+    fetch_items();
+</script>
+HTML;
+
+$is_admin = true;
 $page_title = "Magasin";
-
-// Pagination
-$show_count = 18;
-$page_count = 0;
-
-// Sort
-$sort_types = Item::TYPES;
-
-// Select
-$condition = in(Item::TYPE, ...$sort_types);
-
-if (!$is_admin)
-    $condition = _and($condition, equals(Item::SELLABLE, 1));
-
-$other = combine(
-    orderByAll([Item::PRICE], [Item::NAME]),
-    limit($show_count, $page_count * $show_count)
-);
-
-$items = Item::selectAll(
-    [
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        Item::QUANTITY,
-        Item::IMAGE,
-        Item::TYPE
-    ],
-    $condition,
-    $other
-);
-
-// Items
-isset_default($items_html);
-
-for ($i = 0; $i < count($items); $i++) {
-    $item = $items[$i];
-
-    // Parameters
-    $item_id = $item->Id;
-    $item_name = $item->Nom;
-    $item_price = $item->Prix;
-    $item_quantity = $item->Quantite;
-    $item_image = $item->getImage();
-    $item_icon = $item->getIcon();
-
-    // Render
-    $items_html .= store_item(
-        $item_id,
-        $item_name,
-        $item_price,
-        $item_quantity,
-        $item_image,
-        $item_icon
-    );
-}
-
-for ($i = 0; $i < $show_count - count($items); $i++)
-    $items_html .= "<i></i>";
 
 // Filters
 $filter_html = filter_render(<<<HTML
     <p>Filtres</p>
     <hr>
+    <button onclick="fetch_items('<?php $is_admin ?>', c)">
+        Click Me!
+    </button>
 HTML);
 
 $body_content = <<<HTML
@@ -87,7 +58,6 @@ $body_content = <<<HTML
         <!-- ITEMS -->
         <div id="store-item-parent">
             <div class="store-item-holder">
-                $items_html
             </div>
 
             <!-- PAGES -->
