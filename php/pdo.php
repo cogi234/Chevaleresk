@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/phpUtilities.php";
+require_once "phpUtilities.php";
 
 $DB_CONNECTION = connect();
 
