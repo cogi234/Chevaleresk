@@ -1,3 +1,5 @@
 <?php
-    header("location: cart.php", true, 303);
-    die();
+
+
+header("location: cart.php", true, 303);
+die();

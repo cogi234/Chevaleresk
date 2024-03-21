@@ -119,3 +119,12 @@
     padding: 3%;
     margin: 3%;
 }
+.cart-empty-msg{
+    color: var(--dark);
+    text-align: center;
+    width: 100%;
+    padding-top: 25%;
+}
+.cart-item-outofstock{
+    opacity: 50%;
+}
