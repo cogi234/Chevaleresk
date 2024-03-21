@@ -23,7 +23,7 @@ function updateJoueur(string $alias)
         Joueur::NBECUDEPENSE,
         Joueur::MOTDEPASSE
     ], Joueur::ALIAS . " = '$alias' ");
-    $_SESSION['joueur'] = $player;
+    $_SESSION['joueur'] = serialize($player);
 }
 
 class Joueur extends PDO_Object

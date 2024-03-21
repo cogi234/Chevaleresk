@@ -39,13 +39,13 @@ function redirect($url)
 }
 function anonymousAccess($timeout = defaultTimeout)
 {
-    if (isset($_SESSION["validUser"]) || isset($_SESSION["validAdmin"])) {
+    if (isset($_SESSION["connected"]) || isset($_SESSION["validAdmin"])) {
         set_Session_Timeout($timeout, 'loginForm.php');
     }
 }
 function userAccess($timeout = defaultTimeout)
 {
-    if (!isset($_SESSION['validUser'])) {
+    if (!isset($_SESSION['connected'])) {
         redirect('forbidden.php');
     } else {
         set_Session_Timeout($timeout, 'loginForm.php');

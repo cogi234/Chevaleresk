@@ -26,7 +26,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     ], "fa-solid fa-angle-down header_dropdown");
 
     //Money amount
-    $money_amount = $_SESSION['joueur']->solde;
+    $money_amount = unserialize($_SESSION['joueur'])->solde;
     $money_section = <<<HTML
     <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
         <div>
@@ -36,7 +36,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 
     //Cart amount
-    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION['joueur']->Id)["count(*)"];
+    $cart_amount = select("count(*)", "panier", "idJoueur = " . unserialize($_SESSION['joueur'])->Id)["count(*)"];
     $cart_section = <<<HTML
     <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
         <span>$cart_amount</span>
