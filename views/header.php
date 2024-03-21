@@ -36,12 +36,12 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 
     //Cart amount
-    //$cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
-    //$cart_section = <<<HTML
-    //<a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
-    //    <span>$cart_amount</span>
-    //</a>
-    //HTML;
+    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION['joueur']->Id)["count(*)"];
+    $cart_section = <<<HTML
+    <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
+        <span>$cart_amount</span>
+    </a>
+    HTML;
 
     //Profile
     $profile_section = <<<HTML
