@@ -77,6 +77,8 @@ class Item extends PDO_Object
                 $icon = "plant.svg";
                 break;
             case "arme":
+                $icon = "gun.svg";
+                break;
             default:
                 $icon = "nuh-uh.svg";
                 break;
