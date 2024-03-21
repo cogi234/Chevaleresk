@@ -4,9 +4,8 @@ require_once "php/pdo.php";
 
 // Links
 $icon_money_url = "";
-$icon_cart_url = "cart.php";
+$icon_cart_url = "";
 $icon_profile_url = "";
-$icon_inventory_irl = "inventory.php";
 $icon_inscription_url = "";
 $icon_connection_url = "";
 $icon_disconnect_url = "";
@@ -43,9 +42,8 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
 
     //Profile
     $profile_section = <<<HTML
-    <a id="header_profile" class="header-icon fa-solid fa-briefcase" href="$icon_inventory_irl" title="Inventaire"></a>
     <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Profile"></a>
-    <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Déconnexion"></a>
+    <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Disconnect"></a>
     HTML;
 } else { //Display when disconnected
     //Profile
@@ -61,7 +59,7 @@ $header_content = <<<HTML
      <!-- LEFT -->
      <div id="header-section-left" class="header-section">
         <!-- LOGO  -->
-        <a id="header_logo" href="index.php" title="Chevaleresk">
+        <a id="header_logo" href="" title="Chevaleresk">
             <img src="images/header/logo.png" />
         </a>
         
@@ -72,9 +70,7 @@ $header_content = <<<HTML
     </div>
 
     <!-- MIDDLE -->
-    <div id="header-section-middle" class="header-section" style="width: 100%">
-        <h1 id="header_title">$page_title</h1>
-    </div> 
+    <div id="header-section-middle" class="header-section" style="width: 100%"></div> 
 
      <!-- RIGHT  -->
      <div id="header-section-right" class="header-section">

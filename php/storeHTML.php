@@ -22,6 +22,7 @@ function store_item(
     string $image,
     string $icon
 ): string {
+
     $url = "";
 
     // Initialize variables
