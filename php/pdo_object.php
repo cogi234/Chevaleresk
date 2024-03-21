@@ -105,6 +105,9 @@ abstract class PDO_Object
 
         $item = select(join(", ", $selectors), $tableName, $condition, $other);
         
+        if ($item == false)
+            return false;
+        
         return static::create_self($item);
     }
 
