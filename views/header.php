@@ -7,7 +7,7 @@ $icon_money_url = "";
 $icon_cart_url = "";
 $icon_profile_url = "";
 $icon_inscription_url = "newUserForm.php";
-$icon_connection_url = "";
+$icon_connection_url = "loginForm.php";
 $icon_disconnect_url = "";
 
 //Display only when connected
