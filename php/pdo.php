@@ -88,7 +88,7 @@ function selectAll(
  * Date of modification: 2024/03/18
  * @return bool|PDOStatement Statement of the request or false if an error occured
  */
-function callFP(string $action_name, string $procedure_name, ...$arguments): bool|PDOStatement
+function callFP(string $action_name, string $procedure_name, $arguments): bool|PDOStatement
 {
     if (!isset ($DB_CONNECTION))
         $DB_CONNECTION = connect();

@@ -6,6 +6,7 @@ require_once("php/cartHTML.php");
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
 $currentPlayerId = 1;
+$isEmpty = false;
 
 //check there's is a current player and throw forbiddenPage if true
 if(isset($currentPlayerId)){
@@ -45,6 +46,7 @@ if($items != null && count($items)>0){
     }
     //if false show a message
 }else{
+    $isEmpty = true;
     $body_content .=<<<HTML
         <p class="cart-empty-msg">Aucun item dans le panier...</p>
     HTML;
@@ -68,7 +70,17 @@ foreach($items as $item){
 $body_content .= <<<HTML
             <p>Total: $total Écus</p>
             </div>
-            <button type="submit" class='cart-submit-button'>Submit</button>
+HTML;
+if($isEmpty){
+    $body_content .=<<<HTML
+            <button disabled type="submit" class='cart-submit-button'>Acheter</button>
+    HTML;
+}else{
+    $body_content .=<<<HTML
+            <button type="submit" class='cart-submit-button'>Acheter</button>
+    HTML;
+}
+$body_content .=<<<HTML
             <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
         </div>
     </div>

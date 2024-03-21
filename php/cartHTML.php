@@ -32,7 +32,7 @@ function cartItem(
                         </div>
                     </div>
                     <div class="cart-item-remove-error">
-                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem"></a>
+                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem&quantite=$quantite"></a>
             HTML;   
         }else{
             //if false show message
@@ -49,7 +49,7 @@ function cartItem(
                         </div>
                     </div>
                     <div class="cart-item-remove-error">
-                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem"></a>
+                    <a class="remove-item fa fa-xmark" href="cartRemove.php?item=$idItem&quantite=$quantite"></a>
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
             HTML;
         }
