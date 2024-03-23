@@ -17,10 +17,10 @@ class Item extends PDO_Object
     const PATH_ICONS = "images/items/icons/";
 
     public const TYPES = [
-        "armure",
         "arme",
+        "armure",
+        "ingredient",
         "potion",
-        "ingredient"
     ];
 
     #endregion
