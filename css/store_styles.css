@@ -11,7 +11,7 @@
     height: 100%;
 
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
 
     padding: 1em;
@@ -113,13 +113,13 @@
 }
 
 .store-item-name {
-    font-size: 20px;
+    font-size: 17.5px;
     margin-top: -3px;
 }
 
 .store-item-price {
     font-size: 13px;
-    margin-top: -9px;
+    margin-top: -5px;
 }
 
 /* BORDER */
