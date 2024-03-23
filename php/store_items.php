@@ -1,5 +1,7 @@
 <?php
 
+const ITEMS_PER_PAGE = 100; // 18;
+
 // PDO
 require_once "items.php";
 
@@ -9,31 +11,33 @@ require_once "pdoUtilities.php";
 // HTML
 require_once "storeHTML.php";
 
-// Page #
-// Criterias
-
 // Is Admin
-isset_default($_GET["isAdmin"], false);
-$is_admin = $_GET["isAdmin"] == "true";
+$is_admin = true;
 
-// Pagination
-$show_count = 18;
-
+// Page #
 isset_default($_GET["page"], 0);
 $page_count = intval($_GET["page"]);
 
-// Sort
-$sort_types = Item::TYPES;
+// Out of stock
+isset_default($_GET["oos"], "on");
+$oos = $_GET["oos"] == "on";
+
+// Types
+isset_default($_GET["types"], []);
+$sort_types = $_GET["types"];
 
 // Select
 $condition = in(Item::TYPE, ...$sort_types);
+
+if (!$oos)
+    $condition = _and($condition, ITEM::QUANTITY . ">" . 0);
 
 if (!$is_admin)
     $condition = _and($condition, equals(Item::SELLABLE, 1));
 
 $other = combine(
     orderByAll([Item::PRICE], [Item::NAME]),
-    limit($show_count, $page_count * $show_count)
+    limit(ITEMS_PER_PAGE, $page_count * ITEMS_PER_PAGE)
 );
 
 $items = Item::selectAll(
@@ -74,7 +78,12 @@ for ($i = 0; $i < count($items); $i++) {
     );
 }
 
-for ($i = 0; $i < $show_count - count($items); $i++)
-    $items_html .= "<i></i>";
+if (count($items) > 0) {
+    for ($i = 0; $i < ITEMS_PER_PAGE - count($items); $i++)
+        $items_html .= "<i></i>";
+} else {
+    $items_html = "<p style='color: var(--light);'>Aucun item trouvé ...</p>";
+}
+
 
 echo $items_html;

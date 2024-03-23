@@ -12,45 +12,46 @@ require_once "php/pdoUtilities.php";
 require_once "php/storeHTML.php";
 require_once "php/filterHTML.php";
 
-isset_default($scripts_view);
-$scripts_view .= <<<HTML
-<script defer>
-    var c = 0;
-
-    function fetch_items(isAdmin = false, pageIndex = 0) {
-        c++;
-        
-        htmx.ajax('GET', 'php/store_items?isAdmin=' + isAdmin + "&page=" + pageIndex, '.store-item-holder');
-    }
-
-    const parent = $(".store-item-holder")[0];
-
-    // Clear current items
-    parent.innerHTML = '';
-
-    // Add loader
-    const loader = document.createElement("div");
-    loader.classList.add("loader");
-
-    parent.append(loader);
-
-    // Fetch new items
-    fetch_items();
-</script>
-HTML;
-
-$is_admin = true;
+// Title
 $page_title = "Magasin";
 
+$page_index = 0;
+
 // Filters
+$types_html = "";
+
+foreach (Item::TYPES as $key => $value) {
+    $displayName = ucfirst($value);
+
+    $types_html .= <<<HTML
+        <input type="checkbox" id="$value" name="types[]" checked value="$value">
+        <label for="$value"> $displayName</label><br>
+    HTML;
+}
+
 $filter_html = filter_render(<<<HTML
+<form 
+    id="store-filter"
+    hx-get='php/store_items' 
+    hx-target=".store-item-holder" 
+    hx-swap="innerHTML" 
+    hx-trigger="submit, load, change">
+
     <p>Filtres</p>
     <hr>
-    <button onclick="fetch_items('<?php $is_admin ?>', c)">
-        Click Me!
-    </button>
+
+    <!-- TYPES -->
+    $types_html
+
+    <!-- SHOW OOS -->
+    <!-- <input type="checkbox" id="oos" name="oos" checked>
+    <label for="oos"> Montrer les items sans stock</label><br> -->
+    <!-- <br>
+    <input type="submit" value="Filtrer"> -->
+</form>
 HTML);
 
+// Body
 $body_content = <<<HTML
     $filter_html
 
@@ -64,6 +65,34 @@ $body_content = <<<HTML
             <div></div>
         </div>
     </div>
+HTML;
+
+// View Scripts
+isset_default($scripts_view);
+$scripts_view .= <<<HTML
+    <script>
+        function filterSubmit(event) {
+            add_loader();
+        }
+
+        const form = document.getElementById("store-filter");
+        form.addEventListener("htmx:beforeSend", filterSubmit);
+
+        function add_loader() {
+            const parent = $(".store-item-holder")[0];
+
+            // Clear current items
+            parent.innerHTML = '';
+
+            // Add loader
+            const loader = document.createElement("div");
+            loader.classList.add("loader");
+
+            parent.append(loader);
+        }
+
+        add_loader();
+    </script>
 HTML;
 
 require "views/master.php";
