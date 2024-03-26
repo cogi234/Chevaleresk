@@ -7,12 +7,12 @@
 }
 .cart-recept-preview-container {
     height: 60%;
-    width: 25%;
+    width: 35%;
     position: sticky;
     top: 0;
 }
 .cart-itemList-scroll-container{
-    width: 70%;
+    width: 60%;
     height: 100%;
 }
 .cart-recept-preview-container>div{
@@ -63,7 +63,8 @@
     padding-left: 10px;
     display: inline-flex;
     height: 20%;
-    float: inline-end;
+    text-align: center;
+    align-content: center;
 }
 .name-item{
     padding-left: 10px;
@@ -84,21 +85,13 @@
     text-align: center;
 }
 .remove-item{
-    max-height: 50px;
-    max-width: 50px;
-    height: 100%;
+    height: 40px;
     width: auto;
     padding: 5px;
     margin: 5px;
-    float: right;
-    right: 0;
-}
-.remove-item>img{
-    margin: 2%;
-    padding: 2%;
-    max-height: 100%;
-    width: auto;
-    border-radius: 10px;
+    margin-left: 20%;
+    text-decoration: none;
+    color: var(--dark);
 }
 .cart-item-remove-error{
     right: 0;
@@ -127,4 +120,17 @@
 }
 .cart-item-outofstock{
     opacity: 50%;
+}
+.cart-quantity{
+    background-color: var(--light);
+    height: 100%;
+    border-radius: 2px;
+    text-align: center;
+    margin: 5%;
+    padding: 5%;
+}
+.cart-quantity-modifier{
+    margin: 10%;
+    color: var(--dark);
+    text-decoration: none;
 }
