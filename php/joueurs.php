@@ -1,28 +1,31 @@
 <?php
 require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
+
+// PDO
 require_once "php/pdo_object.php";
+require_once "php/pdoUtilities.php";
 
 function updateJoueur(string $alias)
 {
     $player = Joueur::select([
         Joueur::ID,
         Joueur::ALIAS,
+        Joueur::PASSWORD,
         Joueur::PRENOM,
         Joueur::NOM,
         Joueur::AVATAR,
         Joueur::SOLDE,
-        Joueur::SOLDEPARADMIN,
-        Joueur::NIVEAUALCHIMIE,
-        Joueur::ESTADMIN,
-        Joueur::NBQUETEALCHIMIE,
-        Joueur::NBQUETEREUSSIE,
-        Joueur::NBQUETEECHOUE,
-        Joueur::NBPOTIONCREE,
-        Joueur::NBECUGAGNE,
-        Joueur::NBECUDEPENSE,
-        Joueur::MOTDEPASSE
-    ], Joueur::ALIAS . " = '$alias' ");
+        //Joueur::ECU_BY_ADMIN,
+        //Joueur::LEVEL_ALCHIMIST,
+        Joueur::IS_ADMIN
+        //Joueur::QUEST_ALCHIMIST,
+        //Joueur::QUEST_SUCCEED,
+        //Joueur::QUEST_FAILED,
+        //Joueur::POTION_MADE_COUNT,
+        //Joueur::ECU_OBTAINED,
+        //Joueur::ECU_SPENT
+    ], equals(Joueur::ALIAS, $alias));
     $_SESSION['joueur'] = serialize($player);
 }
 
@@ -56,44 +59,44 @@ class Joueur extends PDO_Object
     #[PDO_Object_Id(Joueur::SOLDE)]
     public int $solde = 0;
 
-    public const SOLDEPARADMIN = "soldeParAdmin";
-    #[PDO_Object_Id(Joueur::SOLDEPARADMIN)]
+    public const ECU_BY_ADMIN = "soldeParAdmin";
+    #[PDO_Object_Id(Joueur::ECU_BY_ADMIN)]
     public int $soldeParAdmin = 0;
 
-    public const NIVEAUALCHIMIE = "niveauAlchimie";
-    #[PDO_Object_Id(Joueur::NIVEAUALCHIMIE)]
+    public const LEVEL_ALCHIMIST = "niveauAlchimie";
+    #[PDO_Object_Id(Joueur::LEVEL_ALCHIMIST)]
     public int $niveauAlchimie = 0;
 
-    public const ESTADMIN = "estAdmin";
-    #[PDO_Object_Id(Joueur::ESTADMIN)]
+    public const IS_ADMIN = "estAdmin";
+    #[PDO_Object_Id(Joueur::IS_ADMIN)]
     public bool $estAdmin = false;
 
-    public const NBQUETEALCHIMIE = "nbQueteAlchimie";
-    #[PDO_Object_Id(Joueur::NBQUETEALCHIMIE)]
+    public const QUEST_ALCHIMIST = "nbQueteAlchimie";
+    #[PDO_Object_Id(Joueur::QUEST_ALCHIMIST)]
     public int $nbQueteAlchimie = 0;
 
-    public const NBQUETEREUSSIE = "nbQueteReussie";
-    #[PDO_Object_Id(Joueur::NBQUETEREUSSIE)]
+    public const QUEST_SUCCEED = "nbQueteReussie";
+    #[PDO_Object_Id(Joueur::QUEST_SUCCEED)]
     public int $nbQueteReussie = 0;
 
-    public const NBQUETEECHOUE = "nbQueteEchoue";
-    #[PDO_Object_Id(Joueur::NBQUETEECHOUE)]
+    public const QUEST_FAILED = "nbQueteEchoue";
+    #[PDO_Object_Id(Joueur::QUEST_FAILED)]
     public int $nbQueteEchoue = 0;
 
-    public const NBPOTIONCREE = "nbPotionCree";
-    #[PDO_Object_Id(Joueur::NBPOTIONCREE)]
-    public int $nbPotionCree = 0;
+    public const POTION_MADE_COUNT = "nbPotionCree";
+    #[PDO_Object_Id(Joueur::POTION_MADE_COUNT)]
+    public int $nbPotionCree = -1;
 
-    public const NBECUGAGNE = "nbEcuGagne";
-    #[PDO_Object_Id(Joueur::NBECUGAGNE)]
-    public int $nbEcuGagne = 0;
+    public const ECU_OBTAINED = "nbEcuGagne";
+    #[PDO_Object_Id(Joueur::ECU_OBTAINED)]
+    public int $nbEcuGagne = -1;
 
-    public const NBECUDEPENSE = "nbEcuDepense";
-    #[PDO_Object_Id(Joueur::NBECUDEPENSE)]
-    public int $nbEcuDepense = 0;
+    public const ECU_SPENT = "nbEcuDepense";
+    #[PDO_Object_Id(Joueur::ECU_SPENT)]
+    public int $nbEcuDepense = -1;
 
-    public const MOTDEPASSE = "motDePasse";
-    #[PDO_Object_Id(Joueur::MOTDEPASSE)]
+    public const PASSWORD = "motDePasse";
+    #[PDO_Object_Id(Joueur::PASSWORD)]
     public string $motDePasse = "";
 
 }

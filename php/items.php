@@ -65,7 +65,7 @@ class Item extends PDO_Object
 
     public function getIcon(): string
     {
-        $icon = "";
+        $icon = "missing-icon";
         switch ($this->Type) {
             case "armure":
                 $icon = "shield.svg";
@@ -77,10 +77,8 @@ class Item extends PDO_Object
                 $icon = "plant.svg";
                 break;
             case "arme":
-                $icon = "gun.svg";
-                break;
             default:
-                $icon = "nuh-uh.svg";
+                $icon = "gun.svg";
                 break;
         }
 
