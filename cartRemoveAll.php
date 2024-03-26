@@ -1,9 +1,11 @@
 <?php
 require_once("php/pdo.php");
 
+require_once ("php/sessionManager.php");
+userAccess();
+
 $idJoueur = 1;
 
 callProcedure("viderPanier", $idJoueur);
 
-header("location: cart.php", true, 303);
-die();
+redirect("cart.php");
