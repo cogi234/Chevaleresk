@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/pdo.php";
+require_once "pdo.php";
 
 /**
  * Class that allows to fetch objects from the database more easily
@@ -19,6 +19,8 @@ abstract class PDO_Object
     {
         $this->set_values($data);
     }
+
+    public const ALL = ["*"];
 
     #endregion
 
@@ -74,7 +76,6 @@ abstract class PDO_Object
         string $condition = "",
         string $other = ""
     ): array {
-
         $tableName = static::get_table_name();
 
         if ($tableName == false)
@@ -90,6 +91,24 @@ abstract class PDO_Object
         return array_map(function ($value) {
             return static::create_self($value);
         }, $items);
+    }
+
+    public static function select(
+        array $selectors,
+        string $condition = "",
+        string $other = ""
+    ): PDO_Object | bool {
+        $tableName = static::get_table_name();
+
+        if ($tableName == false)
+            return false;
+
+        $item = select(join(", ", $selectors), $tableName, $condition, $other);
+        
+        if ($item == false)
+            return false;
+        
+        return static::create_self($item);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
-require_once "php/phpUtilities.php";
-require_once "php/pdo_object.php";
+require_once "phpUtilities.php";
+require_once "pdo_object.php";
 
 class Item extends PDO_Object
 {
@@ -17,10 +17,10 @@ class Item extends PDO_Object
     const PATH_ICONS = "images/items/icons/";
 
     public const TYPES = [
-        "armure",
         "arme",
+        "armure",
+        "ingredient",
         "potion",
-        "ingredient"
     ];
 
     #endregion
