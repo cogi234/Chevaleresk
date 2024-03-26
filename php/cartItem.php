@@ -4,9 +4,10 @@ require_once "php/phpUtilities.php";
 require_once "php/pdo_object.php";
 require_once "php/items.php";
 
-class CartItem extends PDO_Object{
+class CartItem extends PDO_Object
+{
 
-    public const TABLE = "dbo.cartItem";
+    public const TABLE = "vPanier";
 
     public const PLAYER = "idJoueur";
     #[PDO_Object_Id(CartItem::PLAYER)]
