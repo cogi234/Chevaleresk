@@ -1,15 +1,15 @@
 <?php
-
+require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 require_once "php/inventoryHTML.php";
-
 require_once "php/inventory_items.php";
+require_once "php/joueurs.php";
+
+
 
 $page_title = "Inventaire";
 
-//TODO: Uncomment this when connection is done
-//$idJoueur = $_SESSION["joueur"]->Id;
-$idJoueur = 1;
+$idJoueur = unserialize($_SESSION['joueur'])->Id;
 $items = InventoryItem::selectAll(
     [
         InventoryItem::IDJOUEUR,

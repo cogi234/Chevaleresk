@@ -1,56 +1,98 @@
 <?php
 
-require_once "php/phpUtilities.php";
-require_once "php/storeHTML.php";
-
+// PDO
 require_once "php/pdo.php";
 require_once "php/items.php";
 
+// UTILITIES
+require_once "php/phpUtilities.php";
+require_once "php/pdoUtilities.php";
+
+// HTML
+require_once "php/storeHTML.php";
+require_once "php/filterHTML.php";
+
+// Title
 $page_title = "Magasin";
 
-$items = Item::selectAll(
-    [
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        Item::QUANTITY,
-        Item::IMAGE,
-        Item::TYPE
-    ],
-    Item::SELLABLE . ' = 1'
-);
+$page_index = 0;
 
-// Items
-isset_default($items_html);
+// Filters
+$types_html = "";
 
-for ($i = 0; $i < count($items); $i++) {
-    $item = $items[$i];
+foreach (Item::TYPES as $key => $value) {
+    $displayName = ucfirst($value);
 
-    // Parameters
-    $item_id = $item->Id;
-    $item_name = $item->Nom;
-    $item_price = $item->Prix;
-    $item_quantity = $item->Quantite;
-    $item_image = $item->Image;
-    $item_icon = $item->getIcon();
-
-    // Render
-    $items_html .= store_item(
-        $item_id,
-        $item_name,
-        $item_price,
-        $item_quantity,
-        $item_image,
-        $item_icon
-    );
+    $types_html .= <<<HTML
+        <input type="checkbox" id="$value" name="types[]" checked value="$value">
+        <label for="$value"> $displayName</label><br>
+    HTML;
 }
 
+$filter_html = filter_render(<<<HTML
+<form 
+    id="store-filter"
+    hx-get='php/store_items' 
+    hx-target=".store-item-holder" 
+    hx-swap="innerHTML" 
+    hx-trigger="submit, load, change">
+
+    <p>Filtres</p>
+    <hr>
+
+    <!-- TYPES -->
+    $types_html
+
+    <!-- SHOW OOS -->
+    <!-- <input type="checkbox" id="oos" name="oos" checked>
+    <label for="oos"> Montrer les items sans stock</label><br> -->
+    <!-- <br>
+    <input type="submit" value="Filtrer"> -->
+</form>
+HTML);
+
+// Body
 $body_content = <<<HTML
-    <div style="width: 100%;">
-        <div class="store-item-holder">
-            $items_html
+    $filter_html
+
+    <div style="display: flex;">
+        <!-- ITEMS -->
+        <div id="store-item-parent">
+            <div class="store-item-holder">
+            </div>
+
+            <!-- PAGES -->
+            <div></div>
         </div>
     </div>
+HTML;
+
+// View Scripts
+isset_default($scripts_view);
+$scripts_view .= <<<HTML
+    <script>
+        function filterSubmit(event) {
+            add_loader();
+        }
+
+        const form = document.getElementById("store-filter");
+        form.addEventListener("htmx:beforeSend", filterSubmit);
+
+        function add_loader() {
+            const parent = $(".store-item-holder")[0];
+
+            // Clear current items
+            parent.innerHTML = '';
+
+            // Add loader
+            const loader = document.createElement("div");
+            loader.classList.add("loader");
+
+            parent.append(loader);
+        }
+
+        add_loader();
+    </script>
 HTML;
 
 require "views/master.php";

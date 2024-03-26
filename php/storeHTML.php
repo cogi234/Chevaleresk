@@ -1,8 +1,6 @@
 <?php
 
-require_once "php/phpUtilities.php";
-
-
+require_once "phpUtilities.php";
 
 // Styles
 isset_default($styles_view);

@@ -1,15 +1,17 @@
 <?php
 require_once "php/htmlUtilities.php";
 require_once "php/pdo.php";
+require_once "php/joueurs.php";
+require_once 'php/sessionManager.php';
 
 // Links
 $icon_money_url = "";
 $icon_cart_url = "cart.php";
 $icon_profile_url = "";
 $icon_inventory_irl = "inventory.php";
-$icon_inscription_url = "";
-$icon_connection_url = "";
-$icon_disconnect_url = "";
+$icon_inscription_url = "newUserForm.php";
+$icon_connection_url = "loginForm.php";
+$icon_disconnect_url = "disconnect.php";
 
 //Display only when connected
 $money_section = "";
@@ -24,7 +26,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     ], "fa-solid fa-angle-down header_dropdown");
 
     //Money amount
-    $money_amount = select("solde", "joueurs", "idJoueur = " . $_SESSION["idJoueur"])[0];
+    $money_amount = unserialize($_SESSION['joueur'])->solde;
     $money_section = <<<HTML
     <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
         <div>
@@ -34,7 +36,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     HTML;
 
     //Cart amount
-    $cart_amount = select("count(*)", "panier", "idJoueur = " . $_SESSION["idJoueur"])[0];
+    $cart_amount = select("count(*)", "panier", "idJoueur = " . unserialize($_SESSION['joueur'])->Id)["count(*)"];
     $cart_section = <<<HTML
     <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
         <span>$cart_amount</span>
@@ -47,6 +49,7 @@ if (isset ($_SESSION["connected"]) && $_SESSION["connected"] == true) {
     <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Profile"></a>
     <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Déconnexion"></a>
     HTML;
+    
 } else { //Display when disconnected
     //Profile
     $profile_section = <<<HTML

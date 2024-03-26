@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/phpUtilities.php";
+require_once "phpUtilities.php";
 
 $DB_CONNECTION = connect();
 
@@ -88,8 +88,9 @@ function selectAll(
  * Date of modification: 2024/03/18
  * @return bool|PDOStatement Statement of the request or false if an error occured
  */
-function callFP(string $action_name, string $procedure_name, $arguments): bool|PDOStatement
+function callFP(string $action_name, string $procedure_name, array $arguments): bool|PDOStatement
 {
+
     if (!isset ($DB_CONNECTION))
         $DB_CONNECTION = connect();
 
@@ -140,6 +141,6 @@ function callFunction(string $function_name, ...$arguments): array|bool
     $result = callFP("SELECT", $function_name, $arguments);
 
     return $result && $result->execute()
-        ? $result->fetchAll(PDO::FETCH_ASSOC)
+        ? $result->fetchAll()
         : false;
 }

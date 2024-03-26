@@ -1,0 +1,66 @@
+/* ITEM FILTER */
+#filter {
+    position: fixed;
+
+    z-index: 9;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 0.5em;
+
+    background-color: var(--main);
+
+    border: var(--dark) 0.1em solid;
+
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+}
+
+#filter-button {
+    position: fixed;
+    right: -20px;
+}
+
+/* ANIMATIONS */
+.filter-slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.filter-slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@-webkit-keyframes slide-in {
+    100% {
+        -webkit-transform: translateX(0%);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes slide-out {
+    0% {
+        -webkit-transform: translateX(0%);
+    }
+
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
+}
