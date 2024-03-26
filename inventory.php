@@ -1,11 +1,11 @@
 <?php
-require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 require_once "php/inventoryHTML.php";
 require_once "php/inventory_items.php";
 require_once "php/joueurs.php";
 
-
+require_once ("php/sessionManager.php");
+userAccess();
 
 $page_title = "Inventaire";
 

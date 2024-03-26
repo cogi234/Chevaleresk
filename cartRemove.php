@@ -1,6 +1,10 @@
 <?php
 require_once("php/pdo.php");
 
+require_once ("php/sessionManager.php");
+userAccess();
+
+
 if(!(isset($_GET['item']) && isset($_GET['quantite']))){
     //throw forbidden
 }
@@ -11,5 +15,4 @@ $Item = (int)$_GET['item'];
 $Quantite = (int)$_GET['quantite'];
 callProcedure("enleverPanier", $idJoueur, $Item, $Quantite);
 
-header('Location: cart.php', true, 303);
-die();
+redirect("cart.php");

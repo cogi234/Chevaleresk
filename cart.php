@@ -3,6 +3,9 @@ require_once("php/pdo.php");
 require_once("php/cartItem.php");
 require_once("php/cartHTML.php");
 
+require_once ("php/sessionManager.php");
+userAccess();
+
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
 $currentPlayerId = 1;
