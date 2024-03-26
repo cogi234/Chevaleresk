@@ -1,6 +1,5 @@
 <?php
 
-require_once("php/sessionManager.php");
-userAccess();
 
-redirect("cart.php");
+header("location: cart.php", true, 303);
+die();

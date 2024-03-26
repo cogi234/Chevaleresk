@@ -37,6 +37,12 @@ function redirect($url)
     header('location:' . $url);
     exit();
 }
+function anonymousAccess($timeout = defaultTimeout)
+{
+    if (isset($_SESSION["connected"]) || isset($_SESSION["validAdmin"])) {
+        set_Session_Timeout($timeout, 'loginForm.php');
+    }
+}
 function userAccess($timeout = defaultTimeout)
 {
     if (!isset($_SESSION['connected'])) {

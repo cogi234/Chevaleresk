@@ -1,11 +1,11 @@
 <?php
+require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 require_once "php/inventoryHTML.php";
 require_once "php/inventory_items.php";
 require_once "php/joueurs.php";
 
-require_once "php/sessionManager.php";
-userAccess();
+
 
 $page_title = "Inventaire";
 
@@ -13,11 +13,11 @@ $idJoueur = unserialize($_SESSION['joueur'])->Id;
 $items = InventoryItem::selectAll(
     [
         InventoryItem::IDJOUEUR,
-        InventoryItem::QUANTITY,
         Item::ID,
         Item::NAME,
         Item::IMAGE,
         Item::TYPE,
+        InventoryItem::QUANTITY,
     ],
     InventoryItem::IDJOUEUR . " = $idJoueur"
 );
