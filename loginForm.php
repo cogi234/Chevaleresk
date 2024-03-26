@@ -5,7 +5,7 @@ require_once "php/joueurs.php";
 
 anonymousAccess();
 
-if (isset ($_POST['alias'])) {
+if (isset($_POST['alias'])) {
     $body_content = <<<HTML
 
     <div class="">
@@ -45,7 +45,7 @@ if (isset ($_POST['alias'])) {
     </div>
     HTML;
 
-    if (isset ($_SESSION['error']) && $_SESSION['error'] == true) {
+    if (isset($_SESSION['error']) && $_SESSION['error'] == true) {
         $body_content .= <<<HTML
         <div class="error-message">
             <span >Erreur dans la connexion</span>
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
 
     if ($bool != 0) {
-        updateJoueur($connectionName);
+        Joueur::refresh_local_player($connectionName);
         $_SESSION['connected'] = true;
 
         redirect('index.php');
