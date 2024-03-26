@@ -20,7 +20,7 @@ function store_item(
     string $image,
     string $icon
 ): string {
-    $url = "cartAdd?id=$id&quantity=1";
+    $url = "cartAdd?id=$id";
 
     // Initialize variables
     isset_default($oos_html);

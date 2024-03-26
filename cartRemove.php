@@ -1,9 +1,11 @@
 <?php
-require_once("php/cartItem.php");
+require_once("php/cart_items.php");
+
+require_once("php/sessionManager.php");
+userAccess();
 
 $idItem = $_GET['id'];
 
 //remove item
 
-header('Location: cart.php', true, 303);
-die();
+redirect("cart.php");
