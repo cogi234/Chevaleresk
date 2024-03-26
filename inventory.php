@@ -32,7 +32,7 @@ for ($i = 0; $i < count($items); $i++) {
     $item_idJoueur = $item->IdJoueur;
     $item_idItem = $item->Item->Id;
     $item_name = $item->Item->Nom;
-    $item_image = $item->Item->Image;
+    $item_image = $item->Item->getImage();
     $item_icon = $item->Item->getIcon();
     $item_quantity = $item->Quantite;
 

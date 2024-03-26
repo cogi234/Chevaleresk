@@ -2,9 +2,6 @@
 
 require_once "php/phpUtilities.php";
 
-const PATH_IMAGES = "images/items/images/";
-const PATH_ICONS = "images/items/icons/";
-
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/store_styles.css">';
@@ -23,9 +20,6 @@ function inventory_item(
     string $image,
     string $icon
 ): string {
-
-    $image = PATH_IMAGES . $image;
-    $icon = PATH_ICONS . $icon;
 
     $url = "item.php?id=$idItem";
 
