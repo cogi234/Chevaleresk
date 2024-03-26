@@ -1,10 +1,11 @@
 <?php
-require_once("php/pdo.php");
-
+require_once("php/cartItem.php");
+require_once("php/phpUtilities.php");
+require_once("php/joueurs.php");
 require_once ("php/sessionManager.php");
 userAccess();
 
-$idJoueur = 1;
+$idJoueur = unserialize($_SESSION['joueur'])->Id;
 
 callProcedure("viderPanier", $idJoueur);
 

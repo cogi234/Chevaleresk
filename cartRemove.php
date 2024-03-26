@@ -1,18 +1,16 @@
 <?php
-require_once("php/pdo.php");
+require_once("php/cartItem.php");
+require_once("php/phpUtilities.php");
+require_once("php/joueurs.php");
 
 require_once ("php/sessionManager.php");
 userAccess();
 
+$idJoueur = unserialize($_SESSION['joueur'])->Id;
+$idItem = $_GET['id'];
+$quantite = $_GET['quantity'];
+isset_default($quantite, 1);
 
-if(!(isset($_GET['item']) && isset($_GET['quantite']))){
-    //throw forbidden
-}
-
-$idJoueur = 1;
-
-$Item = (int)$_GET['item'];
-$Quantite = (int)$_GET['quantite'];
-callProcedure("enleverPanier", $idJoueur, $Item, $Quantite);
+callProcedure("enleverPanier", $idJoueur, $idItem, $quantite);
 
 redirect("cart.php");
