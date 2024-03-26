@@ -3,11 +3,11 @@ require_once 'php/sessionManager.php';
 require_once 'php/pdo.php';
 $page_title = "Création de compte";
 require_once "php/joueurs.php";
+require_once "php/pdoUtilities.php";
 
 anonymousAccess();
-if (isset($_POST['alias']))
-{
-    $body_content = <<< HTML
+if (isset($_POST['alias'])) {
+    $body_content = <<<HTML
 
     <div class="">
         <br>
@@ -57,19 +57,16 @@ if (isset($_POST['alias']))
         
     </div>
     HTML;
-    if ($_SESSION['exists'] == true)
-    {
-        $body_content.= <<<HTML
+    if ($_SESSION['exists'] == true) {
+        $body_content .= <<<HTML
         <div class="error-message">
             <span >Un joueur avec ce nom existe déjà</span>
         </div>
 
         HTML;
     }
-}
-else
-{
-    $body_content = <<< HTML
+} else {
+    $body_content = <<<HTML
 
     <div class="">
         <br>
@@ -122,27 +119,25 @@ else
 
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
-{
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
-    $inscription= $_POST['alias'];
+    $inscription = $_POST['alias'];
+
     $playerList = Joueur::selectAll(
         [Joueur::ALIAS],
-        Joueur::ALIAS." = '$inscription'"
+        equals(Joueur::ALIAS, $inscription)
     );
-    foreach($playerList as $player)
-    {
-        
-        if (isset($_POST['alias']) &&$_POST["alias"] == $player->alias && isset($_POST['Password']))
-        {
+
+    foreach ($playerList as $player) {
+
+        if (isset($_POST['alias']) && $_POST["alias"] == $player->alias && isset($_POST['Password'])) {
             $_SESSION['exists'] = true;
             $bool = true;
         }
-        
+
     }
-    if ($bool ==false &&isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player)
-    {
-        callProcedure("inscription", $_POST['alias'],$_POST['Password'],false);
+    if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
+        callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
         redirect('index.php');
     }
 }
@@ -155,7 +150,5 @@ $viewScript = <<<HTML
         addConflictValidation('testConflict.php', 'Email', 'saveUser' );
     </script>
 HTML;
-
-
 
 require "views/master.php";

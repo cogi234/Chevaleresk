@@ -1,35 +1,15 @@
 <?php
 require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
+
+// PDO
 require_once "php/pdo_object.php";
 require_once "php/pdoUtilities.php";
-
-function updateJoueur(string $alias)
-{
-    $player = Joueur::select([
-        Joueur::ID,
-        Joueur::ALIAS,
-        Joueur::PASSWORD,
-        Joueur::PRENOM,
-        Joueur::NOM,
-        Joueur::AVATAR,
-        Joueur::SOLDE,
-        //Joueur::ECU_BY_ADMIN,
-        //Joueur::LEVEL_ALCHIMIST,
-        Joueur::IS_ADMIN
-        //Joueur::QUEST_ALCHIMIST,
-        //Joueur::QUEST_SUCCEED,
-        //Joueur::QUEST_FAILED,
-        //Joueur::POTION_MADE_COUNT,
-        //Joueur::ECU_OBTAINED,
-        //Joueur::ECU_SPENT
-    ], equals(Joueur::ALIAS, $alias));
-    $_SESSION['joueur'] = serialize($player);
-}
 
 class Joueur extends PDO_Object
 {
     protected const TABLE = "joueurs";
+    private const SESSION_TAG = "joueur";
 
     const PATH_PFP = "images/pfp/images/";
 
@@ -97,4 +77,52 @@ class Joueur extends PDO_Object
     #[PDO_Object_Id(Joueur::PASSWORD)]
     public string $motDePasse = "";
 
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/03/26
+     * Date of modification: 2024/03/26
+     * @return Joueur|bool The connected player or false if no player is connected
+     */
+    public static function get_local_player(): Joueur|bool
+    {
+        if (!isset($_SESSION[Joueur::SESSION_TAG]) || !is_connected())
+            return false;
+
+        return unserialize($_SESSION[Joueur::SESSION_TAG]);
+    }
+
+    /**
+     * Updates the player stored in $_SESSION with the player with the given alias
+     * @author @WarperSan, @lolo2178
+     * Date of creation    : 2024/03/26
+     * Date of modification: 2024/03/26
+     * @return bool The refreshment was correctly happen
+     */
+    public static function refresh_local_player(string $alias): bool
+    {
+        $player = Joueur::select([
+            Joueur::ID,
+            Joueur::ALIAS,
+            Joueur::PASSWORD,
+            Joueur::PRENOM,
+            Joueur::NOM,
+            Joueur::AVATAR,
+            Joueur::SOLDE,
+            //Joueur::ECU_BY_ADMIN,
+            //Joueur::LEVEL_ALCHIMIST,
+            Joueur::IS_ADMIN
+            //Joueur::QUEST_ALCHIMIST,
+            //Joueur::QUEST_SUCCEED,
+            //Joueur::QUEST_FAILED,
+            //Joueur::POTION_MADE_COUNT,
+            //Joueur::ECU_OBTAINED,
+            //Joueur::ECU_SPENT
+        ], equals(Joueur::ALIAS, $alias));
+
+        if ($player == false)
+            return false;
+
+        $_SESSION[Joueur::SESSION_TAG] = serialize($player);
+        return true;
+    }
 }

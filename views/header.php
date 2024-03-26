@@ -17,8 +17,8 @@ $icon_connection_url = "loginForm.php";
 $icon_disconnect_url = "disconnect.php";
 
 // Display only when connected
-if (isset($_SESSION["connected"]) && $_SESSION["connected"] == true) {
-    $player = unserialize($_SESSION['joueur']);
+if (is_connected()) {
+    $player = Joueur::get_local_player();
 
     // Dropdown
     $dropdown = dropdown("", [

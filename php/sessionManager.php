@@ -54,10 +54,23 @@ function userAccess($timeout = defaultTimeout)
 function adminAccess($timeout = defaultTimeout)
 {
     if (isset($_SESSION['isAdmin'])) {
-        if ((bool)$_SESSION["isAdmin"])
+        if ((bool) $_SESSION["isAdmin"])
             set_Session_Timeout($timeout, 'loginForm.php');
         else
             redirect('forbidden.php');
     } else
         redirect('forbidden.php');
+}
+
+/**
+ * @author @WarperSan
+ * Date of creation    : 2024/03/26
+ * Date of modification: 2024/03/26
+ * @return bool Is the user connected 
+ */
+function is_connected(): bool
+{
+    $CONNECTION_STATUS = "connected";
+
+    return isset($_SESSION[$CONNECTION_STATUS]) && $_SESSION[$CONNECTION_STATUS] == true;
 }
