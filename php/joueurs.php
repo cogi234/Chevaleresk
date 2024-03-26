@@ -2,6 +2,7 @@
 require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 require_once "php/pdo_object.php";
+require_once "php/pdoUtilities.php";
 
 function updateJoueur(string $alias)
 {
