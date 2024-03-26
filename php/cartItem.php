@@ -6,7 +6,6 @@ require_once "php/items.php";
 
 class CartItem extends PDO_Object
 {
-
     public const TABLE = "vPanier";
 
     public const PLAYER = "idJoueur";
