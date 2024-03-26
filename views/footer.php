@@ -1,7 +1,6 @@
 <?php
-    $viewFooter = <<< HTML
+$viewFooter = <<<HTML
     <div class="footer"> 
         copyright 2020 
     </div>
     HTML;
-?>

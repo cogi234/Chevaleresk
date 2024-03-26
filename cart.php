@@ -8,6 +8,9 @@ require_once("php/joueurs.php");
 
 userAccess();
 
+require_once ("php/sessionManager.php");
+userAccess();
+
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
 $currentPlayerId = unserialize($_SESSION['joueur'])->Id;
