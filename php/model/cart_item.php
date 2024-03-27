@@ -13,8 +13,8 @@ class CartItem extends PDO_Object
 
     protected const TABLE = "vInventaire";
 
-    public const IDPLAYER = "idJoueur";
-    #[PDO_Object_Id(CartItem::IDPLAYER)]
+    public const ID_PLAYER = "idJoueur";
+    #[PDO_Object_Id(CartItem::ID_PLAYER)]
     public int $IdPlayer = -1;
 
     public const QUANTITY = "quantite";

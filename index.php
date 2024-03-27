@@ -32,7 +32,7 @@ foreach (Item::TYPES as $key => $value) {
 $filter_html = filter_render(<<<HTML
 <form 
     id="store-filter"
-    hx-get='php/store_items' 
+    hx-get='php/partial/store_items.php' 
     hx-target=".store-item-holder" 
     hx-swap="innerHTML" 
     hx-trigger="submit, load, change">

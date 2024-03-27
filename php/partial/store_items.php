@@ -2,14 +2,16 @@
 
 const ITEMS_PER_PAGE = 100; // 18;
 
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+
 // PDO
-require_once "php/model/item.php";
+require_path("php/model/item.php");
 
 // UTILITIES
-require_once "php/pdo/pdo_utilities.php";
+require_path("php/pdo/pdo_utilities.php");
 
 // HTML
-require_once "php/html/storeHTML.php";
+require_path("php/html/storeHTML.php");
 
 // Is Admin
 $is_admin = true;

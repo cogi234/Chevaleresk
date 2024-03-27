@@ -1,6 +1,7 @@
 <?php
 
-require_once "php/php_utilities.php";
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/php_utilities.php");
 
 $DB_CONNECTION = connect();
 
@@ -91,7 +92,7 @@ function selectAll(
 function callFP(string $action_name, string $procedure_name, array $arguments): bool|PDOStatement
 {
 
-    if (!isset ($DB_CONNECTION))
+    if (!isset($DB_CONNECTION))
         $DB_CONNECTION = connect();
 
     // We build the query "action name(?,?,?)"

@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/php_utilities.php";
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
 
 // Styles
 isset_default($styles_view);

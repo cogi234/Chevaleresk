@@ -1,6 +1,7 @@
 <?php
 
-require_once "php/pdo/pdo.php";
+require_once dirname(dirname(__FILE__)) . "/require_utilities.php";
+require_path("php/pdo/pdo.php");
 
 /**
  * Class that allows to fetch objects from the database more easily
@@ -49,7 +50,7 @@ abstract class PDO_Object
             $identifier = $attributes[0]->getArguments()[0];
 
             // If not set
-            if (!isset ($data[$identifier]))
+            if (!isset($data[$identifier]))
                 continue;
 
             // Set value
@@ -97,17 +98,17 @@ abstract class PDO_Object
         array $selectors,
         string $condition = "",
         string $other = ""
-    ): PDO_Object | bool {
+    ): PDO_Object|bool {
         $tableName = static::get_table_name();
 
         if ($tableName == false)
             return false;
 
         $item = select(join(", ", $selectors), $tableName, $condition, $other);
-        
+
         if ($item == false)
             return false;
-        
+
         return static::create_self($item);
     }
 
