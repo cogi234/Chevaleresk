@@ -24,3 +24,11 @@ function getContentOrDefault(string $path, mixed $defaultValue = ""): string
 {
     return file_exists($path) ? file_get_contents($path) : $defaultValue;
 }
+
+function sanitizeString($str) {
+    $str = trim($str) ;
+    $str = stripslashes($str);
+    $str = htmlentities($str);
+    $str = strip_tags($str);
+    return $str;
+}
