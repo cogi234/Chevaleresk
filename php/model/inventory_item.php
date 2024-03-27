@@ -14,13 +14,13 @@ class InventoryItem extends PDO_Object
 
     protected const TABLE = "vInventaire";
 
-    public const IDJOUEUR = "idJoueur";
-    #[PDO_Object_Id(InventoryItem::IDJOUEUR)]
-    public int $IdJoueur = -1;
+    public const IDPLAYER = "idJoueur";
+    #[PDO_Object_Id(InventoryItem::IDPLAYER)]
+    public int $IdPlayer = -1;
 
     public const QUANTITY = "quantite";
     #[PDO_Object_Id(InventoryItem::QUANTITY)]
-    public int $Quantite = -1;
+    public int $Quantity = -1;
 
     public Item $Item;
 }

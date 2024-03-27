@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
 
     if ($bool != 0) {
-        Joueur::refresh_local_player($connectionName);
+        Player::refreshLocalPlayer($connectionName);
         $_SESSION['connected'] = true;
 
         redirect('index.php');

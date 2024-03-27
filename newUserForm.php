@@ -123,9 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
     $inscription = $_POST['alias'];
 
-    $playerList = Joueur::selectAll(
-        [Joueur::ALIAS],
-        equals(Joueur::ALIAS, $inscription)
+    $playerList = Player::selectAll(
+        [Player::ALIAS],
+        equals(Player::ALIAS, $inscription)
     );
 
     foreach ($playerList as $player) {

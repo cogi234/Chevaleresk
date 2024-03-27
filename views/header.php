@@ -18,7 +18,7 @@ $icon_disconnect_url = "disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
-    $player = Joueur::get_local_player();
+    $player = Player::getLocalPlayer();
 
     // Dropdown
     $dropdown = dropdown("", [
@@ -27,7 +27,7 @@ if (is_connected()) {
     ], "fa-solid fa-angle-down header_dropdown");
 
     // Money amount
-    $money_amount = $player->solde;
+    $money_amount = $player->Balance;
     $money_section = <<<HTML
         <!-- MONEY -->
         <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
@@ -39,7 +39,7 @@ if (is_connected()) {
     $cart_amount = count(
         CartItem::selectAll(
             [CartItem::NAME],
-            equals(Joueur::ID, $player->Id)
+            equals(Player::ID, $player->Id)
         )
     );
     $cart_section = <<<HTML

@@ -12,14 +12,14 @@ $page_title = "Inventaire";
 $idJoueur = unserialize($_SESSION['joueur'])->Id;
 $items = InventoryItem::selectAll(
     [
-        InventoryItem::IDJOUEUR,
+        InventoryItem::IDPLAYER,
         Item::ID,
         Item::NAME,
         Item::IMAGE,
         Item::TYPE,
         InventoryItem::QUANTITY,
     ],
-    InventoryItem::IDJOUEUR . " = $idJoueur"
+    InventoryItem::IDPLAYER . " = $idJoueur"
 );
 
 // Items
