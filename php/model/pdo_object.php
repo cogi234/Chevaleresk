@@ -1,6 +1,6 @@
 <?php
 
-require_once "pdo.php";
+require_once "php/pdo/pdo.php";
 
 /**
  * Class that allows to fetch objects from the database more easily

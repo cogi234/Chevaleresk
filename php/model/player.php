@@ -1,10 +1,10 @@
 <?php
-require_once "php/sessionManager.php";
-require_once "php/phpUtilities.php";
+require_once "php/session_manager.php";
+require_once "php/php_utilities.php";
 
 // PDO
-require_once "php/pdo_object.php";
-require_once "php/pdoUtilities.php";
+require_once "php/model/pdo_object.php";
+require_once "php/pdo/pdo_utilities.php";
 
 class Player extends PDO_Object
 {

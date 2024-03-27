@@ -1,6 +1,5 @@
 <?php
-
-require_once "php/phpUtilities.php";
+require_once "php/php_utilities.php";
 
 // Styles
 isset_default($styles_view);
@@ -13,7 +12,7 @@ $styles_view .= '<link rel="stylesheet" href="css/store_styles.css">';
  * Date of modification: 2024/03/19
  */
 function inventory_item(
-    int $idJoueur,
+    int $idPlayer,
     int $idItem,
     string $name,
     int $quantity,

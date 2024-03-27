@@ -3,13 +3,13 @@
 const ITEMS_PER_PAGE = 100; // 18;
 
 // PDO
-require_once "items.php";
+require_once "php/model/item.php";
 
 // UTILITIES
-require_once "pdoUtilities.php";
+require_once "php/pdo/pdo_utilities.php";
 
 // HTML
-require_once "storeHTML.php";
+require_once "php/html/storeHTML.php";
 
 // Is Admin
 $is_admin = true;
@@ -61,9 +61,9 @@ for ($i = 0; $i < count($items); $i++) {
 
     // Parameters
     $item_id = $item->Id;
-    $item_name = $item->Nom;
-    $item_price = $item->Prix;
-    $item_quantity = $item->Quantite;
+    $item_name = $item->Name;
+    $item_price = $item->Price;
+    $item_quantity = $item->Quantity;
     $item_image = $item->getImage();
     $item_icon = $item->getIcon();
 

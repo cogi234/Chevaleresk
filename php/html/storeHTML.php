@@ -1,6 +1,6 @@
 <?php
 
-require_once "phpUtilities.php";
+require_once "php/php_utilities.php";
 
 // Styles
 isset_default($styles_view);
@@ -20,7 +20,7 @@ function store_item(
     string $image,
     string $icon
 ): string {
-    $url = "cartAdd?id=$id";
+    $url = "operations/cartAdd?id=$id";
 
     // Initialize variables
     isset_default($oos_html);
