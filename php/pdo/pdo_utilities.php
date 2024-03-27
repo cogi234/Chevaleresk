@@ -1,6 +1,6 @@
 <?php
 
-require_once "phpUtilities.php";
+require_once "php/php_utilities.php";
 
 /**
  * @author @WarperSan
