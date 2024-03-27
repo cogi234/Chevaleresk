@@ -1,16 +1,16 @@
 <?php
 
 // PDO
-require_once "php/pdo.php";
-require_once "php/items.php";
+require_once "php/pdo/pdo.php";
+require_once "php/model/item.php";
 
 // UTILITIES
-require_once "php/phpUtilities.php";
-require_once "php/pdoUtilities.php";
+require_once "php/php_utilities.php";
+require_once "php/pdo/pdo_utilities.php";
 
 // HTML
-require_once "php/storeHTML.php";
-require_once "php/filterHTML.php";
+require_once "php/html/storeHTML.php";
+require_once "php/html/filterHTML.php";
 
 // Title
 $page_title = "Magasin";

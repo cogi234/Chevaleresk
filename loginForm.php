@@ -1,7 +1,7 @@
 <?php
-require_once 'php/sessionManager.php';
-require_once 'php/pdo.php';
-require_once "php/joueurs.php";
+require_once 'php/session_manager.php';
+require_once 'php/pdo/pdo.php';
+require_once "php/model/player.php";
 
 anonymousAccess();
 

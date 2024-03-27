@@ -1,10 +1,10 @@
 <?php
-require_once("php/pdo.php");
+require_once("php/pdo/pdo.php");
 require_once("php/model/cart_item.php");
-require_once("php/cartHTML.php");
-require_once("php/phpUtilities.php");
-require_once("php/sessionManager.php");
-require_once("php/joueurs.php");
+require_once("php/html/cartHTML.php");
+require_once("php/php_utilities.php");
+require_once("php/session_manager.php");
+require_once("php/model/player.php");
 
 userAccess();
 
