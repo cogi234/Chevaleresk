@@ -1,12 +1,13 @@
 <?php
-require_once("php/cartItem.php");
-require_once("php/phpUtilities.php");
-require_once("php/joueurs.php");
-require_once ("php/sessionManager.php");
+require_once("php/model/cart_item.php");
+require_once("php/php_utilities.php");
+require_once("php/model/player.php");
+
+require_once ("php/session_manager.php");
 userAccess();
 
-$idJoueur = unserialize($_SESSION['joueur'])->Id;
+$idPlayer = Player::getLocalPlayer()->Id;
 
-callProcedure("acheterPanier", $idJoueur);
+callProcedure("acheterPanier", $idPlayer);
 
 redirect("inventory.php");
