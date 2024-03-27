@@ -8,6 +8,9 @@ require_once("php/model/player.php");
 require_once("php/session_manager.php");
 userAccess();
 
+// Title
+$page_title = "Panier";
+
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
 $player = Player::getLocalPlayer();

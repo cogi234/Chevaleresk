@@ -14,11 +14,11 @@ function cartItem(
     int $quantity,
     int $quantityStock,
     int $idItem,
-): string{
+): string {
     $content = "";
-        //check if the item is still in stock
-        if($quantityStock > 0){
-            $content .= <<<HTML
+    //check if the item is still in stock
+    if ($quantityStock > 0) {
+        $content .= <<<HTML
             <div class="cart-item">
                 <a href="#" class="cart-item-image"><img src="$image"/></a>
                     <div class="cart-item-info">
@@ -33,10 +33,10 @@ function cartItem(
                     <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
-            HTML;   
-        }else{
-            //if false show message
-            $content .= <<<HTML
+            HTML;
+    } else {
+        //if false show message
+        $content .= <<<HTML
                 <div class="cart-item-outofstock">
                 <div class="cart-item-image"><img src="$image"/></div>
                     <div class="cart-item-info">
@@ -52,8 +52,8 @@ function cartItem(
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
             HTML;
-        }
-        $content .= <<<HTML
+    }
+    $content .= <<<HTML
                 </div>
             </div>
         HTML;

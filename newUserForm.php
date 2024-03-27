@@ -1,14 +1,16 @@
 <?php
-require_once 'php/sessionManager.php';
-require_once 'php/pdo.php';
-$page_title = "Création de compte";
-require_once "php/joueurs.php";
-require_once "php/pdoUtilities.php";
+require_once 'php/pdo/pdo.php';
+require_once "php/model/player.php";
+require_once "php/pdo/pdo_utilities.php";
 
+require_once 'php/session_manager.php';
 anonymousAccess();
+
+// Title
+$page_title = "Inscription";
+
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -24,8 +26,6 @@ if (isset($_POST['alias'])) {
                         RequireMessage = 'Veuillez entrer votre Identifiant'
                         InvalidMessage = 'Identifiant invalide'
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
-    
-                
             </fieldset>
             <fieldset>
                 <legend>Mot de passe</legend>
@@ -62,12 +62,10 @@ if (isset($_POST['alias'])) {
         <div class="error-message">
             <span >Un joueur avec ce nom existe déjà</span>
         </div>
-
         HTML;
     }
 } else {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -112,12 +110,9 @@ if (isset($_POST['alias'])) {
                 Annuler
             </a>
         </div>
-        
     </div>
     HTML;
 }
-
-
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
@@ -129,12 +124,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     );
 
     foreach ($playerList as $player) {
-
         if (isset($_POST['alias']) && $_POST["alias"] == $player->alias && isset($_POST['Password'])) {
             $_SESSION['exists'] = true;
             $bool = true;
         }
-
     }
     if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
         callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
@@ -144,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 $viewScript = <<<HTML
     <script src='js/validation.js'></script>
-
     <script defer>
         initFormValidation();
         addConflictValidation('testConflict.php', 'Email', 'saveUser' );
