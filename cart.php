@@ -3,15 +3,16 @@ require_once("php/pdo/pdo.php");
 require_once("php/model/cart_item.php");
 require_once("php/html/cartHTML.php");
 require_once("php/php_utilities.php");
-require_once("php/session_manager.php");
 require_once("php/model/player.php");
 
+require_once("php/session_manager.php");
 userAccess();
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
-$currentPlayerId = Player::getLocalPlayer()->Id;
-$nbCoins = Player::getLocalPlayer()->Balance;
+$player = Player::getLocalPlayer();
+$currentPlayerId = $player->Id;
+$nbCoins = $player->Balance;
 $isEmpty = false;
 $hasEnoughCoins = true;
 $outOfStock = false;
@@ -41,7 +42,7 @@ if($items != null && count($items)>0){
     //if true show them
     foreach($items as $item){
         $cartItemList .= cartItem(
-            $item->Item->Image,
+            $item->Item->getImage(),
             $item->Item->Name,
             $item->Quantity,
             $item->Item->Quantity,
@@ -63,7 +64,7 @@ foreach($items as $item){
     $name = $item->Item->Name;
     $price = $item->Item->Price;
     $cartRecept .= <<<HTML
-    <p>$name : $price x $item->Quantity</p>
+    <p>$name : $item->Quantity x $price</p>
     HTML;
     $total += $price * $item->Quantity;
 }
