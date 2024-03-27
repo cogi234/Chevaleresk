@@ -16,7 +16,6 @@ function cartItem(
     int $idItem,
 ): string{
     $content = "";
-    $image = PATH_IMAGES . $image;
         //check if the item is still in stock
         if($quantityStock > 0){
             $content .= <<<HTML
