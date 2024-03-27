@@ -1,13 +1,12 @@
 <?php
-require_once 'php/session_manager.php';
 require_once 'php/pdo/pdo.php';
 require_once "php/model/player.php";
 
+require_once 'php/session_manager.php';
 anonymousAccess();
 
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -50,12 +49,10 @@ if (isset($_POST['alias'])) {
         <div class="error-message">
             <span >Erreur dans la connexion</span>
         </div>
-
         HTML;
     }
 } else {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -94,7 +91,6 @@ if (isset($_POST['alias'])) {
     HTML;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
     $connectionName = $_POST['alias'];
@@ -109,10 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         redirect('index.php');
     }
 
-
-
     $_SESSION['error'] = true;
-
-
 }
+
 require "views/master.php";
