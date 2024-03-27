@@ -1,8 +1,8 @@
 <?php
 
 require_once "php/phpUtilities.php";
-require_once "php/pdo_object.php";
-require_once "php/items.php";
+require_once "php/model/pdo_object.php";
+require_once "php/model/item.php";
 
 class InventoryItem extends PDO_Object
 {

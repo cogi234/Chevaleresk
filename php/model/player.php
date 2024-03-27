@@ -3,8 +3,8 @@ require_once "php/sessionManager.php";
 require_once "php/phpUtilities.php";
 
 // PDO
-require_once "php/pdo_object.php";
-require_once "php/pdoUtilities.php";
+require_once "php/model/pdo_object.php";
+require_once "php/pdo/pdoUtilities.php";
 
 class Player extends PDO_Object
 {
