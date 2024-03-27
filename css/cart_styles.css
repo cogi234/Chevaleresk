@@ -22,6 +22,7 @@
     height: 70%;
     border-radius: 5px;
     background-color: var(--light);
+    border: solid var(--dark) 3px;
 }
 .cart-submit-button{
     padding: 3%;
@@ -30,6 +31,7 @@
     width: 95%;
     border-radius: 15px;
     background-color: var(--main);
+    border: solid var(--dark) 3px;
 }
 .cart-submit-button :only-child{
     margin: auto;
@@ -43,6 +45,7 @@
     padding: 2%;
     border-radius: 10px;
     background-color: var(--main);
+    border: solid var(--dark) 3px;
 }
 .cart-item-image{
     max-height: 150px;
@@ -105,6 +108,7 @@
     height: 10%;
     width: 95%;
     border-radius: 15px;
+    border: solid var(--dark) 3px;
 }
 .cart-recept-text p{
     color: var(--dark);
