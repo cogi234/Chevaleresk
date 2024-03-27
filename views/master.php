@@ -11,12 +11,16 @@ isset_default($page_title);
 $page_name = DEFAULT_PAGE_NAME . " - " . $page_title;
 
 include_once "views/header.php";
+include_once "views/footer.php";
 
 // Header
 isset_default($header_content);
 
 // Body
 isset_default($body_content);
+
+// Footer
+isset_default($footer_content);
 
 // Bundles
 $styles_bundle = getContentOrDefault(BUNDLE_PATH_STYLES);

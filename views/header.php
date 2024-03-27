@@ -38,7 +38,7 @@ if (is_connected()) {
     // Cart amount
     $cart_amount = count(
         CartItem::selectAll(
-            [Item::NAME],
+            [CartItem::ID_PLAYER],
             equals(Player::ID, $player->Id)
         )
     );
