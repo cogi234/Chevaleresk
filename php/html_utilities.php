@@ -56,6 +56,6 @@ function dropdown_item(string $text, string $url = null): array
 const FaviconGoogleServiceURL = "http://www.google.com/s2/favicons?sz=64&domain=";
 function SiteFavicon($url)
 {
-    $faviconUrl = self::FaviconGoogleServiceURL . $url;
+    $faviconUrl = FaviconGoogleServiceURL . $url;
     return "<img class='favicon' src='$faviconUrl'>";
 }

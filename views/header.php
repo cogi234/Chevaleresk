@@ -1,11 +1,11 @@
 <?php
-require_once "php/htmlUtilities.php";
+require_once "php/html_utilities.php";
 
-require_once 'php/sessionManager.php';
+require_once 'php/session_manager.php';
 
 // PDO
-require_once "php/joueurs.php";
-require_once "php/cartItem.php";
+require_once "php/model/player.php";
+require_once "php/model/cart_item.php";
 
 // Links
 $icon_money_url = "";
@@ -38,7 +38,7 @@ if (is_connected()) {
     // Cart amount
     $cart_amount = count(
         CartItem::selectAll(
-            [CartItem::NAME],
+            [Item::NAME],
             equals(Player::ID, $player->Id)
         )
     );
