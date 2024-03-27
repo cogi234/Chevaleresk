@@ -3,6 +3,7 @@ require_once "php/php_utilities.php";
 require_once "php/html/inventoryHTML.php";
 require_once "php/model/inventory_item.php";
 require_once "php/model/player.php";
+require_once "php/pdo/pdo_utilities.php";
 
 require_once ("php/session_manager.php");
 userAccess();
@@ -13,14 +14,14 @@ $page_title = "Inventaire";
 $idPlayer = Player::getLocalPlayer()->Id;
 $items = InventoryItem::selectAll(
     [
-        InventoryItem::IDPLAYER,
+        InventoryItem::ID_PLAYER,
         Item::ID,
         Item::NAME,
         Item::IMAGE,
         Item::TYPE,
         InventoryItem::QUANTITY,
     ],
-    InventoryItem::IDPLAYER . " = $idPlayer"
+    equals(InventoryItem::ID_PLAYER, $idPlayer)
 );
 
 // Items
@@ -30,7 +31,7 @@ for ($i = 0; $i < count($items); $i++) {
     $item = $items[$i];
 
     // Parameters
-    $item_idJoueur = $item->$IdPlayer;
+    $item_idJoueur = $item->IdPlayer;
     $item_idItem = $item->Item->Id;
     $item_name = $item->Item->Name;
     $item_image = $item->Item->getImage();
