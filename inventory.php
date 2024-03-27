@@ -1,15 +1,15 @@
 <?php
-require_once "php/phpUtilities.php";
-require_once "php/inventoryHTML.php";
-require_once "php/inventory_items.php";
-require_once "php/joueurs.php";
+require_once "php/php_utilities.php";
+require_once "php/html/inventoryHTML.php";
+require_once "php/model/inventory_item.php";
+require_once "php/model/player.php";
 
-require_once ("php/sessionManager.php");
+require_once ("php/session_manager.php");
 userAccess();
 
 $page_title = "Inventaire";
 
-$idJoueur = unserialize($_SESSION['joueur'])->Id;
+$idPlayer = Player::getLocalPlayer()->Id;
 $items = InventoryItem::selectAll(
     [
         InventoryItem::IDPLAYER,
@@ -19,7 +19,7 @@ $items = InventoryItem::selectAll(
         Item::TYPE,
         InventoryItem::QUANTITY,
     ],
-    InventoryItem::IDPLAYER . " = $idJoueur"
+    InventoryItem::IDPLAYER . " = $idPlayer"
 );
 
 // Items
@@ -29,12 +29,12 @@ for ($i = 0; $i < count($items); $i++) {
     $item = $items[$i];
 
     // Parameters
-    $item_idJoueur = $item->IdJoueur;
+    $item_idJoueur = $item->$IdPlayer;
     $item_idItem = $item->Item->Id;
-    $item_name = $item->Item->Nom;
+    $item_name = $item->Item->Name;
     $item_image = $item->Item->getImage();
     $item_icon = $item->Item->getIcon();
-    $item_quantity = $item->Quantite;
+    $item_quantity = $item->Quantity;
 
     // Render
     $items_html .= inventory_item(
