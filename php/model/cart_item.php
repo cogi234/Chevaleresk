@@ -5,9 +5,8 @@ require_once "php/model/item.php";
 
 class CartItem extends PDO_Object
 {
-    public function __construct(array $data)
+    protected function on_create_self(array $data): void
     {
-        parent::__construct($data);
         $this->Item = new Item($data);
     }
 

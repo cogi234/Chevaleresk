@@ -16,7 +16,7 @@ abstract class PDO_Object
 
     #region Public
 
-    public function __construct(array $data)
+    public final function __construct(array $data)
     {
         $this->set_values($data);
     }
@@ -60,6 +60,16 @@ abstract class PDO_Object
             $name = $prop->getName();
             $this->$name = $value;
         }
+    }
+
+    /**
+     * Called when this item is initializes. Useful to initialize more complexe structures
+     * @author @WarperSan
+     * Date of creation    : 2024/03/27
+     * Date of modification: 2024/03/27
+     */
+    protected function on_create_self(array $data): void
+    {
     }
 
     #endregion
@@ -115,14 +125,17 @@ abstract class PDO_Object
     /**
      * @author @WarperSan
      * Date of creation    : 2024/03/18
-     * Date of modification: 2024/03/18
+     * Date of modification: 2024/03/27
      * @return object New instance of this object with the given data
      */
-    public static function create_self(array $data, string $class = null): object
+    public final static function create_self(array $data, string $class = null): object
     {
         $class ??= static::class;
 
-        return new $class($data);
+        $new_item = new $class($data);
+        $new_item->on_create_self($data);
+
+        return $new_item;
     }
 
     #endregion
