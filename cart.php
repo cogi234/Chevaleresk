@@ -13,10 +13,10 @@ $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 $player = Player::getLocalPlayer();
 $currentPlayerId = $player->Id;
 $nbCoins = $player->Balance;
-$isEmpty = false;
-$hasEnoughCoins = true;
-$outOfStock = false;
-
+isset_default($total, 0);
+isset_default($isEmpty, false);
+isset_default($hasEnoughCoins, true);
+isset_default($outOfStock, false);
 
 $items = CartItem::selectAll(
     [
@@ -31,13 +31,9 @@ $items = CartItem::selectAll(
     "idJoueur= $currentPlayerId"
 );
 
-$total = 0;
-
-$cartSubmitRemoveBtn = "";
-$cartItemList = "";
-$cartRecept = "";
 
 //Check if there's something in the cart
+isset_default($cartItemList);
 if($items != null && count($items)>0){
     //if true show them
     foreach($items as $item){
@@ -58,8 +54,10 @@ if($items != null && count($items)>0){
         <p class="cart-empty-msg">Aucun item dans le panier...</p>
     HTML;
 }
+
 //show recept preview
 //add the name and price of all the cart in the preview
+isset_default($cartRecept);
 foreach($items as $item){
     $name = $item->Item->Name;
     $price = $item->Item->Price;
@@ -74,6 +72,8 @@ foreach($items as $item){
 $cartRecept .= <<<HTML
     <p>Total: $total Écus</p>
 HTML;
+
+isset_default($cartSubmitRemoveBtn);
 $hasEnoughCoins = $nbCoins > $total;
 if($isEmpty || !$hasEnoughCoins || $outOfStock){
     $cartSubmitRemoveBtn .=<<<HTML
