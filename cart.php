@@ -1,17 +1,11 @@
 <?php
 require_once("php/pdo.php");
-require_once("php/cartItem.php");
+require_once("php/model/cart_item.php");
 require_once("php/cartHTML.php");
 require_once("php/phpUtilities.php");
 require_once("php/sessionManager.php");
 require_once("php/joueurs.php");
 
-userAccess();
-
-require_once ("php/sessionManager.php");
-userAccess();
-
-require_once ("php/sessionManager.php");
 userAccess();
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
@@ -25,13 +19,13 @@ $outOfStock = false;
 
 $items = CartItem::selectAll(
     [
-        CartItem::PLAYER,
-        CartItem::ITEM,
-        CartItem::NAME,
-        CartItem::PRICE,
+        CartItem::IDPLAYER,
+        Item::ID,
+        Item::NAME,
+        Item::PRICE,
         CartItem::QUANTITY,
-        CartItem::IMAGE,
-        CartItem::QUANTITY_STOCK
+        Item::IMAGE,
+        Item::QUANTITY
     ],
     "idJoueur= $currentPlayerId"
 );
