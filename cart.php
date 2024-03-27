@@ -10,8 +10,8 @@ userAccess();
 
 $styles_view = '<link rel="stylesheet" href="css/cart_styles">';
 
-$currentPlayerId = unserialize($_SESSION['joueur'])->Id;
-$nbCoins = unserialize($_SESSION['joueur'])->solde;
+$currentPlayerId = Player::getLocalPlayer()->Id;
+$nbCoins = Player::getLocalPlayer()->Balance;
 $isEmpty = false;
 $hasEnoughCoins = true;
 $outOfStock = false;
@@ -41,13 +41,13 @@ if($items != null && count($items)>0){
     //if true show them
     foreach($items as $item){
         $cartItemList .= cartItem(
-            $item->image,
-            $item->nom,
-            $item->Quantite,
-            $item->QuantiteStock,
-            $item->idItem
+            $item->Item->Image,
+            $item->Item->Name,
+            $item->Quantity,
+            $item->Item->Quantity,
+            $item->Item->Id
         );
-        if($item->QuantiteStock < 1)
+        if($item->Item->Quantity < 1)
             $outOfStock = true;
     }
     //if false show a message
@@ -60,10 +60,12 @@ if($items != null && count($items)>0){
 //show recept preview
 //add the name and price of all the cart in the preview
 foreach($items as $item){
+    $name = $item->Item->Name;
+    $price = $item->Item->Price;
     $cartRecept .= <<<HTML
-    <p>$item->nom : $item->prix x $item->Quantite</p>
+    <p>$name : $price x $item->Quantity</p>
     HTML;
-    $total += $item->prix * $item->Quantite;
+    $total += $price * $item->Quantity;
 }
 //show total cost
 //submit to buy everything in the cart
