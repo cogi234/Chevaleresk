@@ -6,7 +6,8 @@ require_once "php/pdo/pdo_utilities.php";
 require_once 'php/session_manager.php';
 anonymousAccess();
 
-$page_title = "Création de compte";
+// Title
+$page_title = "Inscription";
 
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML

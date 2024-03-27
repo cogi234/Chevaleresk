@@ -5,6 +5,9 @@ require_once "php/model/player.php";
 require_once 'php/session_manager.php';
 anonymousAccess();
 
+// Title
+$page_title = "Connexion";
+
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
     <div class="">

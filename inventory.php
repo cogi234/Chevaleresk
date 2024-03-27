@@ -7,6 +7,7 @@ require_once "php/model/player.php";
 require_once ("php/session_manager.php");
 userAccess();
 
+// Title
 $page_title = "Inventaire";
 
 $idPlayer = Player::getLocalPlayer()->Id;
