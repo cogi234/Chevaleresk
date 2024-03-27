@@ -1,0 +1,10 @@
+Regles de style:
+- Le code en anglais
+- Noms de scripts php: text_text
+- Noms de scripts de classe: nom de la classe
+- Noms de pages: camelCase
+- Noms de classes: PascalCase
+- Noms de methodes: camelCase
+- Noms de fonctions: text_text
+- Noms de constantes: MAJUSCULES_MAJUSCULES
+- Pages d'operations (ex: cartBuy.php) dans le dossier operations
