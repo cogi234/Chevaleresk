@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/phpUtilities.php";
+require_once "php/php_utilities.php";
 require_once "php/model/pdo_object.php";
 require_once "php/model/item.php";
 
