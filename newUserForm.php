@@ -4,7 +4,56 @@ require_once "php/model/player.php";
 require_once "php/pdo/pdo_utilities.php";
 
 require_once 'php/session_manager.php';
+
 anonymousAccess();
+
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bool = false;
+    $inscription = $_POST['alias'];
+    $_SESSION['exists'] = false;
+    $playerList = Player::selectAll(
+        [Player::ALIAS],
+        equals(Player::ALIAS, $inscription)
+    );
+
+    foreach ($playerList as $player) {
+        if (isset($_POST['alias']) && $_POST["alias"] == $player->Alias && isset($_POST['Password'])) {
+            $_SESSION['exists'] = true;
+            $bool = true;
+        }
+        
+        
+    }
+    if(isset($_POST['Password']) && isset($_POST['matchedPassword']) && $_POST['Password'] != $_POST['matchedPassword'])
+    {
+        $_SESSION['samePword'] = true;
+        $bool = true;
+    }
+    else
+    {
+        $_SESSION['samePword'] = false;
+    }
+    if(isset($_POST['Password']) && isset($_POST['matchedPassword']) && strlen($_POST['Password']) < 6)
+    {
+        $_SESSION['lengthPword'] = true;
+        $bool = true;
+    }
+    else
+    {
+        $_SESSION['lengthPword'] = false;
+    }
+    if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
+        callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
+        redirect('index.php');
+    }
+}
+
+
+
+
+
+
 
 // Title
 $page_title = "Inscription";
@@ -26,7 +75,16 @@ if (isset($_POST['alias'])) {
                         InvalidMessage = 'Identifiant invalide'
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
             </fieldset>
-            <fieldset>
+    HTML;
+    if (isset($_SESSION['exists']) &&$_SESSION['exists'] == true) {
+        $body_content .= <<<HTML
+        <div class="error-message">
+            <span >Un joueur avec ce nom existe déjà</span>
+        </div>
+        HTML;
+    }
+    $body_content .= <<<HTML
+    <fieldset>
                 
                 <input  type="password" 
                         class="form-control password" 
@@ -46,6 +104,24 @@ if (isset($_POST['alias'])) {
                         placeholder="Vérification" 
                         InvalidMessage="Ne correspond pas au mot de passe" />
     
+
+    HTML;
+
+    if (isset($_SESSION['samePword']) &&$_SESSION['samePword'] == true) {
+        $body_content .= <<<HTML
+        <div class="error-message">
+            <span >Les mots de passes ne sont pas pareil</span>
+        </div>
+        HTML;
+    }
+    if (isset($_SESSION['lengthPword']) &&$_SESSION['lengthPword'] == true) {
+        $body_content .= <<<HTML
+        <div class="error-message">
+            <span >Le mot de passe n'est pas assez long, <br> il doit être de 6 caractères ou plus</span>
+        </div>
+        HTML;
+    }
+    $body_content .= <<<HTML
                         <button type='submit' name='submit' id='saveUser' class="form-control btn-primary confirm-btn"><p>Enregistrer</p></button>
         </form>
         <div class="cancel">
@@ -58,13 +134,7 @@ if (isset($_POST['alias'])) {
         
     </div>
     HTML;
-    if ($_SESSION['exists'] == true) {
-        $body_content .= <<<HTML
-        <div class="error-message">
-            <span >Un joueur avec ce nom existe déjà</span>
-        </div>
-        HTML;
-    }
+    
 } else {
     $body_content = <<<HTML
     <div class="">
@@ -118,17 +188,37 @@ if (isset($_POST['alias'])) {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $bool = false;
     $inscription = $_POST['alias'];
-
+    $_SESSION['exists'] = false;
     $playerList = Player::selectAll(
         [Player::ALIAS],
         equals(Player::ALIAS, $inscription)
     );
 
     foreach ($playerList as $player) {
-        if (isset($_POST['alias']) && $_POST["alias"] == $player->alias && isset($_POST['Password'])) {
+        if (isset($_POST['alias']) && $_POST["alias"] == $player->Alias && isset($_POST['Password'])) {
             $_SESSION['exists'] = true;
             $bool = true;
         }
+        
+        
+    }
+    if(isset($_POST['Password']) && isset($_POST['matchedPassword']) && $_POST['Password'] != $_POST['matchedPassword'])
+    {
+        $_SESSION['samePword'] = true;
+        $bool = true;
+    }
+    else
+    {
+        $_SESSION['samePword'] = false;
+    }
+    if(isset($_POST['Password']) && isset($_POST['matchedPassword']) && strlen($_POST['Password']) < 6)
+    {
+        $_SESSION['lengthPword'] = true;
+        $bool = true;
+    }
+    else
+    {
+        $_SESSION['lengthPword'] = false;
     }
     if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
         callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
