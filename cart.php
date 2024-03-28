@@ -20,16 +20,7 @@ $styles_view .= '<link rel="stylesheet" href="css/cart_styles">';
 $player = Player::getLocalPlayer();
 $nbCoins = $player->Balance;
 
-$items = CartItem::selectAll(
-    [
-        CartItem::ID_PLAYER,
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        CartItem::QUANTITY,
-        Item::IMAGE,
-        Item::QUANTITY
-    ],
+$items = CartItem::selectAllComplete(
     equals(Player::ID, $player->Id)
 );
 

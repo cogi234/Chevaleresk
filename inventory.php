@@ -12,15 +12,7 @@ userAccess();
 $page_title = "Inventaire";
 
 $idPlayer = Player::getLocalPlayer()->Id;
-$items = InventoryItem::selectAll(
-    [
-        InventoryItem::ID_PLAYER,
-        Item::ID,
-        Item::NAME,
-        Item::IMAGE,
-        Item::TYPE,
-        InventoryItem::QUANTITY,
-    ],
+$items = InventoryItem::selectAllComplete(
     equals(InventoryItem::ID_PLAYER, $idPlayer)
 );
 
