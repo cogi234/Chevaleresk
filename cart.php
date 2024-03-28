@@ -76,6 +76,7 @@ foreach ($items as $item) {
 // Show total cost
 // Submit to buy everything in the cart
 // A button to remove all items from cart
+$cartSubmitState = "";
 if ($has_invalid_item || $nbCoins < $total) {
     $cartSubmitState = "disabled";
 }
