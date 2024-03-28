@@ -21,7 +21,7 @@ isset_default($_GET["page"], 0);
 $page_count = intval($_GET["page"]);
 
 // Out of stock
-isset_default($_GET["oos"], "on");
+isset_default($_GET["oos"], "off");
 $oos = $_GET["oos"] == "on";
 
 // Types
