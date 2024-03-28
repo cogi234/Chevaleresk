@@ -9,6 +9,27 @@ anonymousAccess();
 // Title
 $page_title = "Inscription";
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bool = false;
+    $inscription = $_POST['alias'];
+
+    $playerList = Player::selectAll(
+        [Player::ALIAS],
+        equals(Player::ALIAS, $inscription)
+    );
+
+    foreach ($playerList as $player) {
+        if (isset($_POST['alias']) && $_POST["alias"] == $player->alias && isset($_POST['Password'])) {
+            $_SESSION['exists'] = true;
+            $bool = true;
+        }
+    }
+    if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
+        callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
+        redirect('index.php');
+    }
+}
+
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
     <div class="">
@@ -112,27 +133,6 @@ if (isset($_POST['alias'])) {
         </div>
     </div>
     HTML;
-}
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $bool = false;
-    $inscription = $_POST['alias'];
-
-    $playerList = Player::selectAll(
-        [Player::ALIAS],
-        equals(Player::ALIAS, $inscription)
-    );
-
-    foreach ($playerList as $player) {
-        if (isset($_POST['alias']) && $_POST["alias"] == $player->alias && isset($_POST['Password'])) {
-            $_SESSION['exists'] = true;
-            $bool = true;
-        }
-    }
-    if ($bool == false && isset($_POST['Password']) && isset($_POST['alias']) && $_POST["alias"] != $player) {
-        callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
-        redirect('index.php');
-    }
 }
 
 $viewScript = <<<HTML

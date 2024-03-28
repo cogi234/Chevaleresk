@@ -100,24 +100,7 @@ class Player extends PDO_Object
      */
     public static function refreshLocalPlayer(string $alias): bool
     {
-        $player = Player::select([
-            Player::ID,
-            Player::ALIAS,
-            Player::PASSWORD,
-            Player::FIRST_NAME,
-            Player::LAST_NAME,
-            Player::AVATAR,
-            Player::BALANCE,
-            //Joueur::ECU_BY_ADMIN,
-            //Joueur::LEVEL_ALCHIMIST,
-            Player::IS_ADMIN
-            //Joueur::QUEST_ALCHIMIST,
-            //Joueur::QUEST_SUCCEED,
-            //Joueur::QUEST_FAILED,
-            //Joueur::POTION_MADE_COUNT,
-            //Joueur::ECU_OBTAINED,
-            //Joueur::ECU_SPENT
-        ], equals(Player::ALIAS, $alias));
+        $player = Player::selectComplete(equals(Player::ALIAS, $alias));
 
         if ($player == false)
             return false;

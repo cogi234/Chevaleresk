@@ -10,7 +10,7 @@ class CartItem extends PDO_Object
         $this->Item = new Item($data);
     }
 
-    protected const TABLE = "vInventaire";
+    protected const TABLE = "vPanier";
 
     public const ID_PLAYER = "idJoueur";
     #[PDO_Object_Id(CartItem::ID_PLAYER)]
