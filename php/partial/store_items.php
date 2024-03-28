@@ -42,15 +42,7 @@ $other = combine(
     limit(ITEMS_PER_PAGE, $page_count * ITEMS_PER_PAGE)
 );
 
-$items = Item::selectAll(
-    [
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        Item::QUANTITY,
-        Item::IMAGE,
-        Item::TYPE
-    ],
+$items = Item::selectAllComplete(
     $condition,
     $other
 );
