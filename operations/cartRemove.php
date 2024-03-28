@@ -1,9 +1,9 @@
 <?php
-require_once("php/model/cart_item.php");
-require_once("php/php_utilities.php");
-require_once("php/model/player.php");
+require_once ("../php/php_utilities.php");
+require_once ("../php/model/cart_item.php");
+require_once ("../php/model/player.php");
 
-require_once ("php/session_manager.php");
+require_once ("../php/session_manager.php");
 userAccess();
 
 $idPlayer = Player::getLocalPlayer()->Id;
@@ -13,4 +13,4 @@ isset_default($quantity, 1);
 
 callProcedure("enleverPanier", $idPlayer, $idItem, $quantity);
 
-redirect("cart.php");
+redirect("../cart.php");

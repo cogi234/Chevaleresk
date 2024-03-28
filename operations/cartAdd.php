@@ -13,4 +13,4 @@ isset_default($quantity, 1);
 
 callProcedure("ajouterPanier", $idPlayer, $idItem, $quantity);
 
-redirect("cart.php");
+redirect("../cart.php");
