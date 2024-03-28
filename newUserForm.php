@@ -100,11 +100,13 @@ if (isset($_POST['alias'])) {
                         placeholder="Vérification" 
                         InvalidMessage="Ne correspond pas au mot de passe" />
 
-            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary confirm-btn">
+            <button type='submit' name='submit' id='saveUser' class="form-control btn-primary confirm-btn"><p>Enregistrer</p></button>
         </form>
         <div class="cancel">
-            <a class="form-control btn-secondary cancel-btn" style="text-align:center" href="index.php">
-                Annuler
+            <a class="form-control btn-secondary cancel-btn" href="index.php">
+                <p>
+                    Annuler
+                </p>
             </a>
         </div>
     </div>

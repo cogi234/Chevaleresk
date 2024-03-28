@@ -28,7 +28,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    
+
 }
 
 .cancel-btn {
@@ -36,6 +36,12 @@
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    
+
+    text-decoration: none;
+
 }
 
+.cancel-btn>*,
+.confirm-btn>* {
+    margin: auto;
+}
