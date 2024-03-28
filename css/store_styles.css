@@ -1,6 +1,6 @@
 /* PARENT */
 #store-item-parent {
-    width: 80%;
+    width: 90%;
 
     margin: auto;
 }
@@ -190,9 +190,19 @@
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
+
+    text-align: center;
+    width: 100%;
+
 }
 
 .error-message {
     color: red;
     font-weight: bold;
+}
+
+@media (max-width:800px) {
+    #store-item-parent {
+        width: 100%;
+    }
 }

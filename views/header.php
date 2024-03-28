@@ -22,9 +22,10 @@ if (is_connected()) {
 
     // Dropdown
     $dropdown = dropdown("", [
+        dropdown_item("Magasin", "index.php"),
         dropdown_item("Enigma", "#"),
         dropdown_item("Panoramix", "#"),
-    ], "fa-solid fa-angle-down header_dropdown");
+    ], "fa-solid fa-bars header_dropdown");
 
     // Money amount
     $money_amount = $player->Balance;
@@ -37,8 +38,9 @@ if (is_connected()) {
 
     // Cart amount
     $cart_array = CartItem::selectAll(
-            [CartItem::QUANTITY],
-            equals(CartItem::ID_PLAYER, $player->Id));
+        [CartItem::QUANTITY],
+        equals(CartItem::ID_PLAYER, $player->Id)
+    );
     $cart_amount = 0;
     foreach ($cart_array as $cart_item) {
         $cart_amount += $cart_item->Quantity;

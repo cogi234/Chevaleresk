@@ -1,10 +1,12 @@
 <?php
-require_once "php/session_manager.php";
-require_once "php/php_utilities.php";
+
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/session_manager.php");
+require_path("php/php_utilities.php");
 
 // PDO
-require_once "php/model/pdo_object.php";
-require_once "php/pdo/pdo_utilities.php";
+require_path("php/model/pdo_object.php");
+require_path("php/pdo/pdo_utilities.php");
 
 class Player extends PDO_Object
 {

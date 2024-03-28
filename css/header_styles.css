@@ -55,11 +55,19 @@
 }
 
 /* TITLE */
-#header_title{
+#header_title {
     width: 100%;
+    height: fit-content;
+
+    margin: 0;
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
     text-align: center;
     color: var(--light);
-    padding-top: 10px;
+
 }
 
 /* OPTIONS */
@@ -127,4 +135,23 @@
     padding: 0.5em;
     background-color: var(--light);
     border-radius: 1em;
+}
+
+@media (max-width:700px) {
+
+    #header_logo {
+        display: none;
+    }
+
+    #header-section-left {
+        margin-left: 0;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
+@media (max-width:500px) {
+    #header-section-middle>* {
+        display: none;
+    }
 }
