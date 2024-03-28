@@ -24,10 +24,9 @@ function cartItem(
                     <div class="cart-item-info">
                         <p class="name-item">$name</p>
                         <div class="number-item">
-                            <p>x</p>
-                            <p class="cart-quantity">$quantity</p>
-                            <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                             <a href="operations/cartRemove?id=$idItem" class="fa fa-minus cart-quantity-modifier"></a>
+                            <p class="cart-quantity">x $quantity</p>
+                            <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
                     <div class="cart-item-remove-error">
@@ -42,10 +41,9 @@ function cartItem(
                     <div class="cart-item-info">
                         <p class="name-item">$name</p>
                         <div class="number-item">
-                            <p>x</p>
-                            <p class="cart-quantity">$quantity</p>
-                            <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                             <a href="operations/cartRemove?id=$idItem" class="fa fa-minus cart-quantity-modifier"></a>
+                            <p class="cart-quantity">x $quantity</p>
+                            <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
                     <div class="cart-item-remove-error">

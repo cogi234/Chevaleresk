@@ -90,13 +90,16 @@ $body_content = <<<HTML
     <div class="cart-recept-preview-container">
         <!-- RECEPT -->
         <div class="cart-recept-text">
-            $cartRecept
+            <div class="recept">
+                $cartRecept
+            </div>
 
             <p>Total: $total Écus</p>
         </div>
-
-        <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
-        <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+        <div class="cart-button">
+            <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
+            <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+        </div>
     </div>
 </form>
 HTML;
