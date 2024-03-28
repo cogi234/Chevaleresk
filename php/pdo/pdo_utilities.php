@@ -1,6 +1,7 @@
 <?php
 
-require_once "phpUtilities.php";
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/php_utilities.php");
 
 /**
  * @author @WarperSan
@@ -126,7 +127,7 @@ function orderByAll(...$conditions): string
         $condition = $conditions[$i];
 
         // If the column is not set, skip
-        if (!isset ($condition[0]))
+        if (!isset($condition[0]))
             continue;
 
         // Add separator

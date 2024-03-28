@@ -1,6 +1,6 @@
 <?php
 
-require_once "php/phpUtilities.php";
+require_once "php/php_utilities.php";
 include_once "php/guid.php";
 
 const DROPDOWN_TAG_URL = "url";
@@ -51,4 +51,11 @@ function dropdown_item(string $text, string $url = null): array
         DROPDOWN_TAG_URL => $url,
         DROPDOWN_TAG_TEXT => $text
     ];
+}
+
+const FaviconGoogleServiceURL = "http://www.google.com/s2/favicons?sz=64&domain=";
+function SiteFavicon($url)
+{
+    $faviconUrl = FaviconGoogleServiceURL . $url;
+    return "<img class='favicon' src='$faviconUrl'>";
 }

@@ -1,7 +1,8 @@
 <?php
 
-require_once "phpUtilities.php";
-require_once "pdo_object.php";
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/php_utilities.php");
+require_path("php/model/pdo_object.php");
 
 class Item extends PDO_Object
 {
@@ -33,7 +34,7 @@ class Item extends PDO_Object
 
     public const NAME = "nom";
     #[PDO_Object_Id(Item::NAME)]
-    public string $Nom = "";
+    public string $Name = "";
 
     public const DESCRIPTION = "description";
     #[PDO_Object_Id(Item::DESCRIPTION)]
@@ -41,11 +42,11 @@ class Item extends PDO_Object
 
     public const PRICE = "prix";
     #[PDO_Object_Id(Item::PRICE)]
-    public int $Prix = 0;
+    public int $Price = 0;
 
     public const QUANTITY = "quantiteStock";
     #[PDO_Object_Id(Item::QUANTITY)]
-    public int $Quantite = -1;
+    public int $Quantity = -1;
 
     public const TYPE = "type";
     #[PDO_Object_Id(Item::TYPE)]
@@ -53,7 +54,7 @@ class Item extends PDO_Object
 
     public const SELLABLE = "vendable";
     #[PDO_Object_Id(Item::SELLABLE)]
-    public bool $Vendable = false;
+    public bool $Sellable = false;
 
     public const IMAGE = "image";
     #[PDO_Object_Id(Item::IMAGE)]

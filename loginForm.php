@@ -1,13 +1,32 @@
 <?php
-require_once 'php/sessionManager.php';
-require_once 'php/pdo.php';
-require_once "php/joueurs.php";
+require_once 'php/pdo/pdo.php';
+require_once "php/model/player.php";
 
+require_once 'php/session_manager.php';
 anonymousAccess();
+
+// Title
+$page_title = "Connexion";
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bool = false;
+    $connectionName = $_POST['alias'];
+    $connectionPword = $_POST['Password'];
+
+    $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
+
+    if ($bool != 0) {
+        Player::refreshLocalPlayer($connectionName);
+        $_SESSION['connected'] = true;
+
+        redirect('index.php');
+    }
+
+    $_SESSION['error'] = true;
+}
 
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -50,12 +69,10 @@ if (isset($_POST['alias'])) {
         <div class="error-message">
             <span >Erreur dans la connexion</span>
         </div>
-
         HTML;
     }
 } else {
     $body_content = <<<HTML
-
     <div class="">
         <br>
         <form method='post' action=''>
@@ -95,24 +112,5 @@ if (isset($_POST['alias'])) {
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $bool = false;
-    $connectionName = $_POST['alias'];
-    $connectionPword = $_POST['Password'];
 
-    $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
-
-    if ($bool != 0) {
-        Joueur::refresh_local_player($connectionName);
-        $_SESSION['connected'] = true;
-
-        redirect('index.php');
-    }
-
-
-
-    $_SESSION['error'] = true;
-
-
-}
 require "views/master.php";

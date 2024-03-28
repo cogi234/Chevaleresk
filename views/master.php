@@ -4,19 +4,23 @@ const DEFAULT_PAGE_NAME = "Chevaleresk";
 const BUNDLE_PATH_STYLES = "bundles/stylesBundle.html";
 const BUNDLE_PATH_SCRIPTS = "bundles/scriptsBundle.html";
 
-require_once "php/phpUtilities.php";
+require_once "php/php_utilities.php";
 
 // Name of the page
 isset_default($page_title);
 $page_name = DEFAULT_PAGE_NAME . " - " . $page_title;
 
 include_once "views/header.php";
+include_once "views/footer.php";
 
 // Header
 isset_default($header_content);
 
 // Body
 isset_default($body_content);
+
+// Footer
+isset_default($footer_content);
 
 // Bundles
 $styles_bundle = getContentOrDefault(BUNDLE_PATH_STYLES);

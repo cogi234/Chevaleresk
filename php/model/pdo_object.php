@@ -1,6 +1,7 @@
 <?php
 
-require_once "pdo.php";
+require_once dirname(dirname(__FILE__)) . "/require_utilities.php";
+require_path("php/pdo/pdo.php");
 
 /**
  * Class that allows to fetch objects from the database more easily
@@ -15,7 +16,7 @@ abstract class PDO_Object
 
     #region Public
 
-    public function __construct(array $data)
+    public final function __construct(array $data)
     {
         $this->set_values($data);
     }
@@ -49,7 +50,7 @@ abstract class PDO_Object
             $identifier = $attributes[0]->getArguments()[0];
 
             // If not set
-            if (!isset ($data[$identifier]))
+            if (!isset($data[$identifier]))
                 continue;
 
             // Set value
@@ -59,6 +60,16 @@ abstract class PDO_Object
             $name = $prop->getName();
             $this->$name = $value;
         }
+    }
+
+    /**
+     * Called when this item is initializes. Useful to initialize more complexe structures
+     * @author @WarperSan
+     * Date of creation    : 2024/03/27
+     * Date of modification: 2024/03/27
+     */
+    protected function on_create_self(array $data): void
+    {
     }
 
     #endregion
@@ -97,31 +108,34 @@ abstract class PDO_Object
         array $selectors,
         string $condition = "",
         string $other = ""
-    ): PDO_Object | bool {
+    ): PDO_Object|bool {
         $tableName = static::get_table_name();
 
         if ($tableName == false)
             return false;
 
         $item = select(join(", ", $selectors), $tableName, $condition, $other);
-        
+
         if ($item == false)
             return false;
-        
+
         return static::create_self($item);
     }
 
     /**
      * @author @WarperSan
      * Date of creation    : 2024/03/18
-     * Date of modification: 2024/03/18
+     * Date of modification: 2024/03/27
      * @return object New instance of this object with the given data
      */
-    public static function create_self(array $data, string $class = null): object
+    public final static function create_self(array $data, string $class = null): object
     {
         $class ??= static::class;
 
-        return new $class($data);
+        $new_item = new $class($data);
+        $new_item->on_create_self($data);
+
+        return $new_item;
     }
 
     #endregion

@@ -1,16 +1,16 @@
 <?php
 
 // PDO
-require_once "php/pdo.php";
-require_once "php/items.php";
+require_once "php/pdo/pdo.php";
+require_once "php/model/item.php";
 
 // UTILITIES
-require_once "php/phpUtilities.php";
-require_once "php/pdoUtilities.php";
+require_once "php/php_utilities.php";
+require_once "php/pdo/pdo_utilities.php";
 
 // HTML
-require_once "php/storeHTML.php";
-require_once "php/filterHTML.php";
+require_once "php/html/storeHTML.php";
+require_once "php/html/filterHTML.php";
 
 // Title
 $page_title = "Magasin";
@@ -32,7 +32,7 @@ foreach (Item::TYPES as $key => $value) {
 $filter_html = filter_render(<<<HTML
 <form 
     id="store-filter"
-    hx-get='php/store_items' 
+    hx-get='php/partial/store_items.php' 
     hx-target=".store-item-holder" 
     hx-swap="innerHTML" 
     hx-trigger="submit, load, change">

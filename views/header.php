@@ -1,11 +1,11 @@
 <?php
-require_once "php/htmlUtilities.php";
+require_once "php/html_utilities.php";
 
-require_once 'php/sessionManager.php';
+require_once 'php/session_manager.php';
 
 // PDO
-require_once "php/joueurs.php";
-require_once "php/cartItem.php";
+require_once "php/model/player.php";
+require_once "php/model/cart_item.php";
 
 // Links
 $icon_money_url = "";
@@ -14,11 +14,11 @@ $icon_profile_url = "";
 $icon_inventory_url = "inventory.php";
 $icon_inscription_url = "newUserForm.php";
 $icon_connection_url = "loginForm.php";
-$icon_disconnect_url = "disconnect.php";
+$icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
-    $player = Joueur::get_local_player();
+    $player = Player::getLocalPlayer();
 
     // Dropdown
     $dropdown = dropdown("", [
@@ -27,7 +27,7 @@ if (is_connected()) {
     ], "fa-solid fa-angle-down header_dropdown");
 
     // Money amount
-    $money_amount = $player->solde;
+    $money_amount = $player->Balance;
     $money_section = <<<HTML
         <!-- MONEY -->
         <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
@@ -38,8 +38,8 @@ if (is_connected()) {
     // Cart amount
     $cart_amount = count(
         CartItem::selectAll(
-            [CartItem::NAME],
-            equals(Joueur::ID, $player->Id)
+            [CartItem::ID_PLAYER],
+            equals(Player::ID, $player->Id)
         )
     );
     $cart_section = <<<HTML
