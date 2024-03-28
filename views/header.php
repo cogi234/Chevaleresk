@@ -14,7 +14,7 @@ $icon_profile_url = "";
 $icon_inventory_url = "inventory.php";
 $icon_inscription_url = "newUserForm.php";
 $icon_connection_url = "loginForm.php";
-$icon_disconnect_url = "disconnect.php";
+$icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {

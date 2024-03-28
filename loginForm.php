@@ -8,6 +8,23 @@ anonymousAccess();
 // Title
 $page_title = "Connexion";
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bool = false;
+    $connectionName = $_POST['alias'];
+    $connectionPword = $_POST['Password'];
+
+    $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
+
+    if ($bool != 0) {
+        Player::refreshLocalPlayer($connectionName);
+        $_SESSION['connected'] = true;
+
+        redirect('index.php');
+    }
+
+    $_SESSION['error'] = true;
+}
+
 if (isset($_POST['alias'])) {
     $body_content = <<<HTML
     <div class="">
@@ -94,21 +111,6 @@ if (isset($_POST['alias'])) {
     HTML;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $bool = false;
-    $connectionName = $_POST['alias'];
-    $connectionPword = $_POST['Password'];
 
-    $bool = intval(callFunction('connect', $connectionName, $connectionPword)[0][0]);
-
-    if ($bool != 0) {
-        Player::refreshLocalPlayer($connectionName);
-        $_SESSION['connected'] = true;
-
-        redirect('index.php');
-    }
-
-    $_SESSION['error'] = true;
-}
 
 require "views/master.php";
