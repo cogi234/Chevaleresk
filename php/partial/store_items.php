@@ -38,7 +38,7 @@ if (!$is_admin)
     $condition = _and($condition, equals(Item::SELLABLE, 1));
 
 $other = combine(
-    orderByAll([Item::PRICE], [Item::NAME]),
+    orderByAll([Item::TYPE], [Item::PRICE], [Item::NAME]),
     limit(ITEMS_PER_PAGE, $page_count * ITEMS_PER_PAGE)
 );
 
