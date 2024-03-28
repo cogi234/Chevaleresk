@@ -32,10 +32,8 @@
     border-radius: 15px;
     background-color: var(--main);
     border: solid var(--dark) 3px;
-}
-.cart-submit-button :only-child{
-    margin: auto;
-    background-color: var(--main);
+    font-weight: bold;
+    color: var(--dark);
 }
 .cart-item{
     display: inline-flex;
@@ -102,13 +100,14 @@
 }
 .cart-remove-all-button{
     background-color: var(--light);
-    color: red;
+    color: darkred;
     padding: 3%;
     margin: 3%;
     height: 10%;
     width: 95%;
     border-radius: 15px;
     border: solid var(--dark) 3px;
+    font-weight: bold;
 }
 .cart-recept-text p{
     color: var(--dark);
