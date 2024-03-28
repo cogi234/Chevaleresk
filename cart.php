@@ -74,7 +74,7 @@ if ($has_invalid_item || $nbCoins < $total) {
 
 ///////
 $body_content = <<<HTML
-<form class="cart-main" action="cartBuy.php">
+<form class="cart-main" action="operations/cartBuy.php">
     <div class="cart-itemList-scroll-container">
         $cartItemList
     </div>
@@ -87,7 +87,7 @@ $body_content = <<<HTML
         </div>
 
         <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
-        <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+        <button type="button" class='cart-remove-all-button' onclick="location.href='operations/cartRemoveAll.php'">Tout retirer</button>
     </div>
 </form>
 HTML;

@@ -18,6 +18,7 @@ $icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
+    Player::refreshLocalPlayer(Player::getLocalPlayer()->Alias);
     $player = Player::getLocalPlayer();
 
     // Dropdown
