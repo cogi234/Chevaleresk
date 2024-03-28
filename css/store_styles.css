@@ -196,3 +196,9 @@
     color: red;
     font-weight: bold;
 }
+
+@media (max-width:800px) {
+    #store-item-parent {
+        width: 100%;
+    }
+}
