@@ -15,9 +15,8 @@ if (isset($_POST['alias'])) {
         <br>
         <form method='post' action=''>
         <fieldset>
-                <legend>Identifiant de connexion</legend>
                 <input  type="text" 
-                        class="form-control" 
+                        class="form-control identifier" 
                         name="alias" 
                         id="alias"
                         value= "{$_POST['alias']}"
@@ -28,9 +27,9 @@ if (isset($_POST['alias'])) {
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
             </fieldset>
             <fieldset>
-                <legend>Mot de passe</legend>
+                
                 <input  type="password" 
-                        class="form-control" 
+                        class="form-control password" 
                         name="Password" 
                         id="Password"
                         value= ""
@@ -39,7 +38,7 @@ if (isset($_POST['alias'])) {
                         RequireMessage = 'Veuillez entrer un mot de passe'
                         InvalidMessage = 'Mot de passe trop court'/>
     
-                <input  class="form-control MatchedInput" 
+                <input  class="form-control MatchedInput verification" 
                         type="password" 
                         matchedInputId="Password"
                         name="matchedPassword" 
@@ -47,10 +46,10 @@ if (isset($_POST['alias'])) {
                         placeholder="Vérification" 
                         InvalidMessage="Ne correspond pas au mot de passe" />
     
-            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary confirm-btn">
         </form>
         <div class="cancel">
-            <a class="form-control btn-secondary" style="text-align:center" href="index.php">
+            <a class="form-control btn-secondary cancel-btn" style="text-align:center" href="index.php">
                 Annuler
             </a>
         </div>
@@ -70,9 +69,8 @@ if (isset($_POST['alias'])) {
         <br>
         <form method='post' action=''>
         <fieldset>
-                <legend>Identifiant de connexion</legend>
                 <input  type="text" 
-                        class="form-control" 
+                        class="form-control identifier" 
                         name="alias" 
                         id="alias"
                         value= ""
@@ -85,9 +83,8 @@ if (isset($_POST['alias'])) {
                 
             </fieldset>
             <fieldset>
-                <legend>Mot de passe</legend>
                 <input  type="password" 
-                        class="form-control" 
+                        class="form-control password" 
                         name="Password" 
                         id="Password"
                         value= ""
@@ -95,7 +92,7 @@ if (isset($_POST['alias'])) {
                         RequireMessage = 'Veuillez entrer un mot de passe'
                         InvalidMessage = 'Mot de passe trop court'/>
 
-                <input  class="form-control MatchedInput" 
+                <input  class="form-control MatchedInput verification" 
                         type="password" 
                         matchedInputId="Password"
                         name="matchedPassword" 
@@ -103,10 +100,10 @@ if (isset($_POST['alias'])) {
                         placeholder="Vérification" 
                         InvalidMessage="Ne correspond pas au mot de passe" />
 
-            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary confirm-btn">
         </form>
         <div class="cancel">
-            <a class="form-control btn-secondary" style="text-align:center" href="index.php">
+            <a class="form-control btn-secondary cancel-btn" style="text-align:center" href="index.php">
                 Annuler
             </a>
         </div>
@@ -143,4 +140,7 @@ $viewScript = <<<HTML
     </script>
 HTML;
 
+
+isset_default($styles_view);
+$styles_view .= "<link rel='stylesheet' href='css/form_styles.css'>";
 require "views/master.php";
