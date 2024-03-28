@@ -12,15 +12,13 @@ userAccess();
 // Title
 $page_title = "Panier";
 
-$styles_view = '<link rel="stylesheet" href="css/cart_styles">';
+// Styles view
+isset_default($styles_view);
+$styles_view .= '<link rel="stylesheet" href="css/cart_styles">';
 
+// Get player data
 $player = Player::getLocalPlayer();
-$currentPlayerId = $player->Id;
 $nbCoins = $player->Balance;
-isset_default($total, 0);
-isset_default($isEmpty, false);
-isset_default($hasEnoughCoins, true);
-isset_default($outOfStock, false);
 
 $items = CartItem::selectAll(
     [
@@ -32,14 +30,16 @@ $items = CartItem::selectAll(
         Item::IMAGE,
         Item::QUANTITY
     ],
-    equals(Player::ID, $currentPlayerId)
+    equals(Player::ID, $player->Id)
 );
 
 
 //Check if there's something in the cart
 isset_default($cartItemList);
-if ($items != null && count($items) > 0) {
-    //if true show them
+$has_invalid_item = false;
+
+// If there are items
+if (count($items) > 0) {
     foreach ($items as $item) {
         $cartItemList .= cartItem(
             $item->Item->getImage(),
@@ -48,49 +48,37 @@ if ($items != null && count($items) > 0) {
             $item->Item->Quantity,
             $item->Item->Id
         );
+
         if ($item->Item->Quantity < 1)
-            $outOfStock = true;
+            $has_invalid_item = true;
     }
-    //if false show a message
 } else {
-    $isEmpty = true;
+    $has_invalid_item = true;
     $cartItemList .= <<<HTML
         <p class="cart-empty-msg">Aucun item dans le panier...</p>
     HTML;
 }
 
-//show recept preview
-//add the name and price of all the cart in the preview
-isset_default($cartRecept);
+// Show recept preview
+// Add the name and price of all the cart in the preview
+$cartRecept = "";
+$total = 0;
+
 foreach ($items as $item) {
     $name = $item->Item->Name;
     $price = $item->Item->Price;
     $cartRecept .= <<<HTML
-    <p>$name : $item->Quantity x $price</p>
+        <p>$name : $item->Quantity x $price</p>
     HTML;
     $total += $price * $item->Quantity;
 }
-//show total cost
-//submit to buy everything in the cart
-//A button to remove all items from cart
-$cartRecept .= <<<HTML
-    <p>Total: $total Écus</p>
-HTML;
 
-isset_default($cartSubmitRemoveBtn);
-$hasEnoughCoins = $nbCoins > $total;
-if ($isEmpty || !$hasEnoughCoins || $outOfStock) {
-    $cartSubmitRemoveBtn .= <<<HTML
-        <button disabled type="submit" class='cart-submit-button'>Acheter</button>
-    HTML;
-} else {
-    $cartSubmitRemoveBtn .= <<<HTML
-        <button type="submit" class='cart-submit-button'>Acheter</button>
-    HTML;
+// Show total cost
+// Submit to buy everything in the cart
+// A button to remove all items from cart
+if ($has_invalid_item || $nbCoins < $total) {
+    $cartSubmitState = "disabled";
 }
-$cartSubmitRemoveBtn .= <<<HTML
-    <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
-HTML;
 
 ///////
 $body_content = <<<HTML
@@ -99,10 +87,15 @@ $body_content = <<<HTML
         $cartItemList
     </div>
     <div class="cart-recept-preview-container">
+        <!-- RECEPT -->
         <div class="cart-recept-text">
             $cartRecept
+
+            <p>Total: $total Écus</p>
         </div>
-        $cartSubmitRemoveBtn
+
+        <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
+        <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
     </div>
 </form>
 HTML;
