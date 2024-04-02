@@ -50,7 +50,6 @@ function cartItem(
                             <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
-                    <p class="item-price">$totalPrice$</p>
                     <div class="cart-item-remove-error">
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
