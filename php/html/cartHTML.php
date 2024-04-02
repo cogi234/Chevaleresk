@@ -14,9 +14,11 @@ function cartItem(
     int $quantity,
     int $quantityStock,
     int $idItem,
+    int $price
 ): string {
     $content = "";
     //check if the item is still in stock
+    $totalPrice = $price * $quantity;
     if ($quantityStock > 0) {
         $content .= <<<HTML
             <div class="cart-item">
@@ -29,6 +31,7 @@ function cartItem(
                             <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
+                    <p class="item-price" hidden>$totalPrice</p>
                     <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
@@ -46,6 +49,7 @@ function cartItem(
                             <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
+                    <p class="item-price" hidden>$totalPrice</p>
                     <div class="cart-item-remove-error">
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
