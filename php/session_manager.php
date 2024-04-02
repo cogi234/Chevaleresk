@@ -4,29 +4,7 @@
 //
 date_default_timezone_set('US/Eastern');
 
-const defaultTimeout = 20 * 60;
 session_start();
-$_SESSION['timeout'] = defaultTimeout;
-function set_Session_Timeout($timeout, $returnPage)
-{
-    $_SESSION['timeout'] = $timeout;
-    if (isset($_SESSION['lastVisit'])) {
-        // seconds since last visit
-        $duration = time() - (int) $_SESSION['lastVisit'];
-        if ($duration > $timeout) {
-            delete_session();
-            session_start();
-            $_SESSION['timeoutOccured'] = true;
-            redirect($returnPage);
-        }
-    }
-    // renew last visit time
-    $_SESSION['lastVisit'] = time();
-}
-function session_Timeout_Occured()
-{
-    return isset($_SESSION['timeoutOccured']);
-}
 function delete_session()
 {
     session_destroy(); // effacer le fichier ../wamp64/tmp/sess_PHPSESSID
@@ -37,28 +15,14 @@ function redirect($url)
     header('location:' . $url);
     exit();
 }
-function anonymousAccess($timeout = defaultTimeout)
-{
-    if (isset($_SESSION["connected"]) || isset($_SESSION["validAdmin"])) {
-        set_Session_Timeout($timeout, 'loginForm.php');
-    }
-}
 function userAccess($timeout = defaultTimeout)
 {
-    if (!isset($_SESSION['connected'])) {
+    if (!is_connected())
         redirect('forbidden.php');
-    } else {
-        set_Session_Timeout($timeout, 'loginForm.php');
-    }
 }
 function adminAccess($timeout = defaultTimeout)
 {
-    if (isset($_SESSION['isAdmin'])) {
-        if ((bool) $_SESSION["isAdmin"])
-            set_Session_Timeout($timeout, 'loginForm.php');
-        else
-            redirect('forbidden.php');
-    } else
+    if (!is_connected() || !isset($_SESSION['isAdmin']) || !(bool)$_SESSION["isAdmin"])
         redirect('forbidden.php');
 }
 
