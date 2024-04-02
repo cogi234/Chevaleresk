@@ -14,7 +14,8 @@ function cartItem(
     int $quantity,
     int $quantityStock,
     int $idItem,
-    int $price
+    int $price,
+    string $type
 ): string {
     $content = "";
     //check if the item is still in stock
@@ -22,7 +23,7 @@ function cartItem(
     if ($quantityStock > 0) {
         $content .= <<<HTML
             <div class="cart-item">
-                <a href="#" class="cart-item-image"><img src="$image"/></a>
+                <a href="details.php?type=$type&id=$idItem" class="cart-item-image"><img src="$image"/></a>
                     <div class="cart-item-info">
                         <p class="name-item">$name</p>
                         <div class="number-item">
