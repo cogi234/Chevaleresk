@@ -142,6 +142,8 @@
 .item-price{
     color: var(--dark);
     font-weight: bold;
+    display: none;
+    visibility: hidden;
 }
 .cart-submit-button:disabled{
     opacity: 50%;
@@ -189,5 +191,6 @@
     }
     .item-price{
         visibility: visible;
+        display: block;
     }
 }
