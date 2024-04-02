@@ -32,7 +32,7 @@ function cartItem(
                             <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
-                    <p class="item-price" hidden>$totalPrice</p>
+                    <p class="item-price">$totalPrice$</p>
                     <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
@@ -40,8 +40,8 @@ function cartItem(
     } else {
         //if false show message
         $content .= <<<HTML
-                <div class="cart-item-outofstock">
-                <div class="cart-item-image"><img src="$image"/></div>
+            <div class="cart-item-outofstock">
+                <a href="details.php?type=$type&id=$idItem" class="cart-item-image"><img src="$image"/></a>
                     <div class="cart-item-info">
                         <p class="name-item">$name</p>
                         <div class="number-item">
@@ -50,7 +50,6 @@ function cartItem(
                             <a href="operations/cartAdd.php?id=$idItem" class="fa fa-plus cart-quantity-modifier"></a>
                         </div>
                     </div>
-                    <p class="item-price" hidden>$totalPrice</p>
                     <div class="cart-item-remove-error">
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
