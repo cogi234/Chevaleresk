@@ -31,3 +31,7 @@ CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Du
 
 -- Joueur
 CALL inscription("admin", "admin", TRUE);
+CALL inscription("colin", "123456", FALSE);
+CALL inscription("lorick", "123456", FALSE);
+CALL inscription("felix", "123456", FALSE);
+CALL inscription("samuel", "123456", FALSE);
