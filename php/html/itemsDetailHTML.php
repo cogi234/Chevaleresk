@@ -1,30 +1,55 @@
 <?php
 
+$image_url = "TEMP";
+$icon_url = "TEMP";
+
+$name = "TEMP";
+$description = "TEMP";
+$price = "TEMP";
+
+$type_html = "TEMP HTML";
+$stock_html = "TEMP HTML";
+$quantity_html = "TEMP HTML";
+$buy_html = "TEMP HTML";
+
 $details_content = <<<HTML
     <div>
+        <!-- IMAGE -->
         <div>
-            <!-- IMAGE -->
+            <img src="$image_url" >
         </div>
+
+        <!-- DETAILS -->
         <div>
+            <!-- TITLE -->
             <div>
-                <!-- NAME -->
+                <img src="$icon_url">
+                <p>$name</p>
             </div>
+
+            <!-- EVALUTION -->
+            <div></div>
+            
+            <!-- TYPE DETAILS -->
             <div>
-                <!-- EVALUTION -->
-            </div>
-            <div>
-                <!-- TYPE -->
+                $type_html
             </div>
         </div>
-    </div>
-    <div>
-        <!-- DESCRIPION -->
-    </div>
-    <div>
-        <!-- REVIEWS -->
     </div>
 
+    <!-- DESCRIPTION -->
     <div>
-        <!-- PANIER -->
+        $description
+    </div>
+
+    <!-- REVIEWS -->
+    <div></div>
+
+    <!-- PANIER -->
+    <div>
+        $price
+        $stock_html
+        $quantity_html
+        $buy_html
     </div>
 HTML;
