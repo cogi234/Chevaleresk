@@ -37,8 +37,9 @@ if (is_connected()) {
 
     // Cart amount
     $cart_array = CartItem::selectAll(
-            [CartItem::QUANTITY],
-            equals(CartItem::ID_PLAYER, $player->Id));
+        [CartItem::QUANTITY],
+        equals(CartItem::ID_PLAYER, $player->Id)
+    );
     $cart_amount = 0;
     foreach ($cart_array as $cart_item) {
         $cart_amount += $cart_item->Quantity;
