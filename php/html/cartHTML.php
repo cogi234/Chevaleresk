@@ -40,8 +40,8 @@ function cartItem(
     } else {
         //if false show message
         $content .= <<<HTML
-                <div class="cart-item-outofstock">
-                <div class="cart-item-image"><img src="$image"/></div>
+            <div class="cart-item-outofstock">
+                <a href="details.php?type=$type&id=$idItem" class="cart-item-image"><img src="$image"/></a>
                     <div class="cart-item-info">
                         <p class="name-item">$name</p>
                         <div class="number-item">
