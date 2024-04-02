@@ -139,7 +139,10 @@
     color: var(--dark);
     text-decoration: none;
 }
-
+.item-price{
+    color: var(--dark);
+    font-weight: bold;
+}
 
 @media (max-width: 700px){
     .cart-item{
@@ -180,5 +183,8 @@
     }
     .recept{
         display: none;
+    }
+    .item-price{
+        visibility: visible;
     }
 }
