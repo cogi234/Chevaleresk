@@ -143,6 +143,9 @@
     color: var(--dark);
     font-weight: bold;
 }
+.cart-submit-button:disabled{
+    opacity: 50%;
+}
 
 @media (max-width: 700px){
     .cart-item{
