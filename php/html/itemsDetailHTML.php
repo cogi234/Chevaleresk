@@ -9,14 +9,18 @@ require_once "php/model/ingredient.php";
 require_once "php/model/potion.php";
 require_once "php/model/ingredient.php";
 require_once "php/pdo/pdo_utilities.php";
+require_once "php/session_manager.php";
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
 
 $item_id = $_GET[TAG_ID];
+
 $item = Item::selectComplete(equals(Item::ID, $item_id));
 
+if ($item == false)
+    redirect("forbidden.php");
 
 $image_url = $item->getImage();
 $icon_url = $item->getIcon();
