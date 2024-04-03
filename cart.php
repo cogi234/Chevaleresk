@@ -90,7 +90,7 @@ $body_content = <<<HTML
         </div>
         <div class="cart-button">
             <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
-            <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+            <button type="button" class='cart-remove-all-button' onclick="location.href='operations/cartRemoveAll.php'">Tout retirer</button>
         </div>
     </div>
 </form>
