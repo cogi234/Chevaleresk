@@ -15,12 +15,12 @@ function redirect($url)
     header('location:' . $url);
     exit();
 }
-function userAccess($timeout = defaultTimeout)
+function userAccess()
 {
     if (!is_connected())
         redirect('forbidden.php');
 }
-function adminAccess($timeout = defaultTimeout)
+function adminAccess()
 {
     if (!is_connected() || !isset($_SESSION['isAdmin']) || !(bool)$_SESSION["isAdmin"])
         redirect('forbidden.php');

@@ -40,7 +40,6 @@ function cartItem(
                             hx-trigger="click"
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
-                        <p class="cart-quantity">$quantity</p>
                     </div>
                 </div>
                 <div class="cart-item-remove-error">
@@ -62,6 +61,11 @@ function cartItem(
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
                         <p class="cart-quantity">$quantity</p>
+                        <div class="fa fa-plus cart-quantity-modifier"
+                            hx-post="operations/cartAdd.php?id=$idItem&action=cart-item"
+                            hx-trigger="click"
+                            hx-target="#$elementId"
+                            hx-swap="outerHTML"></div>
                     </div>
                 </div>
                 <div class="cart-item-remove-error">
