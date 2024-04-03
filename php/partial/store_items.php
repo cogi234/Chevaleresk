@@ -15,7 +15,9 @@ require_path("php/pdo/pdo_utilities.php");
 require_path("php/html/storeHTML.php");
 
 // Is Admin
-$is_admin = Player::getLocalPlayer()->IsAdmin;
+$player = Player::getLocalPlayer();
+$is_admin = $player != false && $player->IsAdmin;
+
 
 // Page #
 isset_default($_GET["page"], 0);
@@ -29,7 +31,7 @@ $oos = $_GET["oos"] == "on";
 isset_default($_GET["types"], []);
 $sort_types = $_GET["types"];
 for ($i = count($sort_types) - 1; $i >= 0; $i--) {
-    if (!in_array($sort_types[$i], Item::TYPES)){
+    if (!in_array($sort_types[$i], Item::TYPES)) {
         array_splice($sort_types, $i, 1);
     }
 }
