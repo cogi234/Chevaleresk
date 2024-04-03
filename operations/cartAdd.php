@@ -4,6 +4,7 @@ require_once ("../php/model/cart_item.php");
 require_once ("../php/model/player.php");
 require_once ("../php/pdo/pdo_utilities.php");
 require_once ("../php/html/cartHTML.php");
+require_once ("../php/model/item.php");
 
 require_once ("../php/session_manager.php");
 userAccess();

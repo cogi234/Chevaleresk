@@ -42,6 +42,7 @@ function cartItem(
                     </div>
                 </div>
                 <div class="cart-item-remove-error">
+                    <p class="item-price">$price</p>
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>
                 </div>

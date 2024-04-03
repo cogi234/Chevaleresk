@@ -10,13 +10,21 @@ require_once "php/model/ingredient.php";
 require_once "php/model/potion.php";
 require_once "php/model/ingredient.php";
 require_once "php/pdo/pdo_utilities.php";
+require_once "php/session_manager.php";
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
 
+// Title
+$page_title = "Détails";
+
 $item_id = $_GET[TAG_ID];
+
 $item = Item::selectComplete(equals(Item::ID, $item_id));
+
+if ($item == false)
+    redirect("forbidden.php");
 
 $image_url = $item->getImage();
 $icon_url = $item->getIcon();
@@ -25,45 +33,11 @@ $name = $item->Name;
 $description = $item->Description;
 $price = $item->Price;
 $stock = $item->Quantity;
-$type = $item->Type;
 
-switch ($type) {
-    case Item::TYPES[0]:
-        $weapon = Weapon::selectComplete(equals(Weapon::ID, $item_id));
-        $efficacy = $weapon->Efficacy;
-        $weapon_type = $weapon->Type;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-    case Item::TYPES[1]:
-        $armor = Armor::selectComplete(equals(Weapon::ID, $item_id));
-        $material = $armor->Material;
-        $size = $armor->Size;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-    case Item::TYPES[2]:
-        $ingredient = Ingredient::selectComplete(equals(Weapon::ID, $item_id));
-        $ingredient_type = $ingredient->Type;
-        $rarity = $ingredient->Rarity;
-        $danger = $ingredient->Danger;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-    case Item::TYPES[3]:
-        $potion = Potion::selectComplete(equals(Weapon::ID, $item_id));
-        $potion_type = $potion->Type;
-        $effect = $potion->Effect;
-        $duration = $potion->Duration;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-}
-isset_default($type_html, "<div>Unhandled item type!</div>");
+// Types
+$type = $item->Type;
+$type_html = "";
+include_once "php/html/itemsDetailsTypeHTML.php";
 
 $price_html = <<<HTML
     <p class="details-cart-text">$price$</p>
@@ -142,7 +116,7 @@ $details_content = <<<HTML
                 </div>
 
                 <!-- EVALUTION -->
-                <div></div>
+                <!-- <div></div> -->
                 
                 <!-- TYPE DETAILS -->
                 <div>
@@ -157,7 +131,7 @@ $details_content = <<<HTML
         </div>
 
         <!-- REVIEWS -->
-        <div></div>
+        <!-- <div></div> -->
     </div>
 
     <!-- PANIER -->
