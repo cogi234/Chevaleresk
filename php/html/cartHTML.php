@@ -14,6 +14,8 @@ function cartItem(
     int $quantity,
     int $quantityStock,
     int $idItem,
+    int $price,
+    string $type
 ): string {
     isset_default($content);
     
@@ -38,8 +40,10 @@ function cartItem(
                                 hx-trigger="click"
                                 hx-target="#$elementId"
                                 hx-swap="outerHTML"></div>
+                            <p class="cart-quantity">$quantity</p>
                         </div>
                     </div>
+                    <p class="item-price">$totalPrice$</p>
                     <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartRemove.php?id=$idItem&quantity=$quantity"></a>

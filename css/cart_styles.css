@@ -2,7 +2,6 @@
     width: 100%;
     display: inline-flex;
     margin: 0;
-    padding: auto;
     background-color: var(--second);
 }
 .cart-recept-preview-container {
@@ -15,7 +14,7 @@
     width: 60%;
     height: 100%;
 }
-.cart-recept-preview-container>div{
+.cart-recept-preview-container>.cart-recept-text{
     padding: 3%;
     margin: 3%;
     width: 95%;
@@ -34,10 +33,6 @@
     border: solid var(--dark) 3px;
     font-weight: bold;
     color: var(--dark);
-}
-.cart-submit-button :only-child{
-    margin: auto;
-    background-color: var(--main);
 }
 .cart-item{
     display: inline-flex;
@@ -65,18 +60,14 @@
     border-radius: 10px;
 }
 .number-item{
-    padding-left: 10px;
     display: inline-flex;
     height: 20%;
-    text-align: center;
-    align-content: center;
+    margin: auto;
+    width: 100%;
 }
 .name-item{
     padding-left: 10px;
     height: 65%;
-}
-.number-item>p{
-    padding-right: 5px;
 }
 .cart-item-info{
     border-left: solid, 3px, var(--dark);
@@ -140,11 +131,66 @@
     height: 100%;
     border-radius: 2px;
     text-align: center;
-    margin: 5%;
-    padding: 5%;
+    margin: auto 10%;
+    width: 30%;
 }
 .cart-quantity-modifier{
-    margin: 10%;
+    margin: 3%;
     color: var(--dark);
     text-decoration: none;
+}
+.item-price{
+    color: var(--dark);
+    font-weight: bold;
+    display: none;
+    visibility: hidden;
+}
+.cart-submit-button:disabled{
+    opacity: 50%;
+}
+
+@media (max-width: 700px){
+    .cart-item{
+        margin: 1% auto;
+        width: 100%;
+    }
+    .cart-itemList-scroll-container{
+        width: 100%;
+        margin: auto;
+    }
+    .cart-main{
+        width: 100%;
+        display:block;
+        background-color: var(--second);
+    }
+    .cart-recept-preview-container {
+        height: 20%;
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        margin: auto;
+        padding: auto;
+        display: flex;
+    }
+    .cart-button{
+        display: block;
+        padding: auto;
+        width: 100%;
+        margin: auto;
+    }
+    .cart-recept-preview-container>.cart-recept-text{
+        padding: 3%;
+        width: 95%;
+        height: 70%;
+        border-radius: 5px;
+        background-color: var(--light);
+        border: solid var(--dark) 3px;
+    }
+    .recept{
+        display: none;
+    }
+    .item-price{
+        visibility: visible;
+        display: block;
+    }
 }
