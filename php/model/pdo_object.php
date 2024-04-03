@@ -78,10 +78,10 @@ abstract class PDO_Object
             $attributes = $prop->getAttributes(PDO_Object_Id::class);
             
             //We check if the property is a PDO_Object
-            $is_pdo_object = is_subclass_of($prop->class, get_called_class());
+            $is_pdo_object = is_subclass_of($prop->getType()->getName(), PDO_Object::class);
             //If so, we get its columns to add to ours
             if ($is_pdo_object){
-                $child_columns = $prop->class::get_columns();
+                $child_columns = $prop->getType()->getName()::get_columns();
                 $columns = array_merge($columns, $child_columns);
             }
 

@@ -20,16 +20,7 @@ $styles_view .= '<link rel="stylesheet" href="css/cart_styles">';
 $player = Player::getLocalPlayer();
 $nbCoins = $player->Balance;
 
-$items = CartItem::selectAll(
-    [
-        CartItem::ID_PLAYER,
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        CartItem::QUANTITY,
-        Item::IMAGE,
-        Item::QUANTITY
-    ],
+$items = CartItem::selectAllComplete(
     equals(Player::ID, $player->Id)
 );
 
@@ -46,7 +37,9 @@ if (count($items) > 0) {
             $item->Item->Name,
             $item->Quantity,
             $item->Item->Quantity,
-            $item->Item->Id
+            $item->Item->Id,
+            $item->Item->Price,
+            $item->Item->Type
         );
 
         if ($item->Item->Quantity < 1)
@@ -83,20 +76,23 @@ if ($has_invalid_item || $nbCoins < $total) {
 
 ///////
 $body_content = <<<HTML
-<form class="cart-main" action="cartBuy.php">
+<form class="cart-main" action="operations/cartBuy.php">
     <div class="cart-itemList-scroll-container">
         $cartItemList
     </div>
     <div class="cart-recept-preview-container">
         <!-- RECEPT -->
         <div class="cart-recept-text">
-            $cartRecept
+            <div class="recept">
+                $cartRecept
+            </div>
 
             <p>Total: $total Écus</p>
         </div>
-
-        <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
-        <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+        <div class="cart-button">
+            <button type="submit" class='cart-submit-button' $cartSubmitState>Acheter</button>
+            <button type="button" class='cart-remove-all-button' onclick="location.href='cartRemoveAll.php'">Tout retirer</button>
+        </div>
     </div>
 </form>
 HTML;

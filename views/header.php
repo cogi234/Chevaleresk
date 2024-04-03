@@ -18,13 +18,15 @@ $icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
+    Player::refreshLocalPlayer(Player::getLocalPlayer()->Alias);
     $player = Player::getLocalPlayer();
 
     // Dropdown
     $dropdown = dropdown("", [
+        dropdown_item("Magasin", "index.php"),
         dropdown_item("Enigma", "#"),
         dropdown_item("Panoramix", "#"),
-    ], "fa-solid fa-angle-down header_dropdown");
+    ], "fa-solid fa-bars header_dropdown");
 
     // Money amount
     $money_amount = $player->Balance;
@@ -36,12 +38,16 @@ if (is_connected()) {
     HTML;
 
     // Cart amount
-    $cart_amount = count(
-        CartItem::selectAll(
-            [CartItem::ID_PLAYER],
-            equals(Player::ID, $player->Id)
-        )
+    $cart_array = CartItem::selectAll(
+        [CartItem::QUANTITY],
+        equals(CartItem::ID_PLAYER, $player->Id)
     );
+    $cart_amount = 0;
+    foreach ($cart_array as $cart_item) {
+        $cart_amount += $cart_item->Quantity;
+    }
+
+
     $cart_section = <<<HTML
         <!-- CART -->
         <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">

@@ -6,6 +6,7 @@ require_once dirname(__FILE__, 2) . "/require_utilities.php";
 
 // PDO
 require_path("php/model/item.php");
+require_path("php/model/player.php");
 
 // UTILITIES
 require_path("php/pdo/pdo_utilities.php");
@@ -14,19 +15,26 @@ require_path("php/pdo/pdo_utilities.php");
 require_path("php/html/storeHTML.php");
 
 // Is Admin
-$is_admin = true;
+$player = Player::getLocalPlayer();
+$is_admin = $player != false && $player->IsAdmin;
+
 
 // Page #
 isset_default($_GET["page"], 0);
 $page_count = intval($_GET["page"]);
 
 // Out of stock
-isset_default($_GET["oos"], "on");
+isset_default($_GET["oos"], "off");
 $oos = $_GET["oos"] == "on";
 
 // Types
 isset_default($_GET["types"], []);
 $sort_types = $_GET["types"];
+for ($i = count($sort_types) - 1; $i >= 0; $i--) {
+    if (!in_array($sort_types[$i], Item::TYPES)) {
+        array_splice($sort_types, $i, 1);
+    }
+}
 
 // Select
 $condition = in(Item::TYPE, ...$sort_types);
@@ -38,19 +46,11 @@ if (!$is_admin)
     $condition = _and($condition, equals(Item::SELLABLE, 1));
 
 $other = combine(
-    orderByAll([Item::PRICE], [Item::NAME]),
+    orderByAll([Item::TYPE], [Item::PRICE], [Item::NAME]),
     limit(ITEMS_PER_PAGE, $page_count * ITEMS_PER_PAGE)
 );
 
-$items = Item::selectAll(
-    [
-        Item::ID,
-        Item::NAME,
-        Item::PRICE,
-        Item::QUANTITY,
-        Item::IMAGE,
-        Item::TYPE
-    ],
+$items = Item::selectAllComplete(
     $condition,
     $other
 );

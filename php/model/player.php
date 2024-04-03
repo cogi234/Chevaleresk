@@ -1,10 +1,12 @@
 <?php
-require_once "php/session_manager.php";
-require_once "php/php_utilities.php";
+
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/session_manager.php");
+require_path("php/php_utilities.php");
 
 // PDO
-require_once "php/model/pdo_object.php";
-require_once "php/pdo/pdo_utilities.php";
+require_path("php/model/pdo_object.php");
+require_path("php/pdo/pdo_utilities.php");
 
 class Player extends PDO_Object
 {
@@ -100,24 +102,7 @@ class Player extends PDO_Object
      */
     public static function refreshLocalPlayer(string $alias): bool
     {
-        $player = Player::select([
-            Player::ID,
-            Player::ALIAS,
-            Player::PASSWORD,
-            Player::FIRST_NAME,
-            Player::LAST_NAME,
-            Player::AVATAR,
-            Player::BALANCE,
-            //Joueur::ECU_BY_ADMIN,
-            //Joueur::LEVEL_ALCHIMIST,
-            Player::IS_ADMIN
-            //Joueur::QUEST_ALCHIMIST,
-            //Joueur::QUEST_SUCCEED,
-            //Joueur::QUEST_FAILED,
-            //Joueur::POTION_MADE_COUNT,
-            //Joueur::ECU_OBTAINED,
-            //Joueur::ECU_SPENT
-        ], equals(Player::ALIAS, $alias));
+        $player = Player::selectComplete(equals(Player::ALIAS, $alias));
 
         if ($player == false)
             return false;

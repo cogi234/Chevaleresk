@@ -3,7 +3,7 @@ require_once 'php/pdo/pdo.php';
 require_once "php/model/player.php";
 
 require_once 'php/session_manager.php';
-anonymousAccess();
+
 
 isset_default($styles_view);
 $styles_view .= "<link rel='stylesheet' href='css/form_styles.css'>";
