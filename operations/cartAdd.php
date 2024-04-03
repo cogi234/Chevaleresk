@@ -15,7 +15,8 @@ $quantity = $_GET['quantity'];
 
 callProcedure("ajouterPanier", $idPlayer, $idItem, $quantity);
 
-if(isset($_GET["partial"])){
+isset_default($_GET["action"]);
+if($_GET["action"] == "cart-item"){
     $count = select("COUNT(idItem) num", "vPanier", "idJoueur = $idPlayer AND idItem = $idItem")["num"];
     if ($count > 0){
         $item = CartItem::selectComplete(_and(equals(Player::ID, $idPlayer), equals(Item::ID, $idItem)));
