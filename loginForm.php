@@ -5,6 +5,9 @@ require_once "php/model/player.php";
 require_once 'php/session_manager.php';
 
 
+isset_default($styles_view);
+$styles_view .= "<link rel='stylesheet' href='css/form_styles.css'>";
+
 // Title
 $page_title = "Connexion";
 
@@ -31,9 +34,9 @@ if (isset($_POST['alias'])) {
         <br>
         <form method='post' action=''>
         <fieldset>
-                <legend>Identifiant de connexion</legend>
+                
                 <input  type="text" 
-                        class="form-control" 
+                        class="form-control identifier" 
                         name="alias" 
                         id="alias"
                         value= '{$_POST["alias"]}'
@@ -44,20 +47,22 @@ if (isset($_POST['alias'])) {
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
             </fieldset>
             <fieldset>
-                <legend>Mot de passe</legend>
+                
                 <input  type="password" 
-                        class="form-control" 
+                        class="form-control password" 
                         name="Password" 
                         id="Password"
                         value= ""
                         placeholder="Mot de passe" 
                         RequireMessage = 'Veuillez entrer un mot de passe'
                         />
-            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+                <button type='submit' name='submit' id='saveUser' class="form-control btn-primary confirm-btn"><p>Enregistrer</p></button>
         </form>
         <div class="cancel">
-            <a class="form-control btn-secondary" style="text-align:center" href="index.php">
-                Annuler
+            <a class="form-control btn-secondary cancel-btn" href="index.php">
+                <p>
+                    Annuler
+                </p>
             </a>
         </div>
         
@@ -77,9 +82,9 @@ if (isset($_POST['alias'])) {
         <br>
         <form method='post' action=''>
         <fieldset>
-                <legend>Identifiant de connexion</legend>
+                
                 <input  type="text" 
-                        class="form-control" 
+                        class="form-control identifier" 
                         name="alias" 
                         id="alias"
                         value= ""
@@ -90,20 +95,22 @@ if (isset($_POST['alias'])) {
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
             </fieldset>
             <fieldset>
-                <legend>Mot de passe</legend>
+                
                 <input  type="password" 
-                        class="form-control" 
+                        class="form-control password" 
                         name="Password" 
                         id="Password"
                         value= ""
                         placeholder="Mot de passe" 
                         RequireMessage = 'Veuillez entrer un mot de passe'
                         />
-            <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+                <button type='submit' name='submit' id='saveUser' class="form-control btn-primary confirm-btn"><p>Enregistrer</p></button>
         </form>
         <div class="cancel">
-            <a class="form-control btn-secondary" style="text-align:center" href="index.php">
-                Annuler
+            <a class="form-control btn-secondary cancel-btn" href="index.php">
+                <p>
+                    Annuler
+                </p>
             </a>
         </div>
         
