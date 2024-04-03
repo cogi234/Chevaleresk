@@ -18,13 +18,15 @@ $icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
+    Player::refreshLocalPlayer(Player::getLocalPlayer()->Alias);
     $player = Player::getLocalPlayer();
 
     // Dropdown
     $dropdown = dropdown("", [
+        dropdown_item("Magasin", "index.php"),
         dropdown_item("Enigma", "#"),
         dropdown_item("Panoramix", "#"),
-    ], "fa-solid fa-angle-down header_dropdown");
+    ], "fa-solid fa-bars header_dropdown");
 
     // Money amount
     $money_amount = $player->Balance;

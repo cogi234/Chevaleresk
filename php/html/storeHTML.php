@@ -30,7 +30,7 @@ function store_item(
     if ($quantity <= 0) {
         $oos_html = <<<HTML
             <div class="store-item-oos-background">
-                <p class="store-item-oss-label">OUT OF STOCK</p>
+                <p class="store-item-oss-label">HORS STOCK</p>
             </div>
         HTML;
     } else {
