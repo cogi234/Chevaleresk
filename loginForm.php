@@ -4,6 +4,7 @@ require_once "php/model/player.php";
 
 require_once 'php/session_manager.php';
 
+
 // Title
 $page_title = "Connexion";
 

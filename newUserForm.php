@@ -4,7 +4,7 @@ require_once "php/model/player.php";
 require_once "php/pdo/pdo_utilities.php";
 
 require_once 'php/session_manager.php';
-anonymousAccess();
+
 
 // Title
 $page_title = "Inscription";

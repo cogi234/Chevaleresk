@@ -91,6 +91,6 @@ function cartItem(
             </div>
             HTML;
     }
-
+  
     return $content;
 }

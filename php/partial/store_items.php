@@ -6,6 +6,7 @@ require_once dirname(__FILE__, 2) . "/require_utilities.php";
 
 // PDO
 require_path("php/model/item.php");
+require_path("php/model/player.php");
 
 // UTILITIES
 require_path("php/pdo/pdo_utilities.php");
@@ -14,7 +15,9 @@ require_path("php/pdo/pdo_utilities.php");
 require_path("php/html/storeHTML.php");
 
 // Is Admin
-$is_admin = true;
+$player = Player::getLocalPlayer();
+$is_admin = $player != false && $player->IsAdmin;
+
 
 // Page #
 isset_default($_GET["page"], 0);
@@ -27,6 +30,11 @@ $oos = $_GET["oos"] == "on";
 // Types
 isset_default($_GET["types"], []);
 $sort_types = $_GET["types"];
+for ($i = count($sort_types) - 1; $i >= 0; $i--) {
+    if (!in_array($sort_types[$i], Item::TYPES)) {
+        array_splice($sort_types, $i, 1);
+    }
+}
 
 // Select
 $condition = in(Item::TYPE, ...$sort_types);
