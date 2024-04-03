@@ -3,20 +3,28 @@
 require_once "php/model/player.php";
 require_once "php/model/item.php";
 require_once "php/model/inventory_item.php";
+require_once "php/model/cart_item.php";
 require_once "php/model/weapon.php";
 require_once "php/model/armor.php";
 require_once "php/model/ingredient.php";
 require_once "php/model/potion.php";
 require_once "php/model/ingredient.php";
 require_once "php/pdo/pdo_utilities.php";
+require_once "php/session_manager.php";
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
 
+// Title
+$page_title = "Détails";
+
 $item_id = $_GET[TAG_ID];
+
 $item = Item::selectComplete(equals(Item::ID, $item_id));
 
+if ($item == false)
+    redirect("forbidden.php");
 
 $image_url = $item->getImage();
 $icon_url = $item->getIcon();
@@ -25,58 +33,68 @@ $name = $item->Name;
 $description = $item->Description;
 $price = $item->Price;
 $stock = $item->Quantity;
-$type = $item->Type;
 
-switch ($type) {
-    case Item::TYPES[0]:
-        $weapon = Weapon::selectComplete(equals(Weapon::ID, $item_id));
-        $efficacy = $weapon->Efficacy;
-        $weapon_type = $weapon->Type;
-        $type_html = <<<HTML
-        <div>TEMP</div>
+// Types
+$type = $item->Type;
+$type_html = "";
+include_once "php/html/itemsDetailsTypeHTML.php";
+
+$price_html = <<<HTML
+    <p class="details-cart-text">$price$</p>
 HTML;
-        break;
-    case Item::TYPES[1]:
-        $armor = Armor::selectComplete(equals(Weapon::ID, $item_id));
-        $material = $armor->Material;
-        $size = $armor->Size;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-    case Item::TYPES[2]:
-        $ingredient = Ingredient::selectComplete(equals(Weapon::ID, $item_id));
-        $ingredient_type = $ingredient->Type;
-        $rarity = $ingredient->Rarity;
-        $danger = $ingredient->Danger;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-    case Item::TYPES[3]:
-        $potion = Potion::selectComplete(equals(Weapon::ID, $item_id));
-        $potion_type = $potion->Type;
-        $effect = $potion->Effect;
-        $duration = $potion->Duration;
-        $type_html = <<<HTML
-        <div>TEMP</div>
-HTML;
-        break;
-}
-isset_default($type_html, "<div>Unhandled item type!</div>");
 
 $stock_html = <<<HTML
-    <div>$stock</div>
+    <p class="details-cart-text">$stock en stock</p>
 HTML;
 
 if (is_connected()) {
     $player_id = Player::getLocalPlayer()->Id;
-    $quantity_to_buy_html = <<<HTML
-    <div>TEMP</div>
+    $cart_item = CartItem::selectComplete(_and(equals(CartItem::ID_PLAYER, $player_id), equals(Item::ID, $item_id)));
+    if ($cart_item != false) {
+        $count = $cart_item->Quantity;
+    }
+    isset_default($count, 0);
+
+    if ($count > 0) {
+        if ($cart_item->Quantity < $stock) {
+            $buy_html = <<<HTML
+            <div id="details-buy">
+                <div class="fa fa-minus cart-quantity-modifier"
+                    hx-post="operations/cartRemove.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+                <p class="details-cart-text">$count</p>
+                <div class="fa fa-plus cart-quantity-modifier"
+                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+            </div>
 HTML;
-    $buy_html = <<<HTML
-    <div>TEMP</div>
+        } else {
+            $buy_html = <<<HTML
+            <div id="details-buy">
+                <div class="fa fa-minus cart-quantity-modifier"
+                    hx-post="operations/cartRemove.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+                <p class="details-cart-text">$count</p>
+            </div>
 HTML;
+        }
+    } else {
+        $buy_html = <<<HTML
+            <div id="details-buy">
+                <button id="add-to-cart"
+                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML">Ajouter au panier</button>
+            </div>
+HTML;
+    }
 }
 isset_default($quantity_to_buy_html);
 isset_default($buy_html);
@@ -98,7 +116,7 @@ $details_content = <<<HTML
                 </div>
 
                 <!-- EVALUTION -->
-                <div></div>
+                <!-- <div></div> -->
                 
                 <!-- TYPE DETAILS -->
                 <div>
@@ -113,14 +131,13 @@ $details_content = <<<HTML
         </div>
 
         <!-- REVIEWS -->
-        <div></div>
+        <!-- <div></div> -->
     </div>
 
     <!-- PANIER -->
     <div id="details-cart">
-        $ $price
+        $price_html
         $stock_html
-        $quantity_to_buy_html
         $buy_html
     </div>
 HTML;
