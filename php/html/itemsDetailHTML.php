@@ -3,6 +3,7 @@
 require_once "php/model/player.php";
 require_once "php/model/item.php";
 require_once "php/model/inventory_item.php";
+require_once "php/model/weapon.php";
 require_once "php/model/armor.php";
 require_once "php/model/ingredient.php";
 require_once "php/model/potion.php";
