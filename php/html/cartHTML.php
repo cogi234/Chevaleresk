@@ -13,8 +13,7 @@ function cartItem(
     string $name,
     int $quantity,
     int $quantityStock,
-    int $idItem,
-    int $price
+    int $idItem
 ): string {
     isset_default($content);
 
@@ -40,7 +39,6 @@ function cartItem(
                             hx-trigger="click"
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
-                        <p class="cart-quantity">$quantity</p>
                     </div>
                 </div>
                 <div class="cart-item-remove-error">

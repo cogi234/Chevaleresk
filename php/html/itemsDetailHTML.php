@@ -3,6 +3,7 @@
 require_once "php/model/player.php";
 require_once "php/model/item.php";
 require_once "php/model/inventory_item.php";
+require_once "php/model/cart_item.php";
 require_once "php/model/weapon.php";
 require_once "php/model/armor.php";
 require_once "php/model/ingredient.php";
@@ -16,7 +17,6 @@ $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
 
 $item_id = $_GET[TAG_ID];
 $item = Item::selectComplete(equals(Item::ID, $item_id));
-
 
 $image_url = $item->getImage();
 $icon_url = $item->getIcon();
@@ -65,18 +65,62 @@ HTML;
 }
 isset_default($type_html, "<div>Unhandled item type!</div>");
 
+$price_html = <<<HTML
+    <p class="details-cart-text">$price$</p>
+HTML;
+
 $stock_html = <<<HTML
-    <div>$stock</div>
+    <p class="details-cart-text">$stock en stock</p>
 HTML;
 
 if (is_connected()) {
     $player_id = Player::getLocalPlayer()->Id;
-    $quantity_to_buy_html = <<<HTML
-    <div>TEMP</div>
+    $cart_item = CartItem::selectComplete(_and(equals(CartItem::ID_PLAYER, $player_id), equals(Item::ID, $item_id)));
+    if ($cart_item != false) {
+        $count = $cart_item->Quantity;
+    }
+    isset_default($count, 0);
+
+    if ($count > 0) {
+        if ($cart_item->Quantity < $stock) {
+            $buy_html = <<<HTML
+            <div id="details-buy">
+                <div class="fa fa-minus cart-quantity-modifier"
+                    hx-post="operations/cartRemove.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+                <p class="details-cart-text">$count</p>
+                <div class="fa fa-plus cart-quantity-modifier"
+                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+            </div>
 HTML;
-    $buy_html = <<<HTML
-    <div>TEMP</div>
+        } else {
+            $buy_html = <<<HTML
+            <div id="details-buy">
+                <div class="fa fa-minus cart-quantity-modifier"
+                    hx-post="operations/cartRemove.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML"></div>
+                <p class="details-cart-text">$count</p>
+            </div>
 HTML;
+        }
+    } else {
+        $buy_html = <<<HTML
+            <div id="details-buy">
+                <button id="add-to-cart"
+                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-trigger="click"
+                    hx-target="#details-buy"
+                    hx-swap="innerHTML">Ajouter au panier</button>
+            </div>
+HTML;
+    }
 }
 isset_default($quantity_to_buy_html);
 isset_default($buy_html);
@@ -118,9 +162,8 @@ $details_content = <<<HTML
 
     <!-- PANIER -->
     <div id="details-cart">
-        $ $price
+        $price_html
         $stock_html
-        $quantity_to_buy_html
         $buy_html
     </div>
 HTML;
