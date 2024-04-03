@@ -4,6 +4,7 @@ require_once ("../php/model/cart_item.php");
 require_once ("../php/model/player.php");
 require_once ("../php/pdo/pdo_utilities.php");
 require_once ("../php/html/cartHTML.php");
+require_once ("../php/model/item.php");
 
 require_once ("../php/session_manager.php");
 userAccess();
@@ -25,7 +26,8 @@ if($_GET["action"] == "cart-item"){
             $item->Item->Name,
             $item->Quantity,
             $item->Item->Quantity,
-            $item->Item->Id);
+            $item->Item->Id,
+            $item->Item->Price);
     }
 } else {
     redirect("../cart.php");

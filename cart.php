@@ -38,8 +38,7 @@ if (count($items) > 0) {
             $item->Quantity,
             $item->Item->Quantity,
             $item->Item->Id,
-            $item->Item->Price,
-            $item->Item->Type
+            $item->Item->Price
         );
 
         if ($item->Item->Quantity < 1)

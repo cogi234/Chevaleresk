@@ -24,7 +24,8 @@ if(isset($_GET["partial"])){
             $item->Item->Name,
             $item->Quantity,
             $item->Item->Quantity,
-            $item->Item->Id);
+            $item->Item->Id,
+            $item->Item->Price);
     }
 } else {
     redirect("../cart.php");
