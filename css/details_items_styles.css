@@ -107,7 +107,9 @@
     right: 1em;
     background-color: var(--main);
     padding: 1em;
+
     border-radius: 1em;
+    border: 0.1em solid var(--dark);
 }
 
 .details-cart-text {
@@ -116,17 +118,19 @@
     padding: 0.1em 0.5em;
 }
 
-#details-buy{
+#details-buy {
     display: inline-flex;
     margin: auto;
 }
-#add-to-cart{
+
+#add-to-cart {
     background-color: var(--light);
     border: solid gray 1px;
     border-radius: 0.5em;
     padding: 0.1em 0.5em;
 }
-.cart-quantity-modifier{
+
+.cart-quantity-modifier {
     margin: 0.2em;
     margin-bottom: 0em;
     color: var(--dark);
