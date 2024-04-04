@@ -56,9 +56,11 @@ if (is_connected()) {
         $inventory = $inventory_item->Quantity;
     }
     isset_default($inventory, 0);
-    $inventory_html = <<<HTML
+    if ($inventory > 0) {
+        $inventory_html = <<<HTML
         <p class="details-cart-text">$inventory en inventaire</p>
-    HTML;
+HTML;
+    }
 
     $cart_item = CartItem::selectComplete(_and(equals(CartItem::ID_PLAYER, $player_id), equals(Item::ID, $item_id)));
     if ($cart_item != false) {

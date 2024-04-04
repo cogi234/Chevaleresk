@@ -44,8 +44,8 @@ $filter_html = filter_render(<<<HTML
     $types_html
 
     <!-- SHOW OOS -->
-    <!-- <input type="checkbox" id="oos" name="oos" checked>
-    <label for="oos"> Montrer les items sans stock</label><br> -->
+    <input type="checkbox" id="oos" name="oos">
+    <label for="oos"> Montrer les items hors stock</label><br>
     <!-- <br>
     <input type="submit" value="Filtrer"> -->
 </form>
