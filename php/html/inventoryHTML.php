@@ -19,8 +19,7 @@ function inventory_item(
     string $image,
     string $icon
 ): string {
-
-    $url = "item.php?id=$idItem";
+    $url = "details?type=item&id=$idItem";
 
     return <<<HTML
         <a class="store-item" href="$url" title="Voir les détails de $name">

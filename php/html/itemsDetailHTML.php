@@ -47,8 +47,19 @@ $stock_html = <<<HTML
     <p class="details-cart-text">$stock en stock</p>
 HTML;
 
+
 if (is_connected()) {
     $player_id = Player::getLocalPlayer()->Id;
+
+    $inventory_item = InventoryItem::selectComplete(_and(equals(InventoryItem::ID_PLAYER, $player_id), equals(Item::ID, $item_id)));
+    if ($inventory_item != false) {
+        $inventory = $inventory_item->Quantity;
+    }
+    isset_default($inventory, 0);
+    $inventory_html = <<<HTML
+        <p class="details-cart-text">$inventory en inventaire</p>
+    HTML;
+
     $cart_item = CartItem::selectComplete(_and(equals(CartItem::ID_PLAYER, $player_id), equals(Item::ID, $item_id)));
     if ($cart_item != false) {
         $count = $cart_item->Quantity;
@@ -96,6 +107,7 @@ HTML;
 HTML;
     }
 }
+isset_default($inventory_html);
 isset_default($quantity_to_buy_html);
 isset_default($buy_html);
 
@@ -138,6 +150,7 @@ $details_content = <<<HTML
     <div id="details-cart">
         $price_html
         $stock_html
+        $inventory_html
         $buy_html
     </div>
 HTML;
