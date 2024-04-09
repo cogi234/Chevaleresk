@@ -22,9 +22,15 @@ $idPlayer = Player::getLocalPlayer()->Id;
 $idItem = $_GET['id'];
 isset_default($_GET['quantity'], 1);
 $quantity = intval($_GET['quantity']);
+$operation = $_GET['operation'];
 
-// Add to cart
-CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
+if ($operation == "remove") {
+    CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
+} else if ($operation == "add"){
+    CartItem::add_to_cart($idPlayer, $idItem, $quantity);
+} else if ($operation == "set"){
+    //TODO
+}
 
 const ACTIONS = [
     "cart-item" => 'onCartItem',

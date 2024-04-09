@@ -99,7 +99,7 @@ if (is_connected()) {
         if ($count < $stock) {
             $add_btn = <<<HTML
                 <div class="fa fa-plus cart-quantity-modifier"
-                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-post="operations/cartChange.php?operation=add&id=$item_id&action=details-counter"
                     hx-trigger="click"
                     hx-target="#details-buy"
                     hx-swap="innerHTML"></div>
@@ -109,7 +109,7 @@ if (is_connected()) {
         $buy_html = <<<HTML
             <div id="details-buy">
                 <div class="fa fa-minus cart-quantity-modifier"
-                    hx-post="operations/cartRemove.php?id=$item_id&action=details-counter"
+                    hx-post="operations/cartChange.php?operation=remove&id=$item_id&action=details-counter"
                     hx-trigger="click"
                     hx-target="#details-buy"
                     hx-swap="innerHTML"></div>
@@ -121,7 +121,7 @@ if (is_connected()) {
         $buy_html = <<<HTML
             <div id="details-buy">
                 <button id="add-to-cart"
-                    hx-post="operations/cartAdd.php?id=$item_id&action=details-counter"
+                    hx-post="operations/cartChange.php?operation=add&id=$item_id&action=details-counter"
                     hx-trigger="click"
                     hx-target="#details-buy"
                     hx-swap="innerHTML">Ajouter au panier</button>
