@@ -8,7 +8,6 @@ require_once "php/model/player.php";
 require_once "php/model/cart_item.php";
 
 // Links
-$icon_money_url = "";
 $icon_cart_url = "cart.php";
 $icon_profile_url = "";
 $icon_inventory_url = "inventory.php";
@@ -18,7 +17,7 @@ $icon_disconnect_url = "operations/disconnect.php";
 
 // Display only when connected
 if (is_connected()) {
-    Player::refreshLocalPlayer(Player::getLocalPlayer()->Alias);
+    Player::refreshLocalPlayer();
     $player = Player::getLocalPlayer();
 
     // Dropdown
@@ -32,9 +31,9 @@ if (is_connected()) {
     $money_amount = $player->Balance;
     $money_section = <<<HTML
         <!-- MONEY -->
-        <a id="header_money" class="header-icon fa-solid fa-money-bill" href="$icon_money_url">
+        <i id="header_money" class="header-icon fa-solid fa-money-bill" title="Vous avez $money_amount écus">
             <div><span>$money_amount</span></div>
-        </a>
+        </i>
     HTML;
 
     // Cart amount
@@ -42,25 +41,29 @@ if (is_connected()) {
         [CartItem::QUANTITY],
         equals(CartItem::ID_PLAYER, $player->Id)
     );
+
     $cart_amount = 0;
     foreach ($cart_array as $cart_item) {
         $cart_amount += $cart_item->Quantity;
     }
 
-
     $cart_section = <<<HTML
         <!-- CART -->
-        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier">
+        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier" title="Vous avez $cart_amount objets dans votre panier">
             <span>$cart_amount</span>
         </a>
     HTML;
 
     // Profile
+    $name = $player->get_fullname();
+
     $profile_section = <<<HTML
+        <!-- INVENTORY -->
+        <a id="header_inventory" class="header-icon fa-solid fa-briefcase" href="$icon_inventory_url" title="Votre inventaire"></a>
         <!-- PROFILE -->
-        <a id="header_profile" class="header-icon fa-solid fa-briefcase" href="$icon_inventory_url" title="Inventaire"></a>
-        <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Profile"></a>
-        <a id="header_profile" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Déconnexion"></a>
+        <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Le profil de $name"></a>
+        <!-- DISCONNECT -->
+        <a id="header_disconnect" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Se déconnecter"></a>
     HTML;
 
 }
@@ -70,8 +73,9 @@ isset_default($money_section);
 isset_default($cart_section);
 isset_default($dropdown);
 isset_default($profile_section, <<<HTML
-    <!-- PROFILE -->
+    <!-- INSCRIPTION -->
     <a id="header_profile" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
+    <!-- CONNECTION -->
     <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_connection_url" title="Connexion"></a>
 HTML);
 

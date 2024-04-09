@@ -81,6 +81,23 @@ class Player extends PDO_Object
 
     /**
      * @author @WarperSan
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     * @return string The fullname of this player
+     */
+    public function get_fullname(): string
+    {
+        $firstName = $this->FirstName;
+        $lastName = $this->LastName;
+
+        if (strlen($firstName) + strlen($lastName) == 0)
+            return $this->Alias;
+
+        return $firstName . " " . $lastName;
+    }
+
+    /**
+     * @author @WarperSan
      * Date of creation    : 2024/03/26
      * Date of modification: 2024/03/26
      * @return Player|bool The connected player or false if no player is connected
@@ -97,15 +114,29 @@ class Player extends PDO_Object
      * Updates the player stored in $_SESSION with the player with the given alias
      * @author @WarperSan, @lolo2178
      * Date of creation    : 2024/03/26
-     * Date of modification: 2024/03/26
+     * Date of modification: 2024/04/09
      * @return bool The refreshment was correctly happen
      */
-    public static function refreshLocalPlayer(string $alias): bool
+    public static function refreshLocalPlayer(string $alias = null): bool
     {
-        $player = Player::selectComplete(equals(Player::ALIAS, $alias));
+        // Default value
+        $player = false;
 
-        if ($player == false)
-            return false;
+        if ($alias == null) {
+
+            $player = Player::getLocalPlayer();
+
+            if ($player != false)
+                $alias = $player->Alias;
+        }
+
+        // If the local player wasn't set
+        if ($player == false) {
+            $player = Player::selectComplete(equals(Player::ALIAS, $alias));
+
+            if ($player == false)
+                return false;
+        }
 
         $_SESSION[Player::SESSION_TAG] = serialize($player);
         return true;

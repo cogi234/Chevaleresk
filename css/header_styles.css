@@ -100,7 +100,7 @@
     top: -0.5em;
     right: -0.25em;
 
-    color: black;
+    color: var(--dark);
     font-size: 0.3em;
 
     background-color: var(--main);
@@ -117,7 +117,7 @@
     position: absolute;
     bottom: -0.3em;
 
-    color: white;
+    color: var(--light);
     font-size: 0.5em;
 
     width: 100%;
@@ -133,10 +133,27 @@
 #header_profile {
     font-size: 1.5em;
     padding: 0.5em;
-    background-color: var(--light);
     border-radius: 1em;
+    background-color: var(--light);
 }
 
+/* ICON INVENTORY */
+#header_inventory {
+    font-size: 1.5em;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: var(--light);
+}
+
+/* ICON DISCONNECT */
+#header_disconnect {
+    font-size: 1.5em;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: var(--light);
+}
+
+/* MIN LAYOUT */
 @media (max-width:700px) {
 
     #header_logo {
@@ -150,6 +167,7 @@
     }
 }
 
+/* MAX LAYOUT */
 @media (max-width:500px) {
     #header-section-middle>* {
         display: none;

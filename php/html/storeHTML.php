@@ -53,7 +53,7 @@ function store_item(
                 </i>
                 <div class="store-item-labels">
                     <p class="store-item-name">$name</p>
-                    <p class="store-item-price">$ $price</p>
+                    <p class="store-item-price">$price écus</p>
                 </div>
             </div>
 
