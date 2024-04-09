@@ -1,11 +1,17 @@
 <?php
+// Utilities
 require_once "php/php_utilities.php";
-require_once "php/html/inventoryHTML.php";
-require_once "php/model/inventory_item.php";
-require_once "php/model/player.php";
 require_once "php/pdo/pdo_utilities.php";
 
-require_once ("php/session_manager.php");
+// PDO
+require_once "php/model/inventory_item.php";
+require_once "php/model/player.php";
+
+// HTML
+require_once "php/html/inventoryHTML.php";
+
+// Session
+require_once "php/session_manager.php";
 userAccess();
 
 // Title

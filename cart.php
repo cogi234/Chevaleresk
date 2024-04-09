@@ -1,12 +1,12 @@
 <?php
-require_once ("php/pdo/pdo.php");
-require_once ("php/model/cart_item.php");
-require_once ("php/html/cartHTML.php");
-require_once ("php/php_utilities.php");
-require_once ("php/model/player.php");
-require_once ("php/pdo/pdo_utilities.php");
+require_once "php/pdo/pdo.php";
+require_once "php/model/cart_item.php";
+require_once "php/html/cartHTML.php";
+require_once "php/php_utilities.php";
+require_once "php/model/player.php";
+require_once "php/pdo/pdo_utilities.php";
 
-require_once ("php/session_manager.php");
+require_once "php/session_manager.php";
 userAccess();
 
 // Title
@@ -24,7 +24,6 @@ $items = CartItem::selectAllComplete(
     equals(Player::ID, $player->Id)
 );
 
-
 //Check if there's something in the cart
 isset_default($cartItemList);
 $has_invalid_item = false;
@@ -37,8 +36,8 @@ if (count($items) > 0) {
             $item->Item->Name,
             $item->Quantity,
             $item->Item->Quantity,
-            $item->Item->Id,
-            $item->Item->Price
+            $item->Item->Id
+            // $item->Item->Price
         );
 
         if ($item->Item->Quantity < 1)
