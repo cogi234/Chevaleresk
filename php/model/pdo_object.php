@@ -76,11 +76,11 @@ abstract class PDO_Object
 
         foreach ($class->getProperties() as $key => $prop) {
             $attributes = $prop->getAttributes(PDO_Object_Id::class);
-            
+
             //We check if the property is a PDO_Object
             $is_pdo_object = is_subclass_of($prop->getType()->getName(), PDO_Object::class);
             //If so, we get its columns to add to ours
-            if ($is_pdo_object){
+            if ($is_pdo_object) {
                 $child_columns = $prop->getType()->getName()::get_columns();
                 $columns = array_merge($columns, $child_columns);
             }
@@ -153,6 +153,13 @@ abstract class PDO_Object
         return static::selectAll($selectors, $condition, $other);
     }
 
+    /**
+     * Fetches the first result of the given select request with the given parameters and all the columns
+     * @author Colin Bougie, @WarperSan
+     * Date of creation    : 2024/03/28
+     * Date of modification: 2024/04/09
+     * @return $this|bool Object found or false if an error occured
+     */
     public static function select(
         array $selectors,
         string $condition = "",
@@ -173,9 +180,10 @@ abstract class PDO_Object
 
     /**
      * Fetches every result of the given select request with the given parameters and all the columns
-     * @author Colin Bougie
+     * @author Colin Bougie, @WarperSan
      * Date of creation    : 2024/03/28
-     * Date of modification: 2024/03/28
+     * Date of modification: 2024/04/09
+     * @return $this|bool Object found or false if an error occured
      */
     public static function selectComplete(
         string $condition = "",
@@ -188,8 +196,8 @@ abstract class PDO_Object
     /**
      * @author @WarperSan
      * Date of creation    : 2024/03/18
-     * Date of modification: 2024/03/27
-     * @return object New instance of this object with the given data
+     * Date of modification: 2024/04/09
+     * @return $this New instance of this object with the given data
      */
     public final static function create_self(array $data, string $class = null): object
     {

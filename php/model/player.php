@@ -110,4 +110,30 @@ class Player extends PDO_Object
         $_SESSION[Player::SESSION_TAG] = serialize($player);
         return true;
     }
+
+    #region PDO Functions
+
+    /**
+     * Buys the cart of this player
+     * @author @WarperSan
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     */
+    public function buy_cart(): void
+    {
+        callProcedure("acheterPanier", $this->Id);
+    }
+
+    /**
+     * Empties the cart of this player
+     * @author @WarperSan
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     */
+    public function empty_cart(): void
+    {
+        callProcedure("viderPanier", $this->Id);
+    }
+
+    #endregion
 }
