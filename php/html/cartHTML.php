@@ -1,7 +1,5 @@
 <?php
 
-const PATH_IMAGES = "images/items/images/";
-
 /**
  * Creates the visual for an item in the cart
  * @author Akuma
@@ -91,6 +89,89 @@ function cartItem(
             </div>
             HTML;
     }
-  
+
     return $content;
+}
+
+/**
+ * @author @WarperSan, @FelixCrevierBechard
+ * Date of creation    : 2024/04/09
+ * Date of modification: 2024/04/09
+ */
+function onCartItem(int $idPlayer, int $idItem): string
+{
+    $count = select("COUNT(idItem) num", "vPanier", "idJoueur = $idPlayer AND idItem = $idItem")["num"];
+
+    if ($count <= 0)
+        return "";
+
+    $item = CartItem::selectComplete(
+        _and(
+            equals(Player::ID, $idPlayer),
+            equals(Item::ID, $idItem)
+        )
+    );
+
+    return cartItem(
+        $item->Item->getImage(),
+        $item->Item->Name,
+        $item->Quantity,
+        $item->Item->Quantity,
+        $item->Item->Id
+    );
+}
+
+/**
+ * @author @WarperSan, @FelixCrevierBechard
+ * Date of creation    : 2024/04/09
+ * Date of modification: 2024/04/09
+ */
+function onDetailsCounter(int $idPlayer, int $idItem): string
+{
+    $count = intval(select("COUNT(idItem) num", "vPanier", "idJoueur = $idPlayer AND idItem = $idItem")["num"]);
+
+    if ($count <= 0) {
+        return <<<HTML
+            <button id="add-to-cart"
+                hx-post="operations/cartAdd.php?id=$idItem&action=details-counter"
+                hx-trigger="click"
+                hx-target="#details-buy"
+                hx-swap="innerHTML">
+                Ajouter au panier
+            </button>
+        HTML;
+    }
+
+    $item = CartItem::selectComplete(
+        _and(
+            equals(Player::ID, $idPlayer),
+            equals(Item::ID, $idItem)
+        )
+    );
+
+    $cart_quantity = intval($item->Quantity);
+    $stock = intval($item->Item->Quantity);
+
+    // HTML
+    $plus_btn = "";
+
+    if ($cart_quantity < $stock) {
+        $plus_btn = <<<HTML
+            <div class="fa fa-plus cart-quantity-modifier"
+                hx-post="operations/cartAdd.php?id=$idItem&action=details-counter"
+                hx-trigger="click"
+                hx-target="#details-buy"
+                hx-swap="innerHTML"></div>
+        HTML;
+    }
+
+    return <<<HTML
+        <div class="fa fa-minus cart-quantity-modifier"
+            hx-post="operations/cartRemove.php?id=$idItem&action=details-counter"
+            hx-trigger="click"
+            hx-target="#details-buy"
+            hx-swap="innerHTML"></div>
+        <p class="details-cart-text">$cart_quantity</p>
+        $plus_btn
+    HTML;
 }
