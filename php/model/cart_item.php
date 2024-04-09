@@ -23,4 +23,40 @@ class CartItem extends PDO_Object
     public int $Quantity = -1;
 
     public Item $Item;
+
+    #region PDO Functions
+
+    /**
+     * Adds the given amount of the item in the player's cart
+     * @author @WarperSan
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     * @return bool Success of the operation
+     */
+    public static function add_to_cart(int $idPlayer, int $idItem, int $quantity): bool
+    {
+        // Skip if quantity invalid
+        if ($quantity <= 0)
+            return true;
+
+        return callProcedure("ajouterPanier", $idPlayer, $idItem, $quantity);
+    }
+
+    /**
+     * Removes the given amount of the item in the player's cart
+     * @author @WarperSan
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     * @return bool Success of the operation
+     */
+    public static function remove_from_cart(int $idPlayer, int $idItem, int $quantity): bool
+    {
+        // Skip if quantity invalid
+        if ($quantity <= 0)
+            return true;
+
+        return callProcedure("enleverPanier", $idPlayer, $idItem, $quantity);
+    }
+
+    #endregion
 }
