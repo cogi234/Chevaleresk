@@ -24,7 +24,7 @@ if (is_connected()) {
     // Dropdown
     $dropdown = dropdown("", [
         dropdown_item("Magasin", "index.php"),
-        dropdown_item("Enigma", "#"),
+        dropdown_item("Enigma", "enigma.php"),
         dropdown_item("Panoramix", "#"),
     ], "fa-solid fa-bars header_dropdown");
 
