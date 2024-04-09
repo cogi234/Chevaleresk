@@ -145,6 +145,28 @@ BEGIN
 END |
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS enleverInventaire;
+DELIMITER |
+CREATE PROCEDURE enleverInventaire(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant INT;
+    DECLARE pQuantiteOriginale INT;
+    START TRANSACTION;
+		SELECT COUNT(*) INTO pExistant FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+		SELECT quantite INTO pQuantiteOriginale FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+		IF (pExistant = 0) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie d'enlever quelque chose qui n'est pas dans l'inventaire!";
+        END IF;
+        
+        if (pQuantite >= pQuantiteOriginale) THEN
+			DELETE FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+        ELSE
+			UPDATE inventaire SET quantite = quantite - pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+        END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
 -- Panier
 DROP PROCEDURE IF EXISTS ajouterPanier;
 DELIMITER |
@@ -226,6 +248,78 @@ BEGIN
             CALL enleverPanier(pIdJoueur, pIdItem, pQuantite);
             SET i = i + 1;
         END WHILE;
+    COMMIT;
+END |
+DELIMITER ;
+
+-- Quetes
+
+-- Recettes
+DROP PROCEDURE IF EXISTS ajouterRecette;
+DELIMITER |
+CREATE PROCEDURE ajouterRecette(in pIdProduit INT, in pNiveauAlchimie INT)
+BEGIN
+    START TRANSACTION;
+		INSERT INTO recettes(idProduit, niveauAlchimie)
+			VALUES(pIdProduit, pNiveauAlchimie);
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ajouterIngredientRecette;
+DELIMITER |
+CREATE PROCEDURE ajouterIngredientRecette(in pIdRecette INT, in pIdIngredient INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant INT;
+    SELECT COUNT(*) INTO pExistant FROM ingredientRecette WHERE idRecette = pIdRecette AND idIngredient = pIdIngredient;
+    START TRANSACTION;
+		IF (pExistant > 0) THEN
+			UPDATE ingredientRecette SET quantite = pQuantite WHERE idRecette = pIdRecette AND idIngredient = pIdIngredient;
+        ELSE
+			INSERT INTO ingredientRecette(idRecette, idIngredient, quantite) VALUES(pIdRecette, pIdIngredient, pQuantite);
+        END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS concocterRecette;
+DELIMITER |
+CREATE PROCEDURE concocterRecette(in pIdRecette INT, in pIdJoueur INT, in pQuantite INT)
+BEGIN
+	DECLARE pExistant, pIngredientsManquants INT;
+    DECLARE pIdPotion INT;
+    DECLARE pIdIngredient, pQuantiteIngredient INT;
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    
+    DECLARE ingredientCursor CURSOR FOR SELECT idIngredient, quantite FROM ingredientRecette WHERE idRecette = pIdRecette;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    START TRANSACTION;
+		SELECT COUNT(*) INTO pExistant FROM recettes WHERE idRecette = pIdRecette;
+		SELECT COUNT(*) INTO pIngredientsManquants FROM ingredientRecette r INNER JOIN inventaire i ON i.idItem = r.idIngredient 
+			WHERE r.idRecette = pIdRecette AND i.idJoueur = pIdJoueur AND (r.quantite * pQuantite) > i.quantite;
+		
+        IF (pExistant = 0) THEN
+			ROLLBACK;
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "La recette n'existe pas!";
+		END IF;
+        IF (pIngredientsManquants > 0) THEN
+			ROLLBACK;
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On manque d'ingredients!";
+		END IF;
+        
+        ingredient_loop: LOOP
+			FETCH ingredientCursor INTO pIdIngredient, pQuantiteIngredient;
+            IF done THEN
+				LEAVE ingredient_loop;
+            END IF;
+            
+            SET pQuantiteIngredient = pQuantiteIngredient * pQuantite;
+			CALL enleverInventaire(pIdJoueur, pIdIngredient, pQuantiteIngredient);
+        END LOOP;
+        
+		SELECT idProduit INTO pIdPotion FROM recettes WHERE idRecette = pIdRecette;
+        CALL ajouterInventaire(pIdJoueur, pIdPotion, pQuantite);
     COMMIT;
 END |
 DELIMITER ;
