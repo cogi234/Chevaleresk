@@ -172,15 +172,24 @@ DROP PROCEDURE IF EXISTS ajouterPanier;
 DELIMITER |
 CREATE PROCEDURE ajouterPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
 BEGIN
-	DECLARE pExistant INT;
+	DECLARE pExistant, pNiveauAlchimie INT;
+    DECLARE pTypeItem TEXT;
+    
     SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
-    START TRANSACTION;
-		IF (pExistant > 0) THEN
-			UPDATE panier SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
-        ELSE
-			INSERT INTO panier(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
-        END IF;
-    COMMIT;
+    SELECT niveauAlchimie INTO pNiveauAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
+    SELECT type INTO pTypeItem FROM items WHERE idItem = pIdItem;
+    
+    IF (pTypeItem != 'ingredient' OR pNiveauAlchimie > 0) THEN
+		START TRANSACTION;
+			IF (pExistant > 0) THEN
+				UPDATE panier SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+			ELSE
+				INSERT INTO panier(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
+			END IF;
+		COMMIT;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Un joueur qui n'est pas alchimiste essaie d'acheter un ingredient!";
+    END IF;
 END |
 DELIMITER ;
 

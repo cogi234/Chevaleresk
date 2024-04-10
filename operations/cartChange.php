@@ -19,16 +19,25 @@ userAccess();
 
 // Get informations
 $idPlayer = Player::getLocalPlayer()->Id;
+$alchemyLevel = Player::getLocalPlayer()->AlchemyLevel;
 $idItem = $_GET['id'];
 isset_default($_GET['quantity'], 1);
 $quantity = intval($_GET['quantity']);
 $operation = $_GET['operation'];
+$itemType = Item::select([Item::TYPE], equals(Item::ID, $idItem))->Type;
+
 
 if ($operation == "remove") {
     CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
-} else if ($operation == "add"){
+} else if ($operation == "add") {
+    if ($itemType == "ingredient" && $alchemy_level == 0) {
+        exit();
+    }
     CartItem::add_to_cart($idPlayer, $idItem, $quantity);
-} else if ($operation == "set"){
+} else if ($operation == "set") {
+    if ($itemType == "ingredient" && $alchemyLevel == 0) {
+        exit();
+    }
     //TODO
 }
 

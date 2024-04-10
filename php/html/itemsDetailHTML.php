@@ -56,6 +56,7 @@ $buy_html = "";
 
 if (is_connected()) {
     $player_id = Player::getLocalPlayer()->Id;
+    $alchemy_level = Player::getLocalPlayer()->AlchemyLevel;
 
     // Fetch amount of this item in the inventory
     $inventory_item = InventoryItem::select(
@@ -127,6 +128,10 @@ if (is_connected()) {
                     hx-swap="innerHTML">Ajouter au panier</button>
             </div>
         HTML;
+    }
+
+    if ($type == "ingredient" && $alchemy_level == 0) {
+        $buy_html = "";
     }
 }
 
