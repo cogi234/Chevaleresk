@@ -15,6 +15,8 @@ $icon_inscription_url = "newUserForm.php";
 $icon_connection_url = "loginForm.php";
 $icon_disconnect_url = "operations/disconnect.php";
 
+isset_default($scripts_view);
+
 // Display only when connected
 if (is_connected()) {
     Player::refreshLocalPlayer();
@@ -54,25 +56,36 @@ if (is_connected()) {
         </a>
     HTML;
 
-    // Profile
-    $name = $player->get_fullname();
 
-    $profile_section = <<<HTML
+    // Inventory
+    $inventory_section = <<<HTML
         <!-- INVENTORY -->
         <a id="header_inventory" class="header-icon fa-solid fa-briefcase" href="$icon_inventory_url" title="Votre inventaire"></a>
-        <!-- PROFILE -->
-        <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_profile_url" title="Le profil de $name"></a>
-        <!-- DISCONNECT -->
-        <a id="header_disconnect" class="header-icon fa-solid fa-arrow-right-from-bracket" href="$icon_disconnect_url" title="Se déconnecter"></a>
     HTML;
 
+    // Profile
+    $avatar = $player->get_avatar();
+
+    $user_section = <<<HTML
+        <i id="header_profile" class="header-icon" style="background: url('$avatar');" title="C'est vous!"></i>
+    HTML;
+
+    $scripts_view .= <<<HTML
+        <script>
+            fetch("operations/getLocalInformations.php")
+                .then(r => r.ok ? r.json() : [])
+                .then(d => create_slider("user_slider", "main", d, $("#header_profile")));
+        </script>
+    HTML;
 }
 
 // Prevent crash
 isset_default($money_section);
 isset_default($cart_section);
+isset_default($inventory_section);
+
 isset_default($dropdown);
-isset_default($profile_section, <<<HTML
+isset_default($user_section, <<<HTML
     <!-- INSCRIPTION -->
     <a id="header_profile" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
     <!-- CONNECTION -->
@@ -103,6 +116,7 @@ $header_content = <<<HTML
      <div id="header-section-right" class="header-section">
         $money_section
         $cart_section
-        $profile_section
+        $inventory_section
+        $user_section
      </div>
 HTML;

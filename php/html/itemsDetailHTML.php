@@ -14,7 +14,7 @@ require_once "php/session_manager.php";
 
 // Scripts
 isset_default($scripts_view);
-$scripts_view .= "<script defer src='js/toggle_details_cart.js'></script>";
+$scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
 
 // Styles
 isset_default($styles_view);

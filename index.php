@@ -69,30 +69,6 @@ HTML;
 
 // View Scripts
 isset_default($scripts_view);
-$scripts_view .= <<<HTML
-    <script>
-        function filterSubmit(event) {
-            add_loader();
-        }
-
-        const form = document.getElementById("store-filter");
-        form.addEventListener("htmx:beforeSend", filterSubmit);
-
-        function add_loader() {
-            const parent = $(".store-item-holder")[0];
-
-            // Clear current items
-            parent.innerHTML = '';
-
-            // Add loader
-            const loader = document.createElement("div");
-            loader.classList.add("loader");
-
-            parent.append(loader);
-        }
-
-        add_loader();
-    </script>
-HTML;
+$scripts_view .= "<script src='js/local/store-filer.js' defer></script>";
 
 require "views/master.php";

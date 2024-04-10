@@ -131,10 +131,18 @@
 
 /* ICON PROFILE */
 #header_profile {
-    font-size: 1.5em;
-    padding: 0.5em;
+    width: 1.25em;
+    height: 1.25em;
+
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: var(--light) !important;
+
+    border: 0.1em solid var(--light);
     border-radius: 1em;
-    background-color: var(--light);
+
+    cursor: pointer;
 }
 
 /* ICON INVENTORY */
@@ -147,10 +155,13 @@
 
 /* ICON DISCONNECT */
 #header_disconnect {
-    font-size: 1.5em;
+    font-size: 0.75em;
     padding: 0.5em;
     border-radius: 1em;
     background-color: var(--light);
+    position: absolute;
+    bottom: 0.25em;
+    right: -0.25em;
 }
 
 /* MIN LAYOUT */
