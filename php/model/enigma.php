@@ -5,6 +5,11 @@ require_once "php/model/answer.php";
 
 class Enigma extends PDO_Object
 {
+    protected function on_create_self(array $data): void
+    {
+        $this->Answers = Answer::selectAllComplete(equals(Answer::IDENIGMA, $this->Id));
+    }
+
     #region PDO_Object
     protected const TABLE = "enigmes";
     #endregion
@@ -25,5 +30,7 @@ class Enigma extends PDO_Object
     public const ALCHEMY = "alchimie";
     #[PDO_Object_Id(Enigma::ALCHEMY)]
     public bool $Alchemy = false;
+
+    public array $Answers = [];
     #endregion
 }
