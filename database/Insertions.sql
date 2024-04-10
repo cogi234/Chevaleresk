@@ -36,6 +36,14 @@ CALL inscription("lorick", "123456", FALSE);
 CALL inscription("felix", "123456", FALSE);
 CALL inscription("samuel", "123456", FALSE);
 
+-- Enigmes
+CALL ajouterEnigme(<{in pTitre TEXT}>, <{in pQuestion TEXT}>, <{in pDifficulte INT}>, <{in pAlchimie BOOLEAN}>);
+CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
+CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
+CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
+CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
+
+
 -- Recettes
 CALL ajouterRecette(11, 1);
 CALL ajouterIngredientRecette(1, 19, 3);
