@@ -13,7 +13,7 @@ class Player extends PDO_Object
     protected const TABLE = "joueurs";
     private const SESSION_TAG = "player";
 
-    const PATH_PFP = "images/pfp/images/";
+    const PATH_PFP = "images/pfp/";
 
     public const ID = "idJoueur";
     #[PDO_Object_Id(Player::ID)]
@@ -94,6 +94,17 @@ class Player extends PDO_Object
             return $this->Alias;
 
         return $firstName . " " . $lastName;
+    }
+
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/04/10
+     * Date of modification: 2024/04/10
+     * @return string The avatar of this player
+     */
+    function get_avatar(): string
+    {
+        return Player::PATH_PFP . $this->Avatar;
     }
 
     /**
