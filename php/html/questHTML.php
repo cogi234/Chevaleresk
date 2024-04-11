@@ -52,7 +52,7 @@ HTML;
     $content = <<<HTML
     <h2 class="quest-title">$title</h2>
     <div class="quest-difficulty">$difficulty</div>
-    <div class="quest-question">$question</div>
+    <p class="quest-question">$question</p>
     <div class="quest-answers">
         $answerButtons
     </div>
