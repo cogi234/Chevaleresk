@@ -37,22 +37,64 @@ CALL inscription("felix", "123456", FALSE);
 CALL inscription("samuel", "123456", FALSE);
 
 -- Enigmes
-CALL ajouterEnigme(<{in pTitre TEXT}>, <{in pQuestion TEXT}>, <{in pDifficulte INT}>, <{in pAlchimie BOOLEAN}>);
-CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
-CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
-CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
-CALL ajouterReponse(1, <{in pTexte TEXT}>, <{in pCorrect BOOLEAN}>);
+-- Facile
+CALL ajouterEnigme("Mathématiques 1", "Quel est le résultat de 1 + 1?", 1, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "2", TRUE);
+CALL ajouterReponse(@lastIndex, "11", FALSE);
+CALL ajouterReponse(@lastIndex, "1", FALSE);
 
+-- Moyen
+CALL ajouterEnigme("Mathématiques 2", "Quel est le résultat de 1 + 2 X 3?", 2, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "7", TRUE);
+CALL ajouterReponse(@lastIndex, "9", FALSE);
+CALL ajouterReponse(@lastIndex, "6", FALSE);
+CALL ajouterReponse(@lastIndex, "50", FALSE);
+
+CALL ajouterEnigme("Élément périodique", "Quel est le numéro atomique de l'hélium?", 2, TRUE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "2", TRUE);
+CALL ajouterReponse(@lastIndex, "1", FALSE);
+CALL ajouterReponse(@lastIndex, "3", FALSE);
+CALL ajouterReponse(@lastIndex, "4", FALSE);
+CALL ajouterReponse(@lastIndex, "5", FALSE);
+CALL ajouterReponse(@lastIndex, "6", FALSE);
+CALL ajouterReponse(@lastIndex, "7", FALSE);
+CALL ajouterReponse(@lastIndex, "8", FALSE);
+CALL ajouterReponse(@lastIndex, "9", FALSE);
+CALL ajouterReponse(@lastIndex, "10", FALSE);
+CALL ajouterReponse(@lastIndex, "11", FALSE);
+CALL ajouterReponse(@lastIndex, "12", FALSE);
+CALL ajouterReponse(@lastIndex, "13", FALSE);
+CALL ajouterReponse(@lastIndex, "14", FALSE);
+CALL ajouterReponse(@lastIndex, "15", FALSE);
+CALL ajouterReponse(@lastIndex, "16", FALSE);
+CALL ajouterReponse(@lastIndex, "17", FALSE);
+CALL ajouterReponse(@lastIndex, "18", FALSE);
+CALL ajouterReponse(@lastIndex, "19", FALSE);
+CALL ajouterReponse(@lastIndex, "20", FALSE);
+
+-- Difficile
+CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "5050", TRUE);
+CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1100", FALSE);
+CALL ajouterReponse(@lastIndex, "2550", FALSE);
 
 -- Recettes
 CALL ajouterRecette(11, 1);
-CALL ajouterIngredientRecette(1, 19, 3);
-CALL ajouterIngredientRecette(1, 17, 10);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 19, 3);
+CALL ajouterIngredientRecette(@lastIndex, 17, 10);
 
 CALL ajouterRecette(13, 2);
-CALL ajouterIngredientRecette(2, 16, 3);
-CALL ajouterIngredientRecette(2, 18, 3);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 16, 3);
+CALL ajouterIngredientRecette(@lastIndex, 18, 3);
 
 CALL ajouterRecette(14, 3);
-CALL ajouterIngredientRecette(3, 20, 1);
-CALL ajouterIngredientRecette(3, 16, 1);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 20, 1);
+CALL ajouterIngredientRecette(@lastIndex, 16, 1);
