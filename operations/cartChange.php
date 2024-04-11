@@ -14,7 +14,6 @@ require_once "../php/pdo/pdo_utilities.php";
 
 // Session
 require_once "../php/session_manager.php";
-
 userAccess();
 
 // Get informations
