@@ -29,6 +29,10 @@ class Quest extends PDO_Object
     public const QUESTION = "question";
     #[PDO_Object_Id(Quest::QUESTION)]
     public string $Question = "";
+    
+    public const DIFFICULTY = "difficulte";
+    #[PDO_Object_Id(Quest::DIFFICULTY)]
+    public int $Difficulty = -1;
 
     public const ALCHEMY = "alchimie";
     #[PDO_Object_Id(Quest::ALCHEMY)]
