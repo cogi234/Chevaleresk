@@ -37,7 +37,16 @@ function query(
     if (strlen(trim($condition)) != 0)
         $condition = "WHERE " . $condition;
 
-    return connect()->query("SELECT $selectors FROM $table $condition $other");
+    $request = "SELECT $selectors FROM $table $condition $other";
+    $result = false;
+
+    try {
+        $result = connect()->query($request);
+    } catch (\Throwable $th) {
+        echo "Error caused with the following request: '$request'.";
+        throw $th;
+    }
+    return $result;
 }
 
 /**
