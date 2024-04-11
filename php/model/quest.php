@@ -1,7 +1,10 @@
 <?php
-require_once "php/php_utilities.php";
-require_once "php/model/pdo_object.php";
-require_once "php/model/answer.php";
+
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+require_path("php/php_utilities.php");
+require_path("php/pdo/pdo_utilities.php");
+require_path("php/model/pdo_object.php");
+require_path("php/model/answer.php");
 
 class Quest extends PDO_Object
 {
@@ -20,11 +23,11 @@ class Quest extends PDO_Object
     public int $Id = -1;
     
     public const TITLE = "titre";
-    #[PDO_Object_Id(Quest::MATERIAL)]
+    #[PDO_Object_Id(Quest::TITLE)]
     public string $Title = "";
     
     public const QUESTION = "question";
-    #[PDO_Object_Id(Quest::SIZE)]
+    #[PDO_Object_Id(Quest::QUESTION)]
     public string $Question = "";
 
     public const ALCHEMY = "alchimie";
