@@ -12,6 +12,10 @@ require_once "php/pdo/pdo_utilities.php";
 // Session
 require_once "php/session_manager.php";
 
+// Scripts
+isset_default($scripts_view);
+$scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
+
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
@@ -43,7 +47,7 @@ $type_html = "";
 include_once "php/html/itemsDetailsTypeHTML.php";
 
 $price_html = <<<HTML
-    <p class="details-cart-text">$price$</p>
+    <p class="details-cart-text">$price écus</p>
 HTML;
 
 $stock_html = <<<HTML
@@ -56,6 +60,7 @@ $buy_html = "";
 
 if (is_connected()) {
     $player_id = Player::getLocalPlayer()->Id;
+    $alchemy_level = Player::getLocalPlayer()->AlchemyLevel;
 
     // Fetch amount of this item in the inventory
     $inventory_item = InventoryItem::select(
@@ -128,6 +133,10 @@ if (is_connected()) {
             </div>
         HTML;
     }
+
+    if ($type == "ingredient" && $alchemy_level == 0) {
+        $buy_html = "";
+    }
 }
 
 $details_content = <<<HTML
@@ -167,6 +176,7 @@ $details_content = <<<HTML
 
     <!-- PANIER -->
     <div id="details-cart">
+        <i id="details-cart-collapse" class="fa-solid fa-minus"></i>
         $price_html
         $stock_html
         $inventory_html

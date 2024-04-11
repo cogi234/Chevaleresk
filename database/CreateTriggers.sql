@@ -61,7 +61,7 @@ BEGIN
     DECLARE prixPotion INT;
     SELECT prix INTO prixPotion FROM (items i INNER JOIN recettes r ON i.idItem = r.idProduit) WHERE r.idRecette = new.idRecette;
     SELECT SUM(prix * quantite) INTO prixIngredients FROM (ingredientRecette r INNER JOIN items i ON r.idIngredient = i.idItem)  WHERE r.idRecette = new.idRecette;
-    SELECT prix * quantite INTO prixIngredient FROM (new n INNER JOIN items i ON n.idIngredient = i.idItem);
+    SELECT prix * NEW.quantite INTO prixIngredient FROM items WHERE NEW.idIngredient = idItem;
     IF (prixPotion <= (prixIngredients + prixIngredient)) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix du résultat de la recette est plus bas que celui de ses ingrédients";
     END IF;
@@ -78,7 +78,7 @@ BEGIN
     DECLARE prixPotion INT;
     SELECT prix INTO prixPotion FROM (items i INNER JOIN recettes r ON i.idItem = r.idProduit) WHERE r.idRecette = new.idRecette;
     SELECT SUM(prix * quantite) INTO prixIngredients FROM (ingredientRecette r INNER JOIN items i ON r.idIngredient = i.idItem)  WHERE r.idRecette = new.idRecette AND r.idIngredient != new.idIngredient;
-    SELECT prix * quantite INTO prixIngredient FROM (new n INNER JOIN items i ON n.idIngredient = i.idItem);
+    SELECT prix * NEW.quantite INTO prixIngredient FROM items WHERE NEW.idIngredient = idItem;
     IF (prixPotion <= (prixIngredients + prixIngredient)) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le prix du résultat de la recette est plus bas que celui de ses ingrédients";
     END IF;
