@@ -172,15 +172,24 @@ DROP PROCEDURE IF EXISTS ajouterPanier;
 DELIMITER |
 CREATE PROCEDURE ajouterPanier(in pIdJoueur INT, in pIdItem INT, in pQuantite INT)
 BEGIN
-	DECLARE pExistant INT;
+	DECLARE pExistant, pNiveauAlchimie INT;
+    DECLARE pTypeItem TEXT;
+    
     SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
-    START TRANSACTION;
-		IF (pExistant > 0) THEN
-			UPDATE panier SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
-        ELSE
-			INSERT INTO panier(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
-        END IF;
-    COMMIT;
+    SELECT niveauAlchimie INTO pNiveauAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
+    SELECT type INTO pTypeItem FROM items WHERE idItem = pIdItem;
+    
+    IF (pTypeItem != 'ingredient' OR pNiveauAlchimie > 0) THEN
+		START TRANSACTION;
+			IF (pExistant > 0) THEN
+				UPDATE panier SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+			ELSE
+				INSERT INTO panier(idJoueur, idItem, quantite) VALUES(pIdJoueur, pIdItem, pQuantite);
+			END IF;
+		COMMIT;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Un joueur qui n'est pas alchimiste essaie d'acheter un ingredient!";
+    END IF;
 END |
 DELIMITER ;
 
@@ -237,6 +246,7 @@ BEGIN
         
         -- Baisser solde
         UPDATE joueurs SET solde = solde - pPrixTotal WHERE idJoueur = pIdJoueur;
+        UPDATE joueurs SET nbEcuDepense = nbEcuDepense + pPrixTotal WHERE idJoueur = pIdJoueur;
         
         -- Ajout a l'inventaire, diminue stock et vide panier
 		SET i = 0;
@@ -253,6 +263,73 @@ END |
 DELIMITER ;
 
 -- Quetes
+DROP PROCEDURE IF EXISTS ajouterEnigme;
+DELIMITER |
+CREATE PROCEDURE ajouterEnigme(in pTitre TEXT, in pQuestion TEXT, in pDifficulte INT, in pAlchimie BOOLEAN)
+BEGIN
+    START TRANSACTION;
+		INSERT INTO enigmes(titre, question, difficulte, alchimie)
+			VALUES(pTitre, pQuestion, pDifficulte, pAlchimie);
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ajouterReponse;
+DELIMITER |
+CREATE PROCEDURE ajouterReponse(in pIdEnigme INT, in pTexte TEXT, in pCorrect BOOLEAN)
+BEGIN
+    START TRANSACTION;
+		INSERT INTO reponses(texte, correct, idEnigme)
+			VALUES(pTexte, pCorrect, pIdEnigme);
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS respond;
+DELIMITER |
+CREATE FUNCTION respond(pIdJoueur INT, pIdReponse INT) RETURNS BOOLEAN
+BEGIN
+	DECLARE pCorrect, pAlchimie BOOLEAN;
+    DECLARE pIdEnigme, pNbQueteAlchimie, pNiveauAlchimie, pDifficulte INT;
+    
+    SELECT correct INTO pCorrect FROM reponses WHERE idReponse = pIdReponse;
+    SELECT idEnigme INTO pIdEnigme FROM reponses WHERE idReponse = pIdReponse;
+    SELECT difficulte INTO pDifficulte FROM enigmes WHERE idEnigme = pIdEnigme;
+    SELECT alchimie INTO pAlchimie FROM enigmes WHERE idEnigme = pIdEnigme;
+    
+	IF (pCorrect = TRUE) THEN
+		IF (pAlchimie = TRUE) THEN
+			UPDATE joueurs SET nbQueteAlchimie = nbQueteAlchimie + 1 WHERE idJoueur = pIdJoueur;
+			SELECT nbQueteAlchimie INTO pNbQueteAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
+			SELECT niveauAlchimie INTO pNiveauAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
+			IF (pNbQueteAlchimie >= 3 AND pNiveauAlchimie = 0) THEN
+				UPDATE joueurs SET niveauAlchimie = 1 WHERE idJoueur = pIdJoueur;
+			END IF;
+		END IF;
+		UPDATE joueurs SET nbQueteReussie = nbQueteReussie + 1 WHERE idJoueur = pIdJoueur;
+           
+		UPDATE joueurs SET solde = solde + CASE
+				WHEN pDifficulte = 1 THEN 50
+				WHEN pDifficulte = 2 THEN 100
+				WHEN pDifficulte = 3 THEN 200
+				ELSE 0
+				END
+			WHERE idJoueur = pIdJoueur;
+		UPDATE joueurs SET nbEcuGagne = nbEcuGagne + CASE
+				WHEN pDifficulte = 1 THEN 50
+				WHEN pDifficulte = 2 THEN 100
+				WHEN pDifficulte = 3 THEN 200
+				ELSE 0
+				END
+			WHERE idJoueur = pIdJoueur;
+           
+		RETURN TRUE;
+	ELSE
+		UPDATE joueurs SET nbQueteEchoue = nbQueteEchoue + 1 WHERE idJoueur = pIdJoueur;
+		RETURN FALSE;
+	END IF;
+END |
+DELIMITER ;
 
 -- Recettes
 DROP PROCEDURE IF EXISTS ajouterRecette;
@@ -287,8 +364,7 @@ DELIMITER |
 CREATE PROCEDURE concocterRecette(in pIdRecette INT, in pIdJoueur INT, in pQuantite INT)
 BEGIN
 	DECLARE pExistant, pIngredientsManquants INT;
-    DECLARE pIdPotion INT;
-    DECLARE pIdIngredient, pQuantiteIngredient INT;
+    DECLARE pIdIngredient, pQuantiteIngredient, pIdPotion, pNiveauAlchimie, pNbPotionCree INT;
     DECLARE done BOOLEAN DEFAULT FALSE;
     
     DECLARE ingredientCursor CURSOR FOR SELECT idIngredient, quantite FROM ingredientRecette WHERE idRecette = pIdRecette;
@@ -320,6 +396,16 @@ BEGIN
         
 		SELECT idProduit INTO pIdPotion FROM recettes WHERE idRecette = pIdRecette;
         CALL ajouterInventaire(pIdJoueur, pIdPotion, pQuantite);
+        
+		SELECT niveauAlchimie INTO pNiveauAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
+		UPDATE joueurs SET nbPotionCree = nbPotionCree + pQuantite WHERE idJoueur = pIdJoueur;
+		SELECT nbPotionCree INTO pNbPotionCree FROM joueurs WHERE idJoueur = pIdJoueur;
+        IF (pNiveauAlchimie = 1 AND pNbPotionCree >= 3) THEN
+			UPDATE joueurs SET niveauAlchimie = 2 WHERE idJoueur = pIdJoueur;
+        END IF;
+        IF (pNiveauAlchimie = 2 AND pNbPotionCree >= 6) THEN
+			UPDATE joueurs SET niveauAlchimie = 3 WHERE idJoueur = pIdJoueur;
+        END IF;
     COMMIT;
 END |
 DELIMITER ;

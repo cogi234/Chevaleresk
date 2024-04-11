@@ -2,7 +2,7 @@
 
 // Scripts
 isset_default($scripts_view);
-$scripts_view .= "<script src='js/toggle_sort.js'></script>";
+$scripts_view .= "<script src='js/local/toggle_sort.js'></script>";
 
 // Styles
 isset_default($styles_view);
@@ -14,7 +14,6 @@ function filter_render(string $content): string
         return "";
 
     return <<<HTML
-        <!-- FILTERS -->
         <div id="filter">
             <button id="filter-button"></button>
             <div>
