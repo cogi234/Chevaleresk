@@ -1,6 +1,8 @@
 <?php
 require_once "php/php_utilities.php";
 
+$page_title = "Enigma";
+
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/enigma_styles">';
 

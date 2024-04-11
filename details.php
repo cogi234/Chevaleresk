@@ -3,6 +3,8 @@
 require_once "php/php_utilities.php";
 require_once "php/session_manager.php";
 
+$page_title = "Détails";
+
 const TAG_TYPE = "type";
 const TAG_ID = "id";
 
