@@ -26,7 +26,7 @@ if (is_connected()) {
     $dropdown = dropdown("", [
         dropdown_item("Magasin", "index.php"),
         dropdown_item("Enigma", "#"),
-        dropdown_item("Panoramix", "#"),
+        dropdown_item("Panoramix", "panoramix.php"),
     ], "fa-solid fa-bars header_dropdown");
 
     // Money amount
@@ -64,7 +64,7 @@ if (is_connected()) {
     HTML;
 
     // Profile
-    $avatar = $player->get_avatar();
+    $avatar = $player->getAvatar();
 
     $user_section = <<<HTML
         <i id="header_profile" class="header-icon" style="background: url('$avatar');" title="C'est vous!"></i>
