@@ -87,9 +87,10 @@ isset_default($inventory_section);
 isset_default($dropdown);
 isset_default($user_section, <<<HTML
     <!-- INSCRIPTION -->
-    <a id="header_profile" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
+    <a id="header_inscription" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
+
     <!-- CONNECTION -->
-    <a id="header_profile" class="header-icon fa-solid fa-user" href="$icon_connection_url" title="Connexion"></a>
+    <a id="header_connection" class="header-icon fa-solid fa-right-to-bracket" href="$icon_connection_url" title="Connexion"></a>
 HTML);
 
 // Content

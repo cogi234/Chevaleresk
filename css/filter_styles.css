@@ -16,8 +16,8 @@
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
 
-    animation: slide-out 0.5s forwards;
-    -webkit-animation: slide-out 0.5s forwards;
+    /* animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards; */
 }
 
 #filter-button {
