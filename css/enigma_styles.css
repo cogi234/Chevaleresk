@@ -17,7 +17,11 @@
 }
 
 .quest-question{
-    
+    background-color: var(--light);
+    border: solid black 2px;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 1em;
 }
 
 .quest-answers{
