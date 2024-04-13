@@ -54,3 +54,8 @@
     margin: 0.5em 1.5em;
     padding: 1em 0.5em;
 }
+.result-msg{
+    font-weight: bold;
+    color: var(--dark);
+    text-align: center;
+}

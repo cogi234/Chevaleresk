@@ -4,7 +4,7 @@ require_once "../php/model/quest.php";
 require_once "../php/model/answer.php";
 
 /**
- * Creates the visual for an item in the cart
+ * Creates the visual for an quest in enigma
  * @author Colin Bougie
  * Date of creation    : 2024/04/11
  * Date of modification: 2024/04/11
@@ -45,7 +45,7 @@ function quest(
             value="$answerId">
             $answerText
         </button>
-HTML;
+    HTML;
     }
 
     isset_default($content);
@@ -58,5 +58,24 @@ HTML;
     </div>
 HTML;
 
+    return $content;
+}
+
+function Result(bool $isRight){
+    isset_default($isRight);
+    isset_default($content);
+    switch($isRight){
+        case true:
+            $content =<<<HTML
+                <p class="result-msg">Bravo! C'est la bonne Réponse!</p>
+            HTML;
+            break;
+        case false:
+            $content =<<<HTML
+                <p class="result-msg">Désolé! Mauvaise réponse...</p>
+            HTML;
+            break;
+    }
+    
     return $content;
 }
