@@ -39,7 +39,10 @@ $body_content = <<<HTML
         </button>
     </div>
 
-    <div id="quest-container"></div>
+    <div id="quest-container">
+        <h2 class="result-msg">Bienvenue à Enigma</h2>
+        <p class="result-msg">Appuyez sur un des 4 boutons pour recevoir une quête!</p>
+    </div>
 HTML;
 
 // View Scripts

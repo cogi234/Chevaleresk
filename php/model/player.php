@@ -123,9 +123,9 @@ class Player extends PDO_Object
 
     /**
      * Updates the player stored in $_SESSION with the player with the given alias
-     * @author @WarperSan, @lolo2178
+     * @author @WarperSan, @lolo2178, Colin
      * Date of creation    : 2024/03/26
-     * Date of modification: 2024/04/09
+     * Date of modification: 2024/04/16
      * @return bool The refreshment was correctly happen
      */
     public static function refreshLocalPlayer(string $alias = null): bool
