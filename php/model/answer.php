@@ -37,7 +37,7 @@ class Answer extends PDO_Object
      * Date of modification: 2024/04/12
      */
     public function Respond(){
-        return callFunction("respond", $this->Id, Player::getLocalPlayer()->Id);
+        return callFunction("respond", Player::getLocalPlayer()->Id, $this->Id)[0][0] == 1;
     }
     #endregion
 }

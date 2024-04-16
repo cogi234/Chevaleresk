@@ -12,6 +12,6 @@ if($_POST["id"]){
     isset_default($condition);
     $condition .= equals(Answer::ID, $id);
     $answer = Answer::selectComplete($condition);
-    echo var_dump($answer->Respond());
+    echo Result($answer->Respond());
 }
 
