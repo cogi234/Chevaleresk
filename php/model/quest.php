@@ -10,7 +10,7 @@ class Quest extends PDO_Object
 {
     protected function on_create_self(array $data): void
     {
-        $this->Answers = Answer::selectAllComplete(equals(Answer::IDENIGMA, $this->Id));
+        $this->Answers = Answer::selectAllComplete(equals(Answer::IDENIGMA, $this->Id), "ORDER BY RAND()");
     }
 
     #region PDO_Object
