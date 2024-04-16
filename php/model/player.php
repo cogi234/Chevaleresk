@@ -85,7 +85,7 @@ class Player extends PDO_Object
      * Date of modification: 2024/04/09
      * @return string The fullname of this player
      */
-    public function get_fullname(): string
+    public function getFullname(): string
     {
         $firstName = $this->FirstName;
         $lastName = $this->LastName;
@@ -102,7 +102,7 @@ class Player extends PDO_Object
      * Date of modification: 2024/04/10
      * @return string The avatar of this player
      */
-    function get_avatar(): string
+    function getAvatar(): string
     {
         return Player::PATH_PFP . $this->Avatar;
     }
