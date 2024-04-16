@@ -10,14 +10,16 @@ isset_default($id);
 
 if(isset($_POST["id"])){
     $id = $_POST["id"];
-    isset_default($condition);
-    $condition .= equals(Answer::ID, $id);
-    $answer = Answer::selectComplete($condition);
-    echo result($answer->Respond());
+    isset_default($conditionAnswer);
+    isset_default($conditionQuest);
+    $conditionAnswer .= equals(Answer::ID, $id);
+    $answer = Answer::selectComplete($conditionAnswer);
+    $conditionQuest .= equals(Quest::ID, $answer->IdEnigma);
+    $quest = Quest::selectComplete($conditionQuest);
+    echo Result($answer->Respond(), $quest);
     Player::refreshLocalPlayer();
 } else {
     echo <<<HTML
         <p class="result-msg">Désolé! Il y a eu une erreur!...</p>
     HTML;
 }
-
