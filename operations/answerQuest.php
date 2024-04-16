@@ -10,14 +10,18 @@ isset_default($id);
 
 if(isset($_POST["id"])){
     $id = $_POST["id"];
-    isset_default($conditionAnswer);
-    isset_default($conditionQuest);
-    $conditionAnswer .= equals(Answer::ID, $id);
-    $answer = Answer::selectComplete($conditionAnswer);
-    $conditionQuest .= equals(Quest::ID, $answer->IdEnigma);
-    $quest = Quest::selectComplete($conditionQuest);
-    echo Result($answer->Respond(), $quest);
+    $answer = Answer::selectComplete(equals(Answer::ID, $id));
+    $quest = Quest::selectComplete(equals(Quest::ID, $answer->IdEnigma));
+
+    $alchemy_level = Player::getLocalPlayer()->AlchemyLevel;
+    $becameAlchemist = false;
+    $result = $answer->Respond();
     Player::refreshLocalPlayer();
+    if ($alchemy_level == 0 && Player::getLocalPlayer()->AlchemyLevel > 0){
+        $becameAlchemist = true;
+    }
+
+    echo Result($result, $quest, $becameAlchemist);
 } else {
     echo <<<HTML
         <p class="result-msg">Désolé! Il y a eu une erreur!...</p>
