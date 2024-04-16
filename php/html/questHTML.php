@@ -29,6 +29,13 @@ function quest(
             break;
     }
     $alchemy = $quest->Alchemy;
+    
+    $alchemyHtml = "";
+    if($alchemy){
+        $alchemyHtml =<<<HTML
+            <img class="alchemy-icon-quest" src="images/items/icons/potion.svg"/>
+        HTML;
+    }
 
     //Buttons for every answer
     isset_default($answerButtons);
@@ -50,7 +57,7 @@ function quest(
 
     isset_default($content);
     $content = <<<HTML
-    <h2 class="quest-title">$title</h2>
+    <h2 class="quest-title">$title $alchemyHtml</h2>
     <div class="quest-difficulty">$difficulty</div>
     <p class="quest-question">$question</p>
     <div class="quest-answers">
@@ -66,7 +73,7 @@ HTML;
  * Date of creation    : 2024/04/13
  * Date of modification: 2024/04/16
  */
-function Result(bool $isRight, Quest $quest){
+function Result(bool $isRight, Quest $quest, bool $becameAlchemist){
     isset_default($isRight);
     isset_default($content);
     if(!$isRight){
@@ -75,6 +82,7 @@ function Result(bool $isRight, Quest $quest){
         HTML;
         return $content;
     }
+
 
     $content .=<<<HTML
         <p class="result-msg">Bravo! Vous avez reussi!</p>
@@ -96,6 +104,10 @@ function Result(bool $isRight, Quest $quest){
                 <p class="result-msg">Vous avez reçu 200 écus!</p>
             HTML;
             break;
+    }
+
+    if($becameAlchemist){
+        $content .= "<p class='result-msg'>Bravo! Vous êtes maintenant alchimiste!!!</p>";
     }
 
     
