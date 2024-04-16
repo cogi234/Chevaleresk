@@ -134,20 +134,16 @@ class Player extends PDO_Object
         $player = false;
 
         if ($alias == null) {
-
             $player = Player::getLocalPlayer();
 
             if ($player != false)
                 $alias = $player->Alias;
         }
 
-        // If the local player wasn't set
-        if ($player == false) {
-            $player = Player::selectComplete(equals(Player::ALIAS, $alias));
+        $player = Player::selectComplete(equals(Player::ALIAS, $alias));
 
-            if ($player == false)
-                return false;
-        }
+        if ($player == false)
+            return false;
 
         $_SESSION[Player::SESSION_TAG] = serialize($player);
         return true;
