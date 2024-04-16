@@ -60,7 +60,12 @@ HTML;
 
     return $content;
 }
-
+/**
+ * Creates the visuals for the result of an answer for a quest
+ * @author Akuma
+ * Date of creation    : 2024/04/13
+ * Date of modification: 2024/04/16
+ */
 function Result(bool $isRight, Quest $quest){
     isset_default($isRight);
     isset_default($content);
