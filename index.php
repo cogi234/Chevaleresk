@@ -69,6 +69,6 @@ HTML;
 
 // View Scripts
 isset_default($scripts_view);
-$scripts_view .= "<script src='js/local/store-filer.js' defer></script>";
+$scripts_view .= "<script src='js/local/store-filter.js' defer></script>";
 
 require "views/master.php";

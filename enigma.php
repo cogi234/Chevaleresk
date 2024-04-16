@@ -5,6 +5,7 @@ $page_title = "Enigma";
 
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/enigma_styles">';
+$styles_view .= '<link rel="stylesheet" href="css/loader_styles">';
 
 $body_content = <<<HTML
     <div class="receive-quest-buttons">
@@ -39,6 +40,15 @@ $body_content = <<<HTML
     </div>
 
     <div id="quest-container"></div>
+HTML;
+
+// View Scripts
+isset_default($scripts_view);
+$scripts_view .= "<script src='js/local/enigma-loader.js' defer></script>";
+$scripts_view .= <<<HTML
+    <script>
+        $(".receive-quest-button").click(add_loader());
+    </script>
 HTML;
 
 require "views/master.php";
