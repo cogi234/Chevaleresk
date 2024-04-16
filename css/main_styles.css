@@ -11,4 +11,7 @@
 
 #body {
     padding-top: 75px;
+
+    width: 100vw;
+    height: 100vh;
 }

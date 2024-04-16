@@ -4,11 +4,9 @@
 require_once "php/model/recipe.php";
 
 // Get recipes
+// TODO: Only load a few items
 $recipes = Recipe::selectAllComplete();
-
-// Show recipes
-$recipes_list_html = "";
-include_once "php/html/recipesListHTML.php";
+array_push($recipes, ...$recipes); // Duplicate for testing
 
 // Add quantity
 $add_button = "<button onclick='add_quantity(1)'>Add 1</button>";
@@ -19,17 +17,30 @@ $remove_button = "<button onclick='add_quantity(-1)'>Remove 1</button>";
 // Craft btn
 $craft_button = "<button id='craft-btn' onclick='craft()'>Craft</button>";
 
+$craft_html = <<<HTML
+
+HTML;
+
 // Show page
 $body_content = <<<HTML
-    $recipes_list_html
-    $remove_button
-    <span id="quantity_label"></span>
-    $add_button
-    $craft_button
+    <div id="parent">
+        <div id="items"><i id="panoramix-unloader"></i></div>
+        <div>
+            $remove_button
+            <span id="quantity_label"></span>
+            $add_button
+            $craft_button
+        </div>
+    </div>
 HTML;
 
 // Scripts
 isset_default($scripts_view);
-$scripts_view .= "<script src='js/local/panoramix_quantity.js'></script>";
+$scripts_view .= "<script src='js/local/panoramix/quantity.js'></script>";
+$scripts_view .= "<script src='js/local/panoramix/loader.js' defer></script>";
+
+// Styles
+isset_default($styles_view);
+$styles_view .= "<link rel='stylesheet' href='css/panoramix_styles.css' />";
 
 require "views/master.php";

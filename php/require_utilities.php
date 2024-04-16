@@ -11,3 +11,7 @@ function require_path(string $path): void
 {
     require_once dirname(__FILE__, 2) . "/" . $path;
 }
+
+function include_path(string $path) : void {
+    include_once dirname(__FILE__, 2) . "/" . $path;
+}

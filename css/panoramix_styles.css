@@ -1,0 +1,24 @@
+#parent {
+    height: 100%;
+    overflow-y: hidden;
+
+    display: flex;
+}
+
+#parent>* {
+    display: inline-block;
+}
+
+#items {
+    height: 100%;
+
+    overflow-y: scroll;
+}
+
+.item {
+    width: 200px;
+    height: 200px;
+
+    background-color: var(--dark);
+    background-size: contain;
+}
