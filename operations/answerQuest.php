@@ -9,7 +9,6 @@ require_once "../php/html/questHTML.php";
 isset_default($id);
 
 if(isset($_POST["id"])){
-if(isset($_POST["id"])){
     $id = $_POST["id"];
     isset_default($conditionAnswer);
     isset_default($conditionQuest);
@@ -24,4 +23,3 @@ if(isset($_POST["id"])){
         <p class="result-msg">Désolé! Il y a eu une erreur!...</p>
     HTML;
 }
-
