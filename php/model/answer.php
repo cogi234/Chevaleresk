@@ -32,12 +32,17 @@ class Answer extends PDO_Object
     #region Functions
     /**
      * Respond to a question of an answer, give money to the player and returns a boolean if its correct or not
-     * @author @Akuma
+     * @author @Akuma et Colin
      * Date of creation    : 2024/04/12
-     * Date of modification: 2024/04/12
+     * Date of modification: 2024/04/16
      */
     public function Respond(){
-        return callFunction("respond", $this->Id, Player::getLocalPlayer()->Id);
+        $result = callFunction("respond", Player::getLocalPlayer()->Id, $this->Id);
+        if ($result != false){
+            return (bool)$result[0][0];
+        } else {
+            return false;
+        }
     }
     #endregion
 }

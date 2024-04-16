@@ -61,7 +61,7 @@ HTML;
     return $content;
 }
 
-function Result(bool $isRight){
+function result(bool $isRight){
     isset_default($isRight);
     isset_default($content);
     switch($isRight){
