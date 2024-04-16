@@ -61,21 +61,38 @@ HTML;
     return $content;
 }
 
-function Result(bool $isRight){
+function Result(bool $isRight, Quest $quest){
     isset_default($isRight);
     isset_default($content);
-    switch($isRight){
-        case true:
-            $content =<<<HTML
-                <p class="result-msg">Bravo! C'est la bonne Réponse!</p>
+    if(!$isRight){
+        $content =<<<HTML
+            <p class="result-msg">Désolé! Mauvaise réponse...</p>
+        HTML;
+        return $content;
+    }
+
+    $content .=<<<HTML
+        <p class="result-msg">Bravo! Vous avez reussi!</p>
+    HTML;
+
+    switch($quest->Difficulty){
+        case 1:
+            $content .=<<<HTML
+                <p class="result-msg">Vous avez reçu 50 écus!</p>
             HTML;
             break;
-        case false:
-            $content =<<<HTML
-                <p class="result-msg">Désolé! Mauvaise réponse...</p>
+        case 2:
+            $content .=<<<HTML
+                <p class="result-msg">Vous avez reçu 100 écus!</p>
+            HTML;
+            break;
+        case 3:
+            $content .=<<<HTML
+                <p class="result-msg">Vous avez reçu 200 écus!</p>
             HTML;
             break;
     }
+
     
     return $content;
 }
