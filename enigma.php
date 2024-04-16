@@ -45,10 +45,5 @@ HTML;
 // View Scripts
 isset_default($scripts_view);
 $scripts_view .= "<script src='js/local/enigma-loader.js' defer></script>";
-$scripts_view .= <<<HTML
-    <script>
-        $(".receive-quest-button").click(add_loader());
-    </script>
-HTML;
 
 require "views/master.php";

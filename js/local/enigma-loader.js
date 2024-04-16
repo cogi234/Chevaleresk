@@ -1,8 +1,8 @@
 function add_loader() {
-    const container = $(".quest-container")[0];
-
+    const container = $("#quest-container");
+    console.log("test");
     // Clear current items
-    container.innerHTML = '';
+    container.empty();
 
     // Add loader
     const loader = document.createElement("div");
@@ -10,3 +10,5 @@ function add_loader() {
 
     container.append(loader);
 }
+
+$(".receive-quest-button").click(add_loader);
