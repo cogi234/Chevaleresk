@@ -61,6 +61,17 @@ function equals(string $column, mixed $target): string
 }
 
 /**
+ * @author Colin
+ * Date of creation    : 2024/04/17
+ * Date of modification: 2024/04/17
+ * @return string Unequals statement 
+ */
+function unequals(string $column, mixed $target): string
+{
+    return "$column != " . convert_for_query($target);
+}
+
+/**
  * @author @WarperSan
  * Date of creation    : 2024/03/20
  * Date of modification: 2024/03/20

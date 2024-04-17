@@ -96,7 +96,7 @@ BEGIN
 END |
 DELIMITER ;
 
--- Inscription et connexion
+-- Joueurs
 DROP PROCEDURE IF EXISTS inscription;
 DELIMITER |
 CREATE PROCEDURE inscription(
