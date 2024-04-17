@@ -80,6 +80,7 @@ CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterReponse(@lastIndex, "5050", TRUE);
 CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1000", FALSE);
 CALL ajouterReponse(@lastIndex, "1100", FALSE);
 CALL ajouterReponse(@lastIndex, "2550", FALSE);
 
@@ -98,3 +99,8 @@ CALL ajouterRecette(14, 3);
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterIngredientRecette(@lastIndex, 20, 1);
 CALL ajouterIngredientRecette(@lastIndex, 16, 1);
+
+-- TEMPORAIRE POUR TESTER
+CALL ajouterRecette(1, 3);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 20, 1);
