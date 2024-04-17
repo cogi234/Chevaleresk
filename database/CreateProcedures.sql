@@ -128,6 +128,32 @@ BEGIN
 END |
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS modifierJoueur;
+DELIMITER |
+CREATE PROCEDURE modifierJoueur(
+	in pId INT,
+	in pAlias VARCHAR(40),
+	in pPrenom VARCHAR(40),
+	in pNom VARCHAR(40),
+	in pAvatar TEXT,
+    in pMotDePasse TEXT,
+    in pEstAdmin BOOLEAN)
+BEGIN
+	DECLARE pMotDePasseEncrypte TEXT;
+    START TRANSACTION;
+		SET pMotDePasseEncrypte = sha2(pMotDePasse, 512);
+        UPDATE joueurs SET 
+			alias = pAlias,
+            prenom = pPrenom,
+            nom = pNom,
+            avatar = pAvatar,
+            motDePasse = pMotDePasse,
+            estAdmin = pEstAdmin
+            WHERE idJoueur = pId;
+    COMMIT;
+END |
+DELIMITER ;
+
 -- Inventaire
 DROP PROCEDURE IF EXISTS ajouterInventaire;
 DELIMITER |
