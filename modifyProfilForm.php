@@ -12,7 +12,7 @@ $page_title = "Modification";
 isset_default($styles_view);
 $styles_view .= "<link rel='stylesheet' href='css/form_styles.css'>";
 
-if (isset($_POST['id'])) {
+if (isset($_POST['id']) && $_POST['id'] == Player::getLocalPlayer()->Id) {
         $body_content = <<<HTML
                 <div class="">
                 <br>
@@ -22,7 +22,7 @@ if (isset($_POST['id'])) {
                         class="form-control identifier" 
                         name="alias" 
                         id="alias"
-                        value= "{$_POST['alias']}"
+                        value= ""
                         placeholder="Identifiant" 
                         required 
                         RequireMessage = 'Veuillez entrer votre Identifiant'
@@ -58,8 +58,9 @@ if (isset($_POST['id'])) {
                 id="matchedPassword" 
                 placeholder="Vérification" 
                 InvalidMessage="Ne correspond pas au mot de passe" />
-                
+
         <input hidden id="id" name="id" value='{$_POST["id"]}'/>
+
         HTML;
 
         if (isset($_SESSION['different']) && $_SESSION['different'] == true) {

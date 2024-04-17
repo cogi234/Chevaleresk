@@ -72,7 +72,10 @@ $details_content = <<<HTML
         <div>
             <img class="header-icon" id="profile-pic"  src='$player_avatar' title="C'est vous!"/><br>
             <div id='profile-names'> 
-                <p>$player_alias<br>
+            <form class="modify-button-form" method="post" action="modifyProfilForm.php">
+                <button class="modify-button fa-solid fa-pen-to-square" id="id" name="id" value="$player_id"></button>
+            </form>
+                <p>$player_alias <br>
                     $player_firstName $player_lastName
                 </p>
             </div>

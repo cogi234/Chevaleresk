@@ -52,3 +52,13 @@
 #profile-names>p {
     text-align: center;
 }
+.modify-button{
+    text-decoration: none;
+    color: var(--dark);
+    height: 2em;
+    background: none;
+    border: none;
+}
+.modify-button-form{
+    position: absolute;
+}
