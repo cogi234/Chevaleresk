@@ -58,7 +58,27 @@ if (isset($_POST['id']) && $_POST['id'] == Player::getLocalPlayer()->Id) {
                 id="matchedPassword" 
                 placeholder="Vérification" 
                 InvalidMessage="Ne correspond pas au mot de passe" />
-
+        <label class="label-avatar" for="avatar">Choisir votre avatar</label>
+        <input  type="file" 
+                class="form-control avatar" 
+                name="avatar" 
+                id="avatar"
+                value= ""
+                placeholder="Choisir votre avatar"
+                title="Choisir votre avatar"
+                accept="image/png, image/jpeg" />
+        <input  type="text" 
+                class="form-control identifier" 
+                name="prenom" 
+                id="prenom"
+                value= ""
+                placeholder="Prenom"/>
+        <input  type="text" 
+                class="form-control identifier" 
+                name="nom" 
+                id="nom"
+                value= ""
+                placeholder="Nom"/>
         <input hidden id="id" name="id" value='{$_POST["id"]}'/>
 
         HTML;
