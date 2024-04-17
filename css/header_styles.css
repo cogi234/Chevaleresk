@@ -164,6 +164,17 @@
     right: -0.25em;
 }
 
+/* ICON PROFILE */
+#header_profile_access {
+    font-size: 0.75em;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: var(--light);
+    position: absolute;
+    bottom: 0.25em;
+    right: 2em;
+}
+
 /* ICON INSCRIPTION */
 #header_inscription {
     font-size: 1.5em;

@@ -9,7 +9,8 @@ const TAG_TYPE = "type";
 const TAG_ID = "id";
 
 const PAGES_FOR_TYPE = [
-    "item" => "php/html/itemsDetailHTML.php",
+    "item" => "php/html/itemDetailsHTML.php",
+    "player" => "php/html/playerDetailsHTML.php",
     null => null
 ];
 
