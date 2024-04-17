@@ -3,11 +3,6 @@
 // PDO
 require_once "php/model/recipe.php";
 
-// Get recipes
-// TODO: Only load a few items
-$recipes = Recipe::selectAllComplete();
-array_push($recipes, ...$recipes); // Duplicate for testing
-
 // Add quantity
 $add_button = "<button onclick='add_quantity(1)'>Add 1</button>";
 
@@ -24,7 +19,7 @@ HTML;
 // Show page
 $body_content = <<<HTML
     <div id="parent">
-        <div id="items"><i id="panoramix-unloader"></i></div>
+        <div id="items"></div>
         <div>
             $remove_button
             <span id="quantity_label"></span>
@@ -42,5 +37,6 @@ $scripts_view .= "<script src='js/local/panoramix/loader.js' defer></script>";
 // Styles
 isset_default($styles_view);
 $styles_view .= "<link rel='stylesheet' href='css/panoramix_styles.css' />";
+$styles_view .= "<link rel='stylesheet' href='css/loader_styles.css' />";
 
 require "views/master.php";

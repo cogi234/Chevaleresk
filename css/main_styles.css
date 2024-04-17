@@ -3,6 +3,12 @@
     --second: #5C5470;
     --dark: #352F44;
     --light: #FAF0E6;
+
+    /* DIFFICULTIES */
+    --easy : #00FF00;
+    --medium: #FFFF00;
+    --hard: #FF0000;
+    --unknown: #666666;
 }
 
 *:has(#main) {

@@ -55,5 +55,33 @@ class Recipe extends PDO_Object
         return Item::selectComplete(equals(Item::ID, $this->IdProduct));
     }
 
+    /**
+     * @author @WarperSan
+     * Date of creation    : 2024/04/17
+     * Date of modification: 2024/04/17
+     * @return string The difficulty level of this recipe
+     */
+    public function getDifficulty() : string {
+        $difficulty = $this->AlchemyLevel;
+
+        $name = "";
+        switch ($difficulty) {
+            case 1:
+                $name = "Facile";
+                break;
+            case 2:
+                $name = "Moyen";
+                break;
+            case 3:
+                $name = "Difficile";
+                break;
+            default:
+                $name = "???";
+                break;
+        }
+
+        return $name;
+    }
+
     #endregion
 }

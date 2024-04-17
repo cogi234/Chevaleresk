@@ -11,14 +11,71 @@
 
 #items {
     height: 100%;
-
+    padding: 1em 0;
     overflow-y: scroll;
+
+    direction: rtl;
 }
 
+/* ITEM */
 .item {
+    position: relative;
     width: 200px;
+
     height: 200px;
 
-    background-color: var(--dark);
+    margin: 0.5em;
+
     background-size: contain;
+    border: 0.2em solid var(--dark);
+    border-radius: 1em;
+
+    animation-name: item-appear;
+    animation-duration: 1s;
+
+    cursor: pointer;
+}
+
+@keyframes item-appear {
+    from {opacity: 0; }
+    to {opacity: 1;}
+  }
+
+.item-level {
+    position: absolute;
+
+    top: 0;
+    left: 0.5em;
+
+    user-select: none;
+}
+
+.easy {
+    color: var(--easy);
+}
+.medium {
+    color: var(--medium);
+}
+.hard {
+    color: var(--hard);
+}
+.unknown {
+    color: var(--unknown);
+}
+
+.item-inventory-quantity {
+    position: absolute;
+
+    bottom: 0;
+    right: 0.5em;
+
+    color: var(--light);
+
+    user-select: none;
+}
+
+/* LOADER */
+.loader {
+    display: block;
+    margin: auto;
 }
