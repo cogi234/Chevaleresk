@@ -70,7 +70,7 @@ switch ($player_alchemy) {
 $details_content = <<<HTML
     <div class='profile-container'>
         <div>
-            <img class="header-icon" id="profile-pic"  src='$player_avatar' title="C'est vous!"/><br>
+            <img class="header-icon" id="profile-pic" src='$player_avatar' title="C'est vous!"/><br>
             <div id='profile-names'> 
                 <p>$player_alias<br>
                     $player_firstName $player_lastName
