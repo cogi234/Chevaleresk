@@ -12,15 +12,14 @@ require_once "php/html/inventoryHTML.php";
 
 // Session
 require_once "php/session_manager.php";
-userAccess();
 
 isset_default($styles_view);
 $styles_view .= "<link rel='stylesheet' href='css/profile_styles.css'>";
 
 $page_title = "Profil";
 
-$idPlayer = Player::getLocalPlayer()->Id;
-$player = Player::selectComplete(equals(Player::ID, $idPlayer));
+$player_id = $_GET[TAG_ID];
+$player = Player::selectComplete(equals(Player::ID, $player_id));
 
 $player_alias = $player->Alias;
 $player_lastName = $player->LastName;
@@ -35,8 +34,7 @@ $player_potion = $player->PotionMadeNumber;
 $player_EcuGain = $player->EcuObtainedNumber;
 $player_EcuSpent = $player->EcuSpentNumber;
 
-if ($player_alchemy <1)
-{
+if ($player_alchemy < 1) {
     $textAlchemist = "Pas alchimiste. Devenez alchimiste en effectuant des quêtes d'alchimie dans Enigma.";
 }
 
@@ -45,64 +43,53 @@ switch ($player_alchemy) {
         $textAlchemist = "Alchimiste débutant";
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
-        <p>Nombre de potions créés : $player_potion </p>
+        <p>Nombre de potions créées : $player_potion </p>
         HTML;
         break;
     case 2:
         $textAlchemist = "Alchimiste intermédiaire";
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
-        <p>Nombre de potions créés : $player_potion </p>
+        <p>Nombre de potions créées : $player_potion </p>
         HTML;
         break;
-    case 3 :
+    case 3:
         $textAlchemist = "Alchimiste avancé";
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
-        <p>Nombre de potions créés : $player_potion </p>
+        <p>Nombre de potions créées : $player_potion </p>
         HTML;
         break;
-    
+
     default:
         $textAlchemist = "Vous n'êtes pas alchimiste. Devenez alchimiste en effectuant des quêtes d'alchimie dans Enigma.";
-        $statsAlchemist ='';
+        $statsAlchemist = '';
         break;
 }
 
-$body_content = <<<HTML
-
+$details_content = <<<HTML
     <div class='profile-container'>
         <div>
-    <img class="header-icon" id="profile-pic"  src='$player_avatar' title="C'est vous!"/><br>
-    <div id='profile-names'> 
-        <p>$player_alias<br>
-        $player_firstName $player_lastName
-        </p>
-    </div>
-    
-    </div>
-    <div id='profile-details'>
-        <div>
-            <p>$player_balance écus</p>
-            <p>$textAlchemist </p> 
+            <img class="header-icon" id="profile-pic"  src='$player_avatar' title="C'est vous!"/><br>
+            <div id='profile-names'> 
+                <p>$player_alias<br>
+                    $player_firstName $player_lastName
+                </p>
+            </div>
         </div>
-    <div> 
-        <p>Nombre de quêtes réussies : $player_questSuccess</p> 
-        <p>Nombre de quêtes ratés : $player_questFailed </p>
-        $statsAlchemist
-        <p>Nombre d'écus accumulés : $player_EcuGain </p>
-        <p>Nombre d'écus dépensés :$player_EcuSpent </p>
-    </div>
-    
-    </div>
-</div>
 
+        <div id='profile-details'>
+            <div>
+                <p>$player_balance écus</p>
+                <p>$textAlchemist </p> 
+            </div>
+            <div> 
+                <p>Nombre de quêtes réussies : $player_questSuccess</p> 
+                <p>Nombre de quêtes ratées : $player_questFailed </p>
+                $statsAlchemist
+                <p>Nombre d'écus accumulés : $player_EcuGain </p>
+                <p>Nombre d'écus dépensés :$player_EcuSpent </p>
+            </div>
+        </div>
+    </div>
 HTML;
-
-
-
-
-
-
-
-require "views/master.php";

@@ -9,11 +9,9 @@ require_once "php/model/cart_item.php";
 
 // Links
 $icon_cart_url = "cart.php";
-$icon_profile_url = "profil.php";
 $icon_inventory_url = "inventory.php";
 $icon_inscription_url = "newUserForm.php";
 $icon_connection_url = "loginForm.php";
-$icon_disconnect_url = "operations/disconnect.php";
 
 isset_default($scripts_view);
 
