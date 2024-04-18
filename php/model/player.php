@@ -3,6 +3,7 @@
 require_once dirname(__FILE__, 2) . "/require_utilities.php";
 require_path("php/session_manager.php");
 require_path("php/php_utilities.php");
+require_path("php/guid.php");
 
 // PDO
 require_path("php/model/pdo_object.php");
@@ -14,6 +15,8 @@ class Player extends PDO_Object
     private const SESSION_TAG = "player";
 
     const PATH_PFP = "images/pfp/";
+
+    const DEFAULT_AVATAR = "default.png";
 
     public const ID = "idJoueur";
     #[PDO_Object_Id(Player::ID)]
@@ -80,6 +83,26 @@ class Player extends PDO_Object
     public string $Password = "";
 
     /**
+     * Updates this player in the database.
+     * @author @Akuma
+     * Date of creation    : 2024/04/09
+     * Date of modification: 2024/04/09
+     * @return bool True if it was a success, False on failure
+     */
+    public function update() : bool{
+        return callProcedure(
+            "modifierJoueur",
+            $this->Id,
+            $this->Alias,
+            $this->FirstName,
+            $this->LastName,
+            $this->Avatar,
+            $this->Password,
+            $this->IsAdmin
+        );
+    }
+
+    /**
      * @author @WarperSan
      * Date of creation    : 2024/04/09
      * Date of modification: 2024/04/09
@@ -102,9 +125,21 @@ class Player extends PDO_Object
      * Date of modification: 2024/04/10
      * @return string The avatar of this player
      */
-    function getAvatar(): string
+    public function getAvatar(): string
     {
         return Player::PATH_PFP . $this->Avatar;
+    }
+
+    /**
+     * Sets the avatar of this player.
+     * @author @Akuma
+     * Date of creation    : 2024/04/17
+     * Date of modification: 2024/04/17
+     */
+    function setAvatar(string $path, string $relativePath = "") : bool{
+        if($this->Avatar == Player::DEFAULT_AVATAR)
+            $this->Avatar = GUIDv4() . ".png"; 
+        return move_uploaded_file($path, $relativePath . $this->getAvatar());
     }
 
     /**

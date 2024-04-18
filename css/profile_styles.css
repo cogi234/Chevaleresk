@@ -51,6 +51,16 @@
 }
 #profile-names>p {
     text-align: center;
+}
+.modify-button{
+    text-decoration: none;
+    color: var(--dark);
+    height: 2em;
+    background: none;
+    border: none;
+}
+.modify-button-form{
+    float: right;
     margin: 0;
     padding: 0.5em 0;
 }
