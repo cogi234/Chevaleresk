@@ -18,7 +18,10 @@ $styles_view .= "<link rel='stylesheet' href='css/profile_styles.css'>";
 
 $page_title = "Profil";
 
+$localPlayer = Player::getLocalPlayer();
+
 $player_id = $_GET[TAG_ID];
+$isCurrentUser = $player_id == $localPlayer->Id || $localPlayer->IsAdmin;
 $player = Player::selectComplete(equals(Player::ID, $player_id));
 
 $player_alias = $player->Alias;
@@ -67,14 +70,19 @@ switch ($player_alchemy) {
         break;
 }
 
+$editHTML = $isCurrentUser  ? <<<HTML
+    <form class="modify-button-form" method="post" action="modifyProfilForm.php">
+        <input type="hidden" name="id" value="$player_id"/>
+        <button class="modify-button fa-solid fa-pen-to-square"></button>
+    </form>
+HTML : "";
+
 $details_content = <<<HTML
     <div class='profile-container'>
         <div>
             <img class="header-icon" id="profile-pic"  src='$player_avatar' title="C'est vous!"/><br>
             <div id='profile-names'> 
-            <form class="modify-button-form" method="post" action="modifyProfilForm.php">
-                <button class="modify-button fa-solid fa-pen-to-square" id="id" name="id" value="$player_id"></button>
-            </form>
+                $editHTML
                 <p>$player_alias <br>
                     $player_firstName $player_lastName
                 </p>
@@ -91,7 +99,7 @@ $details_content = <<<HTML
                 <p>Nombre de quêtes ratées : $player_questFailed </p>
                 $statsAlchemist
                 <p>Nombre d'écus accumulés : $player_EcuGain </p>
-                <p>Nombre d'écus dépensés :$player_EcuSpent </p>
+                <p>Nombre d'écus dépensés : $player_EcuSpent </p>
             </div>
         </div>
     </div>

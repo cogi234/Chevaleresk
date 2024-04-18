@@ -1,26 +1,38 @@
 <?php
 require_once "../php/php_utilities.php";
 require_once "../php/pdo/pdo_utilities.php";
+require_once "../php/model/player.php";
+require_once "../php/session_manager.php";
 
-if(isset($_POST["alias"])&&isset($_POST["Password"])&&isset($_POST["id"])){
-    $user = Player::getLocalPlayer();
-    $nom = $user->LastName;
-    $prenom = $user->FirstName;
-    $avatar = $user->Avatar;
-    $isAdmin = $user->IsAdmin;
+userAccess();
 
-    if(isset($_POST["nom"]))
-        $nom = $_POST["nom"];
-    if(isset($_POST["prenom"]))
-        $prenom = $_POST["prenom"];
-    if(isset($_POST["avatar"]))
-        copy($_POST['avatar'], "../images/pfp/$user->Id.png");
-        $avatar = "../images/pfp/$user->Id.png";
-    $alias = $_POST["alias"];
-    $password = $_POST["password"];
-    $id = $_POST["id"];
+isset_default($_POST["id"], -1);
+$userId = intval($_POST["id"]);
 
-    callProcedure("PROC_NAME", "ARGS");
+if(!Player::getLocalPlayer()->IsAdmin && $userId != Player::getLocalPlayer()->Id)
+    redirect("forbidden");
 
-    redirect("../details.php?type=player&id=$id");
-}
+$user = Player::selectComplete(equals(Player::ID, $userId));
+
+if (is_bool($user))
+    redirect("../modifyProfilForm.php");
+
+if (isset($_POST["nom"]))
+    $user->LastName = $_POST["nom"];
+
+if (isset($_POST["prenom"]))
+    $user->FirstName = $_POST["prenom"];
+
+if (isset($_FILES["avatar"]) && str_contains($_FILES["avatar"]["type"], "image"))
+    $user->setAvatar($_FILES["avatar"]["tmp_name"], "../");
+
+if (isset($_POST["alias"]))
+    $user->Alias = $_POST["alias"];
+
+if (isset($_POST["password"]))
+    $user->Password = $_POST["password"];
+
+$user->update();
+
+$id = $user->Id;
+redirect("../details.php?type=player&id=$id");

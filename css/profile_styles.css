@@ -60,5 +60,5 @@
     border: none;
 }
 .modify-button-form{
-    position: absolute;
+    float: right;
 }
