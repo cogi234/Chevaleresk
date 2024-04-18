@@ -147,7 +147,7 @@ BEGIN
             prenom = pPrenom,
             nom = pNom,
             avatar = pAvatar,
-            motDePasse = pMotDePasse,
+            motDePasse = pMotDePasseEncrypte,
             estAdmin = pEstAdmin
             WHERE idJoueur = pId;
     COMMIT;
