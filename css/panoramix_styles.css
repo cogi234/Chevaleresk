@@ -44,23 +44,39 @@
 .item-level {
     position: absolute;
 
-    top: 0;
-    left: 0.5em;
+    top: 0.25em;
+    left: 0.25em;
 
     user-select: none;
 }
 
 .easy {
-    color: var(--easy);
+    color: black;
+    background-color: var(--easy);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
 }
 .medium {
-    color: var(--medium);
+    color: black;
+    background-color: var(--medium);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
 }
 .hard {
-    color: var(--hard);
+    color: black;
+    background-color: var(--hard);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
 }
 .unknown {
-    color: var(--unknown);
+    color: black;
+    background-color: var(--unknown);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
 }
 
 .item-inventory-quantity {
