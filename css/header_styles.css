@@ -175,6 +175,14 @@
     right: 2em;
 }
 
+/* ICON PLAYER LIST */
+#header_player_list{
+    font-size: 1.5em;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: var(--light);
+}
+
 /* ICON INSCRIPTION */
 #header_inscription {
     font-size: 1.5em;

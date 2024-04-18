@@ -4,8 +4,8 @@ require_once "php/php_utilities.php";
 $page_title = "Enigma";
 
 isset_default($styles_view);
-$styles_view .= '<link rel="stylesheet" href="css/enigma_styles">';
-$styles_view .= '<link rel="stylesheet" href="css/loader_styles">';
+$styles_view .= '<link rel="stylesheet" href="css/enigma_styles.css">';
+$styles_view .= '<link rel="stylesheet" href="css/loader_styles.css">';
 
 $body_content = <<<HTML
     <div class="receive-quest-buttons">

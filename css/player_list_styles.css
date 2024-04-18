@@ -1,0 +1,46 @@
+/* PLAYERS LIST HOLDER */
+.players-list-holder {
+    width: 100%;
+    height: 100%;
+
+    padding: 1em;
+}
+
+/* PLAYER */
+.list-player-item {
+    display: block;
+    border: solid var(--dark) 2px;
+    border-radius: calc(2em + 2px);
+    margin: 1em auto;
+    background-color: var(--main);
+    color: var(--dark);
+    text-decoration: none;
+    width: 75%;
+    transition: scale 0.25s ease-in-out;
+}
+
+.highlighted {
+    background-color: var(--light);
+}
+
+.list-player-item * {
+    user-select: none;
+}
+
+.list-player-item:hover {
+    scale: 1.1;
+}
+
+/* AVATAR */
+.player-avatar {
+    display: inline;
+    width: 4em;
+    height: 4em;
+    border: solid var(--dark) 2px;
+    border-radius: 2em;
+}
+
+/* NAME */
+.player-name {
+    display: inline;
+}

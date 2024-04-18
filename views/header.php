@@ -12,6 +12,7 @@ $icon_cart_url = "cart.php";
 $icon_inventory_url = "inventory.php";
 $icon_inscription_url = "newUserForm.php";
 $icon_connection_url = "loginForm.php";
+$icon_player_list_url = "playerList.php";
 
 isset_default($scripts_view);
 
@@ -65,6 +66,9 @@ if (is_connected()) {
     $avatar = $player->getAvatar();
 
     $user_section = <<<HTML
+        <!-- PLAYER LIST -->
+        <a id="header_player_list" class="header-icon fa-solid fa-users" href="$icon_player_list_url" title="Liste des joueurs"></a>
+        
         <i id="header_profile" class="header-icon" style="background: url('$avatar');" title="C'est vous!"></i>
     HTML;
 
@@ -84,6 +88,9 @@ isset_default($inventory_section);
 
 isset_default($dropdown);
 isset_default($user_section, <<<HTML
+    <!-- PLAYER LIST -->
+    <a id="header_player_list" class="header-icon fa-solid fa-users" href="$icon_player_list_url" title="Liste des joueurs"></a>
+
     <!-- INSCRIPTION -->
     <a id="header_inscription" class="header-icon fa-solid fa-user-plus" href="$icon_inscription_url" title="Inscription"></a>
 

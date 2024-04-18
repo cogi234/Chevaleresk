@@ -14,7 +14,7 @@ $page_title = "Panier";
 
 // Styles view
 isset_default($styles_view);
-$styles_view .= '<link rel="stylesheet" href="css/cart_styles">';
+$styles_view .= '<link rel="stylesheet" href="css/cart_styles.css">';
 
 // Get player data
 $player = Player::getLocalPlayer();
