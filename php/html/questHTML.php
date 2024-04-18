@@ -85,7 +85,7 @@ function Result(bool $isRight, Quest $quest, bool $becameAlchemist){
 
 
     $content .=<<<HTML
-        <p class="result-msg">Bravo! Vous avez reussi!</p>
+        <p class="result-msg">Bravo! Vous avez réussi!</p>
     HTML;
 
     switch($quest->Difficulty){
