@@ -18,7 +18,7 @@ function player_entry(
     string $avatar,
     bool $highlighted = false
 ): string {
-    $url = "details?type=player&id=$player_id";
+    $url = "details.php?type=player&id=$player_id";
 
     $display_name = $alias;
     if (strlen($full_name) > 0){

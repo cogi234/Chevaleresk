@@ -109,7 +109,6 @@ function Result(bool $isRight, Quest $quest, bool $becameAlchemist){
     if($becameAlchemist){
         $content .= "<p class='result-msg'>Bravo! Vous êtes maintenant alchimiste!!!</p>";
     }
-
     
     return $content;
 }
