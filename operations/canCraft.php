@@ -26,17 +26,20 @@ isset_default($_GET[TAG_ID], -1);
 $id = intval($_GET[TAG_ID]);
 
 // Check if exists
-$recipe = Recipe::select(
-    [
-        Recipe::ID
-    ],
-    equals(Recipe::ID, $id)
-);
+$recipe = Recipe::selectComplete(equals(Recipe::ID, $id));
 
 if ($recipe != false) {
-    // TODO: Check if the player has enough items
-    if ($id == 2 && $multiplier >= 3)
-        $can_craft = false;
+    
+    $ingredients = $recipe->getIngredients();
+    foreach( $ingredients as $ingredient)
+    {
+        $quantity = InventoryItem::select([InventoryItem::QUANTITY], equals(Item::ID, $ingredient->IdIngredient));
+        if ($quantity == false || $quantity->Quantity < $ingredient->Quantity*$multiplier)
+        {
+            $can_craft = false;
+        }
+    }
+    
 } else
     $can_craft = false;
 
