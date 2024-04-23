@@ -162,6 +162,9 @@ BEGIN
 	DECLARE pExistant INT;
     SELECT COUNT(*) INTO pExistant FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     START TRANSACTION;
+		IF (pQuantite < 0) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie d'ajouter une nombre negatif a l'inventaire!";
+        END IF;
 		IF (pExistant > 0) THEN
 			UPDATE inventaire SET quantite = quantite + pQuantite WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
         ELSE
@@ -177,7 +180,16 @@ CREATE PROCEDURE enleverInventaire(in pIdJoueur INT, in pIdItem INT, in pQuantit
 BEGIN
 	DECLARE pExistant INT;
     DECLARE pQuantiteOriginale INT;
+    
+	IF (pQuantite < 0) THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie d'enlever une nombre negatif du panier!";
+	END IF;
+    
     START TRANSACTION;
+		IF (pQuantite < 0) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie d'enlever une nombre negatif de l'inventaire!";
+        END IF;
+    
 		SELECT COUNT(*) INTO pExistant FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
 		SELECT quantite INTO pQuantiteOriginale FROM inventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
 		IF (pExistant = 0) THEN
@@ -201,10 +213,16 @@ BEGIN
 	DECLARE pExistant, pNiveauAlchimie INT;
     DECLARE pTypeItem TEXT;
     
+	IF (pQuantite < 0) THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie d'ajouter une nombre negatif au panier!";
+	END IF;
+    
     SELECT COUNT(*) INTO pExistant FROM panier WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     SELECT niveauAlchimie INTO pNiveauAlchimie FROM joueurs WHERE idJoueur = pIdJoueur;
     SELECT type INTO pTypeItem FROM items WHERE idItem = pIdItem;
     
+    
+
     IF (pTypeItem != 'ingredient' OR pNiveauAlchimie > 0) THEN
 		START TRANSACTION;
 			IF (pExistant > 0) THEN
@@ -397,6 +415,10 @@ BEGIN
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
     START TRANSACTION;
+		IF (pQuantite < 0) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On essaie de concocter une nombre negatif de potions!";
+        END IF;
+    
 		SELECT COUNT(*) INTO pExistant FROM recettes WHERE idRecette = pIdRecette;
 		SELECT COUNT(*) INTO pIngredientsManquants FROM ingredientRecette r INNER JOIN inventaire i ON i.idItem = r.idIngredient 
 			WHERE r.idRecette = pIdRecette AND i.idJoueur = pIdJoueur AND (r.quantite * pQuantite) > i.quantite;
