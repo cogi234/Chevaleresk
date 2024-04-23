@@ -40,7 +40,6 @@ function craft() {
 function set_recipe(id) {
     current_recipe_id = id;
     set_quantity(quantity);
-    console.log(id);
 }
 
 set_quantity(quantity);

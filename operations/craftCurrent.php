@@ -4,6 +4,10 @@ require_once dirname(__FILE__, 2) . "/php/require_utilities.php";
 
 // Utilities
 require_path("php/php_utilities.php");
+
+// Model
+require_path("php/model/player.php");
+
 userAccess();
 
 
