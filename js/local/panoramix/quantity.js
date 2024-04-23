@@ -16,7 +16,7 @@ function set_quantity(newQuantity) {
 
     $.ajax({
         method: "GET",
-        url: "operations/canCraft",
+        url: "operations/canCraft.php",
         data: {
             "multiplier": quantity,
             "id": current_recipe_id
@@ -29,7 +29,7 @@ function set_quantity(newQuantity) {
 function craft() {
     $.ajax({
         method: "GET",
-        url: "operations/craftCurrent",
+        url: "operations/craftCurrent.php",
         data: {
             "multiplier": quantity,
             "id": current_recipe_id
@@ -40,6 +40,7 @@ function craft() {
 function set_recipe(id) {
     current_recipe_id = id;
     set_quantity(quantity);
+    console.log(id);
 }
 
 set_quantity(quantity);

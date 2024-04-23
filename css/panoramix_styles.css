@@ -15,6 +15,9 @@
     overflow-y: scroll;
 
     direction: rtl;
+
+    min-width: 225px;
+    width: fit-content;
 }
 
 /* ITEM */

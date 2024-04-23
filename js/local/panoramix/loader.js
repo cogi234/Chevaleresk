@@ -51,7 +51,7 @@ function checkLoader() {
 
     $.ajax({
         method: "GET",
-        url: "operations/getRecipes",
+        url: "operations/getRecipes.php",
         data: {
             index: index
         }
@@ -73,8 +73,13 @@ function checkLoader() {
         html = $.parseHTML(e);
         html.forEach(element => {
 
-            if ($("#" + element.id).length == 0)
-            loader.before(element);
+            if ($("#" + element.id).length == 0){
+                element.addEventListener("click", function () {
+                    set_recipe(element.dataset.id);
+                });
+                loader.before(element);
+
+            }
         });
 
         createLoader();
@@ -83,6 +88,7 @@ function checkLoader() {
     });
 }
 
+document.getElementById('items').scrollTop =0;
 $("#items").on("scroll", function() {
 
     if (fetchPending || reachedEnd)

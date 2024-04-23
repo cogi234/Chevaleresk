@@ -6,7 +6,17 @@ require_once dirname(__FILE__, 2) . "/php/require_utilities.php";
 
 // Utilities
 require_path("php/php_utilities.php");
+require_path("php/pdo/pdo_utilities.php");
+
+// Model
 require_path("php/model/recipe.php");
+require_path("php/model/player.php");
+require_path("php/model/inventory_item.php");
+
+$player = Player::getLocalPlayer();
+
+if (is_bool($player))
+    return;
 
 isset_default($_GET["index"], 0);
 $index = $_GET["index"];
@@ -53,11 +63,15 @@ foreach ($recipes as $key => $value) {
 
     $name = $product->Name;
     $image = $product->getImage();
+    $qtInventory = count(InventoryItem::selectAll([
+            InventoryItem::ID_PLAYER
+        ], equals(InventoryItem::ID_PLAYER, $player->Id)
+    ));
 
     $recipes_items .= <<<HTML
-        <div class="item" id="item-$id" style="background-image: url('$image')">
-            <span class="item-level $difficulty_class">$difficulty</span>
-            <span class="item-inventory-quantity">QUT INVENTAIRE</span>
+        <div class="item" id="item-$id" style="background-image: url('$image')" data-id="$id">
+            <span class="item-level $difficulty_class" title="Potion de difficulté $difficulty">$difficulty</span>
+            <span class="item-inventory-quantity" title="Vous en possédez $qtInventory">$qtInventory</span>
         </div>
     HTML;
 }
