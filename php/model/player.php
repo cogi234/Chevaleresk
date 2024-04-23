@@ -177,5 +177,15 @@ class Player extends PDO_Object
         callProcedure("viderPanier", $this->Id);
     }
 
+     /**
+     * Creates potions for this player
+     * @author @lolo2178
+     * Date of creation    : 2024/04/23
+     * Date of modification: 2024/04/23
+     */
+    public function craft_potion(int $idRecette,int $quantity): void
+    {
+        callProcedure('concocterRecette',$idRecette,$this->Id,$quantity);
+    }
     #endregion
 }

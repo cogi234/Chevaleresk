@@ -63,14 +63,21 @@ foreach ($recipes as $key => $value) {
 
     $name = $product->Name;
     $image = $product->getImage();
-    $qtInventory = count(InventoryItem::selectAll([
-            InventoryItem::ID_PLAYER
-        ], equals(InventoryItem::ID_PLAYER, $player->Id)
-    ));
+    $inventoryItem = InventoryItem::select([
+            InventoryItem::QUANTITY
+        ], _and(
+            equals(Item::ID, $product->Id),
+            equals(InventoryItem::ID_PLAYER, $player->Id)
+        )
+    );
+
+    $qtInventory = 0;
+    if ($inventoryItem != false)
+        $qtInventory = $inventoryItem->Quantity;
 
     $recipes_items .= <<<HTML
-        <div class="item" id="item-$id" style="background-image: url('$image')" data-id="$id">
-            <span class="item-level $difficulty_class" title="Potion de difficulté $difficulty">$difficulty</span>
+        <div class="item" id="item-$id" style="background-image: url('$image')" data-id="$id" title="$name">
+            <span class="item-level $difficulty_class" title="Potion de difficulté: $difficulty">$difficulty</span>
             <span class="item-inventory-quantity" title="Vous en possédez $qtInventory">$qtInventory</span>
         </div>
     HTML;

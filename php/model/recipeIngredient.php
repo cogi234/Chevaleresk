@@ -21,7 +21,7 @@ class RecipeIngredient extends PDO_Object
 
     public const ID_INGREDIENT = "idIngredient";
     #[PDO_Object_Id(RecipeIngredient::ID_INGREDIENT)]
-    public int $IdProduct = -1;
+    public int $IdIngredient = -1;
 
     public const QUANTITY = "quantite";
     #[PDO_Object_Id(RecipeIngredient::QUANTITY)]
