@@ -19,48 +19,13 @@ function cartItem(
     $elementId = "cart-item-$idItem";
 
     //check if the item is still in stock
-    if ($quantityStock > $quantity) {
+    if ($quantityStock >= $quantity) {
         $content .= <<<HTML
             <div class="cart-item" id="$elementId">
                 <a href="$url" class="cart-item-image"><img src="$image"/></a>
                 <div class="cart-item-info">
                     <p class="name-item">$name</p>
                     <div class="number-item">
-                        <div class="fa fa-minus cart-quantity-modifier"
-                            hx-post="operations/cartChange.php?operation=remove&id=$idItem&action=cart-item"
-                            hx-trigger="click"
-                            hx-target="#$elementId"
-                            hx-swap="outerHTML"></div>
-                        <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
-                            hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
-                            hx-trigger="change"
-                            hx-target="#$elementId"
-                            hx-swap="outerHTML">
-                        <div class="fa fa-plus cart-quantity-modifier"
-                            hx-post="operations/cartChange.php?operation=add&id=$idItem&action=cart-item"
-                            hx-trigger="click"
-                            hx-target="#$elementId"
-                            hx-swap="outerHTML"></div>
-                    </div>
-                </div>
-                <div class="cart-item-remove-error">
-                    <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
-                    <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
-                </div>
-            </div>
-            HTML;
-    } else if ($quantityStock == $quantity) {
-        $content .= <<<HTML
-            <div class="cart-item" id="$elementId">
-                <a href="$url" class="cart-item-image"><img src="$image"/></a>
-                <div class="cart-item-info">
-                    <p class="name-item">$name</p>
-                    <div class="number-item">
-                        <div class="fa fa-minus cart-quantity-modifier"
-                            hx-post="operations/cartChange.php?operation=remove&id=$idItem&action=cart-item"
-                            hx-trigger="click"
-                            hx-target="#$elementId"
-                            hx-swap="outerHTML"></div>
                         <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
                             hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
                             hx-trigger="change"
@@ -82,11 +47,6 @@ function cartItem(
                 <div class="cart-item-info">
                     <p class="name-item">$name</p>
                     <div class="number-item">
-                        <div class="fa fa-minus cart-quantity-modifier"
-                            hx-post="operations/cartChange.php?operation=remove&id=$idItem&action=cart-item"
-                            hx-trigger="click"
-                            hx-target="#$elementId"
-                            hx-swap="outerHTML"></div>
                         <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
                             hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
                             hx-trigger="change"
@@ -165,29 +125,12 @@ function onDetailsCounter(int $idPlayer, int $idItem): string
     $stock = intval($item->Item->Quantity);
 
     // HTML
-    $plus_btn = "";
-
-    if ($cart_quantity < $stock) {
-        $plus_btn = <<<HTML
-            <div class="fa fa-plus cart-quantity-modifier"
-                hx-post="operations/cartChange.php?operation=add&id=$idItem&action=details-counter"
-                hx-trigger="click"
-                hx-target="#details-buy"
-                hx-swap="innerHTML"></div>
-        HTML;
-    }
 
     return <<<HTML
-        <div class="fa fa-minus cart-quantity-modifier"
-            hx-post="operations/cartChange.php?operation=remove&id=$idItem&action=details-counter"
-            hx-trigger="click"
-            hx-target="#details-buy"
-            hx-swap="innerHTML"></div>
         <input type="number" min="0" max="$stock" class="details-cart-text" name="quantity" value="$cart_quantity"
             hx-post="operations/cartChange.php?operation=set&id=$idItem&action=details-counter"
             hx-trigger="change"
             hx-target="#details-buy"
             hx-swap="innerHTML">
-        $plus_btn
     HTML;
 }
