@@ -31,7 +31,7 @@ if ($operation == "remove") {
     if ($result = false)
         throw new Exception("Error Processing Request", 1);
 } else if ($operation == "add") {
-    if ($itemType == "ingredient" && $alchemy_level == 0) {
+    if ($itemType == "ingredient" && $alchemyLevel == 0) {
         exit();
     }
     $result = CartItem::add_to_cart($idPlayer, $idItem, $quantity);
