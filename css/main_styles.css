@@ -20,4 +20,6 @@
 
     width: 100vw;
     height: 100vh;
+
+    background: linear-gradient(90deg, var(--dark) 0%, transparent 0.5%, transparent 99.5%, var(--dark) 100%);
 }
