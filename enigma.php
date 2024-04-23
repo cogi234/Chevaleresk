@@ -49,4 +49,10 @@ HTML;
 isset_default($scripts_view);
 $scripts_view .= "<script src='js/local/enigma-loader.js' defer></script>";
 
+$scripts_view .= <<<HTML
+    <script>
+        htmx.on("htmx:after-request", function(evt){ headerMoneyRefresh.refresh(true) });
+    </script>
+HTML;
+
 require "views/master.php";

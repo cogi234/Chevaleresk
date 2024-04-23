@@ -183,3 +183,10 @@ $details_content = <<<HTML
         $buy_html
     </div>
 HTML;
+
+isset_default($scripts_view);
+$scripts_view .= <<<HTML
+    <script>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
+    </script>
+HTML;

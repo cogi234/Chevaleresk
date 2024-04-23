@@ -280,7 +280,7 @@ BEGIN
 			SELECT idItem INTO pIdItem FROM vPanier WHERE idJoueur = pIdJoueur LIMIT 1;
 			SELECT quantite INTO pQuantite FROM vPanier WHERE idJoueur = pIdJoueur LIMIT 1;
             CALL ajouterInventaire(pIdJoueur, pIdItem, pQuantite);
-            UPDATE items SET quantiteStock = quantiteStock - pQuantite;
+            UPDATE items SET quantiteStock = quantiteStock - pQuantite WHERE idItem = pIdItem;
             CALL enleverPanier(pIdJoueur, pIdItem, pQuantite);
             SET i = i + 1;
         END WHILE;

@@ -32,9 +32,7 @@ if (is_connected()) {
     $money_amount = $player->Balance;
     $money_section = <<<HTML
         <!-- MONEY -->
-        <i id="header_money" class="header-icon fa-solid fa-money-bill" title="Vous avez $money_amount écus">
-            <div><span>$money_amount</span></div>
-        </i>
+        <i id="header_money" class="header-icon fa-solid fa-money-bill" title="Vous avez $money_amount écus"></i>
     HTML;
 
     // Cart amount
@@ -50,9 +48,14 @@ if (is_connected()) {
 
     $cart_section = <<<HTML
         <!-- CART -->
-        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier" title="Vous avez $cart_amount objets dans votre panier">
-            <span>$cart_amount</span>
-        </a>
+        <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier" title="Vous avez $cart_amount objets dans votre panier"></a>
+    HTML;
+    
+    $scripts_view .= <<<HTML
+        <script>
+            let headerCartRefresh = new PartialRefresh("php/partial/cart_amount.php", "header_cart", 30);
+            let headerMoneyRefresh = new PartialRefresh("php/partial/money_amount.php", "header_money", 30);
+        </script>
     HTML;
 
 

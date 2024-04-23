@@ -8,4 +8,6 @@ userAccess();
 
 Player::getLocalPlayer()->buy_cart();
 
+Player::refreshLocalPlayer();
+
 redirect("../inventory.php");
