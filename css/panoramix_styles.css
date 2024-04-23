@@ -23,8 +23,9 @@
 /* ITEM */
 .item {
     position: relative;
-    width: 200px;
+    left: -0.25em;
 
+    width: 200px;
     height: 200px;
 
     margin: 0.5em;
@@ -36,7 +37,13 @@
     animation-name: item-appear;
     animation-duration: 1s;
 
+    transition: left linear 0.1s;
+
     cursor: pointer;
+}
+
+.item:hover {
+    left: 0.25em;
 }
 
 @keyframes item-appear {
