@@ -31,7 +31,11 @@ function cartItem(
                             hx-trigger="click"
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
-                        <p class="cart-quantity">$quantity</p>
+                        <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
+                            hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
+                            hx-trigger="change"
+                            hx-target="#$elementId"
+                            hx-swap="outerHTML">
                         <div class="fa fa-plus cart-quantity-modifier"
                             hx-post="operations/cartChange.php?operation=add&id=$idItem&action=cart-item"
                             hx-trigger="click"
@@ -57,7 +61,11 @@ function cartItem(
                             hx-trigger="click"
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
-                        <p class="cart-quantity">$quantity</p>
+                        <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
+                            hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
+                            hx-trigger="change"
+                            hx-target="#$elementId"
+                            hx-swap="outerHTML">
                     </div>
                 </div>
                 <div class="cart-item-remove-error">
@@ -79,7 +87,11 @@ function cartItem(
                             hx-trigger="click"
                             hx-target="#$elementId"
                             hx-swap="outerHTML"></div>
-                        <p class="cart-quantity">$quantity</p>
+                        <input type="number" min="0" max="$quantityStock" class="cart-quantity" name="quantity" value="$quantity"
+                            hx-post="operations/cartChange.php?operation=set&id=$idItem&action=cart-item"
+                            hx-trigger="change"
+                            hx-target="#$elementId"
+                            hx-swap="outerHTML">
                     </div>
                 </div>
                 <div class="cart-item-remove-error">
@@ -171,7 +183,11 @@ function onDetailsCounter(int $idPlayer, int $idItem): string
             hx-trigger="click"
             hx-target="#details-buy"
             hx-swap="innerHTML"></div>
-        <p class="details-cart-text">$cart_quantity</p>
+        <input type="number" min="0" max="$stock" class="details-cart-text" name="quantity" value="$cart_quantity"
+            hx-post="operations/cartChange.php?operation=set&id=$idItem&action=details-counter"
+            hx-trigger="change"
+            hx-target="#details-buy"
+            hx-swap="innerHTML">
         $plus_btn
     HTML;
 }

@@ -20,24 +20,30 @@ userAccess();
 $idPlayer = Player::getLocalPlayer()->Id;
 $alchemyLevel = Player::getLocalPlayer()->AlchemyLevel;
 $idItem = $_GET['id'];
-isset_default($_GET['quantity'], 1);
-$quantity = intval($_GET['quantity']);
+isset_default($_POST['quantity'], 1);
+$quantity = intval($_POST['quantity']);
 $operation = $_GET['operation'];
 $itemType = Item::select([Item::TYPE], equals(Item::ID, $idItem))->Type;
 
 
 if ($operation == "remove") {
-    CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
+    $result = CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
+    if ($result = false)
+        throw new Exception("Error Processing Request", 1);
 } else if ($operation == "add") {
     if ($itemType == "ingredient" && $alchemy_level == 0) {
         exit();
     }
-    CartItem::add_to_cart($idPlayer, $idItem, $quantity);
+    $result = CartItem::add_to_cart($idPlayer, $idItem, $quantity);
+    if ($result = false)
+        throw new Exception("Error Processing Request", 1);
 } else if ($operation == "set") {
     if ($itemType == "ingredient" && $alchemyLevel == 0) {
         exit();
     }
-    //TODO
+    $result = CartItem::modify_cart($idPlayer, $idItem, $quantity);
+    if ($result = false)
+        throw new Exception("Error Processing Request", 1);
 }
 
 const ACTIONS = [

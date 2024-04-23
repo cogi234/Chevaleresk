@@ -8,6 +8,7 @@ require_once "php/model/cart_item.php";
 
 // Utilities
 require_once "php/pdo/pdo_utilities.php";
+require_once "php/html/cartHTML.php";
 
 // Session
 require_once "php/session_manager.php";
@@ -97,42 +98,8 @@ if (is_connected()) {
     $count = 0;
     if ($cart_item != false)
         $count = $cart_item->Quantity;
-
-    if ($count > 0) {
-
-        $add_btn = "";
-        if ($count < $stock) {
-            $add_btn = <<<HTML
-                <div class="fa fa-plus cart-quantity-modifier"
-                    hx-post="operations/cartChange.php?operation=add&id=$item_id&action=details-counter"
-                    hx-trigger="click"
-                    hx-target="#details-buy"
-                    hx-swap="innerHTML"></div>
-            HTML;
-        }
-
-        $buy_html = <<<HTML
-            <div id="details-buy">
-                <div class="fa fa-minus cart-quantity-modifier"
-                    hx-post="operations/cartChange.php?operation=remove&id=$item_id&action=details-counter"
-                    hx-trigger="click"
-                    hx-target="#details-buy"
-                    hx-swap="innerHTML"></div>
-                <p class="details-cart-text">$count</p>
-                $add_btn
-            </div>
-        HTML;
-    } else {
-        $buy_html = <<<HTML
-            <div id="details-buy">
-                <button id="add-to-cart"
-                    hx-post="operations/cartChange.php?operation=add&id=$item_id&action=details-counter"
-                    hx-trigger="click"
-                    hx-target="#details-buy"
-                    hx-swap="innerHTML">Ajouter au panier</button>
-            </div>
-        HTML;
-    }
+    
+    $buy_html = onDetailsCounter($player_id, $item_id);
 
     if ($type == "ingredient" && $alchemy_level == 0) {
         $buy_html = "";
@@ -180,7 +147,9 @@ $details_content = <<<HTML
         $price_html
         $stock_html
         $inventory_html
-        $buy_html
+        <div id="details-buy">
+            $buy_html
+        </div>
     </div>
 HTML;
 

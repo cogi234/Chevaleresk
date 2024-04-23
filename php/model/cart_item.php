@@ -37,7 +37,7 @@ class CartItem extends PDO_Object
     {
         // Skip if quantity invalid
         if ($quantity <= 0)
-            return true;
+            return false;
 
         return callProcedure("ajouterPanier", $idPlayer, $idItem, $quantity);
     }
@@ -53,9 +53,18 @@ class CartItem extends PDO_Object
     {
         // Skip if quantity invalid
         if ($quantity <= 0)
-            return true;
+            return false;
 
         return callProcedure("enleverPanier", $idPlayer, $idItem, $quantity);
+    }
+
+    public static function modify_cart(int $idPlayer, int $idItem, int $quantity) : bool
+    {
+        // Skip if quantity invalid
+        if ($quantity < 0)
+            return false;
+
+        return callProcedure("modifierPanier", $idPlayer, $idItem, $quantity);
     }
 
     #endregion
