@@ -48,6 +48,7 @@ function quest(
             hx-trigger="click"
             hx-target="#quest-container"
             hx-swap="innerHTML"
+            hx-on:htmx:after-request="alert('Done making a request!')"
             name="id"
             value="$answerId">
             $answerText

@@ -1,6 +1,5 @@
 function add_loader() {
     const container = $("#quest-container");
-    console.log("test");
     // Clear current items
     container.empty();
 

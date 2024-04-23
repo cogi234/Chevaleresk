@@ -96,4 +96,11 @@ $body_content = <<<HTML
 HTML;
 /////
 
+isset_default($scripts_view);
+$scripts_view .= <<<HTML
+    <script>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
+    </script>
+HTML;
+
 require "views/master.php";
