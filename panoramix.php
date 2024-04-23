@@ -20,7 +20,12 @@ HTML;
 $body_content = <<<HTML
     <div id="parent">
         <div id="items"></div>
-        <div>
+        <div id="details-container">
+            <span id="detail-difficulty" class="item-level "></span>
+            <span id="detail-player-level" class=" "></span>
+            <img id="detail-image"/>
+            <p id="detail-effect"></p>
+            <div id="detail-ingredients"></div>
             $remove_button
             <span id="quantity_label"></span>
             $add_button
@@ -33,6 +38,7 @@ HTML;
 isset_default($scripts_view);
 $scripts_view .= "<script src='js/local/panoramix/quantity.js'></script>";
 $scripts_view .= "<script src='js/local/panoramix/loader.js' defer></script>";
+$scripts_view .= "<script src='js/local/panoramix/details.js' defer></script>";
 
 // Styles
 isset_default($styles_view);

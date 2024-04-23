@@ -1,7 +1,12 @@
 <?php
-require_once "php/php_utilities.php";
-require_once "php/model/pdo_object.php";
-require_once "php/model/item.php";
+require_once dirname(__FILE__, 2) . "/require_utilities.php";
+
+// Utilities
+require_path("php/php_utilities.php");
+
+// PDO
+require_path("php/model/pdo_object.php");
+require_path("php/model/item.php");
 
 class Potion extends PDO_Object
 {
