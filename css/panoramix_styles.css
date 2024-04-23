@@ -11,7 +11,7 @@
 
 #items {
     height: 100%;
-    padding: 1em 0;
+    padding: 0.5em 0;
     overflow-y: scroll;
 
     direction: rtl;

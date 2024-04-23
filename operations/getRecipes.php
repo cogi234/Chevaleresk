@@ -69,8 +69,8 @@ foreach ($recipes as $key => $value) {
     ));
 
     $recipes_items .= <<<HTML
-        <div class="item" id="item-$id" style="background-image: url('$image')" data-id="$id">
-            <span class="item-level $difficulty_class" title="Potion de difficulté $difficulty">$difficulty</span>
+        <div class="item" id="item-$id" style="background-image: url('$image')" data-id="$id" title="$name">
+            <span class="item-level $difficulty_class" title="Potion de difficulté: $difficulty">$difficulty</span>
             <span class="item-inventory-quantity" title="Vous en possédez $qtInventory">$qtInventory</span>
         </div>
     HTML;
