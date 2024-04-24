@@ -3,6 +3,9 @@
 // PDO
 require_once "php/model/recipe.php";
 
+// Title
+$page_title = "Panoramix";
+
 // Add quantity
 $add_button = "<button onclick='add_quantity(1)'>Add 1</button>";
 
