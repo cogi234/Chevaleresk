@@ -76,6 +76,9 @@ function checkLoader() {
             if ($("#" + element.id).length == 0){
                 element.addEventListener("click", function () {
                     set_recipe(element.dataset.id);
+
+                    $(".selected").removeClass("selected");
+                    element.classList.add("selected");
                 });
                 loader.before(element);
 
@@ -88,18 +91,26 @@ function checkLoader() {
     });
 }
 
-document.getElementById('items').scrollTop =0;
-$("#items").on("scroll", function() {
-
-    if (fetchPending || reachedEnd)
+function setup_ui(parent) {
+    if (parent == undefined)
         return;
+    
+    parent.scrollTop = 0;
+    parent.addEventListener("scroll", function() {
+    
+        if (fetchPending || reachedEnd)
+            return;
+    
+        let value = getScrollPercent($(this));
+        if (value < FETCH_VALUE)
+            return;
+    
+        checkLoader();
+    });
+    
+}
 
-    let value = getScrollPercent($(this));
-    if (value < FETCH_VALUE)
-        return;
-
-    checkLoader();
-});
+setup_ui(document.getElementById('items'));
 
 createLoader();
 checkLoader();

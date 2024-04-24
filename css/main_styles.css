@@ -15,11 +15,21 @@
     background-color: var(--second);
 }
 
-#body {
+#body,
+#body-fade {
     padding-top: 75px;
 
     width: 100vw;
     height: 100vh;
+}
+
+#body-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    pointer-events: none;
 
     background: linear-gradient(90deg, var(--dark) 0%, transparent 0.5%, transparent 99.5%, var(--dark) 100%);
+    z-index: 10;
 }

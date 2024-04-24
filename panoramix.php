@@ -21,15 +21,13 @@ $body_content = <<<HTML
     <div id="parent">
         <div id="items"></div>
         <div id="details-container">
-            <span id="detail-difficulty" class="item-level "></span>
-            <span id="detail-player-level" class=" "></span>
-            <img id="detail-image"/>
+            <!--
             <p id="detail-effect"></p>
             <div id="detail-ingredients"></div>
             $remove_button
             <span id="quantity_label"></span>
             $add_button
-            $craft_button
+            $craft_button -->
         </div>
     </div>
 HTML;

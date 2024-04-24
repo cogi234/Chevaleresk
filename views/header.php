@@ -24,9 +24,9 @@ if (is_connected()) {
 
     // Dropdown
     $dropdown = dropdown("", [
-        dropdown_item("Magasin", "index.php"),
-        dropdown_item("Enigma", "enigma.php"),
-        dropdown_item("Panoramix", "panoramix.php"),
+        dropdown_item("<i class='fa-solid fa-store'></i> Magasin", "index.php"),
+        dropdown_item("<i class='fa-solid fa-clipboard-question'></i> Enigma", "enigma.php"),
+        dropdown_item("<i class='fa-solid fa-flask-vial'></i> Panoramix", "panoramix.php"),
     ], "fa-solid fa-bars header_dropdown");
 
     // Money amount

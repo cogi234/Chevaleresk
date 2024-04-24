@@ -38,32 +38,47 @@ switch ($recipe->AlchemyLevel) {
 }
 
 $item = $recipe->getProduct();
-$potion = Potion::selectComplete(equals(Potion::ID, $item->Id));
-$temp = $recipe->getIngredients();
-$ingredients = [];
-foreach($temp as $t){
-    $product = Item::selectComplete(equals(Item::ID, $t->IdProduct));
-    array_push($ingredients, [
+$potion = Potion::select(
+    [Potion::EFFECT],
+    equals(Potion::ID, $item->Id)
+);
+
+// Ingredients
+$ingredients = $recipe->getIngredients();
+$result_ingredients = [];
+
+foreach($ingredients as $ingredient){
+    $product = Item::select(
+        [
+            Item::NAME,
+            Item::IMAGE
+        ],
+        equals(Item::ID, $ingredient->IdIngredient)
+    );
+
+    if (is_bool($product))
+        continue;
+
+    array_push($result_ingredients, [
         "image" => $product->getImage(),
         "name" => $product->Name,
-        "quantity" => $t->Quantity,
+        "quantity" => $ingredient->Quantity,
     ]);
 }
-$qtInventory = count(InventoryItem::selectAll([
-    InventoryItem::ID_PLAYER
-], equals(InventoryItem::ID_PLAYER, $player->Id)
+$qtInventory = count(InventoryItem::selectAll(
+    [InventoryItem::ID_PLAYER], 
+    equals(InventoryItem::ID_PLAYER, $player->Id)
 ));
 
-$result = [
+// Pass informations
+echo json_encode([
     "id" => $id,
-    "difficuty" => $recipe->getDifficulty(),
-    "difficulty_class" => $difficulty_class,
     "name" => $item->Name,
     "image" => $item->getImage(),
     "quantityInventory" => $qtInventory,
     "effect" => $potion->Effect,
-    "ingredients" => $ingredients,
     "player_level" => $player->AlchemyLevel,
-];
-
-echo json_encode($result);
+    "difficulty" => $recipe->getDifficulty(),
+    "difficulty_class" => $difficulty_class,
+    "ingredients" => $ingredients,
+]);
