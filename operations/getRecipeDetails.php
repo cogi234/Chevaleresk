@@ -37,6 +37,22 @@ switch ($recipe->AlchemyLevel) {
         break;
 }
 
+$playerLevel = "";
+switch ($player->AlchemyLevel) {
+    case 1:
+        $playerLevel = "Apprenti";
+        break;
+    case 2:
+        $playerLevel = "Expert";
+        break;
+    case 3:
+        $playerLevel = "Maitre";
+        break;
+    default:
+        $playerLevel = "Pas un alchimiste";
+        break;
+}
+
 $item = $recipe->getProduct();
 $potion = Potion::select(
     [Potion::EFFECT],
@@ -77,7 +93,7 @@ echo json_encode([
     "image" => $item->getImage(),
     "quantityInventory" => $qtInventory,
     "effect" => $potion->Effect,
-    "player_level" => $player->AlchemyLevel,
+    "player_level" => $playerLevel,
     "difficulty" => $recipe->getDifficulty(),
     "difficulty_class" => $difficulty_class,
     "ingredients" => $ingredients,
