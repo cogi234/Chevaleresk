@@ -67,7 +67,7 @@
     padding: 1em;
     margin: 1em;
     border: solid 5px var(--dark);
-    background-color: var(--light);
+    background-color: var(--main);
     border-radius: 2em;
     font-weight: bold;
     color: var(--dark);

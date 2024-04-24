@@ -90,15 +90,15 @@ function update_ui(data) {
     let image_src = data.image;
 
     // Difficulty
-    const difficultyText = $("#details-difficulty")[0];
+    //const difficultyText = $("#details-difficulty")[0];
 
-    if (difficultyText != undefined) {
-        difficultyText.className = difficulty_class;
-        difficultyText.innerText = difficulty;
-        difficultyText.setAttribute("title", "Potion de difficulté: " + difficulty);
-    }
-    else
-        console.warn("No element has the id 'details-difficulty'");
+    //if (difficultyText != undefined) {
+    //    difficultyText.className = difficulty_class;
+    //    difficultyText.innerText = difficulty;
+    //    difficultyText.setAttribute("title", "Potion de difficulté: " + difficulty);
+    //}
+    //else
+    //    console.warn("No element has the id 'details-difficulty'");
 
     // Player Level
     const playerLvlText = $("#details-player-level")[0];
