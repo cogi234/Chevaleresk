@@ -7,8 +7,10 @@ const BUNDLE_PATH_SCRIPTS = "bundles/scriptsBundle.html";
 require_once "php/php_utilities.php";
 
 // Name of the page
-isset_default($page_title);
-$page_name = DEFAULT_PAGE_NAME . " - " . $page_title;
+$page_name = DEFAULT_PAGE_NAME;
+
+if (isset($page_title))
+    $page_name .= " - " . $page_title;
 
 include_once "views/header.php";
 include_once "views/footer.php";
