@@ -4,14 +4,21 @@ require_once dirname(__FILE__, 2) . "/php/require_utilities.php";
 
 // Utilities
 require_path("php/php_utilities.php");
+require_path("php/session_manager.php");
 require_path("php/pdo/pdo_utilities.php");
 
 // PDO
 require_path("php/model/recipe.php");
+require_path("php/model/player.php");
 require_path("php/model/inventory_item.php");
 
 const TAG_MULTIPLIER = "multiplier";
 const TAG_ID = "id";
+
+if (!is_connected()){
+    echo json_encode(false);
+    exit();
+}
 
 // Get multiplier
 isset_default($_GET[TAG_MULTIPLIER], 0);
@@ -39,7 +46,7 @@ if ($recipe != false && $can_craft) {
     {
         $quantity = InventoryItem::select(
             [InventoryItem::QUANTITY], 
-            equals(Item::ID, $ingredient->IdIngredient)
+            _and( equals(Item::ID, $ingredient->IdIngredient), equals(InventoryItem::ID_PLAYER, Player::getLocalPlayer()->Id))
         );
 
         if ($quantity == false || $quantity->Quantity < $ingredient->Quantity * $multiplier)
