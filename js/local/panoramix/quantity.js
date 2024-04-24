@@ -14,6 +14,17 @@ function set_quantity(newQuantity) {
 
     $("#quantity_label").html(quantity);
 
+    $(".ingredient-label").each(function() {
+        const element = $(this);
+
+        let base = element.data("base") * quantity;
+        let own = element.data("own"); 
+
+
+        element.text(own + " / " + base);
+        element.css("color", own >= base ? "var(--enough)" : "var(--missing)")
+    });
+
     $.ajax({
         method: "GET",
         url: "operations/canCraft.php",
@@ -27,14 +38,7 @@ function set_quantity(newQuantity) {
 }
 
 function craft() {
-    $.ajax({
-        method: "GET",
-        url: "operations/craftCurrent.php",
-        data: {
-            "multiplier": quantity,
-            "id": current_recipe_id
-        }
-    });
+    document.location.href = "operations/craftCurrent.php?id=" + current_recipe_id + "&multiplier=" + quantity;
 }
 
 function set_recipe(id) {

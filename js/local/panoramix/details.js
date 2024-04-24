@@ -20,6 +20,7 @@ function updateDetails(id) {
 
             update_ui(e);
             $("#details-loader").css("opacity", 0);
+            set_quantity(1);
         } catch (error) {
             console.error(error);
         }
@@ -27,16 +28,6 @@ function updateDetails(id) {
  }
 
  function create_ui(parent) {
-    // Difficulty
-    const difficulty = document.createElement("div");
-    difficulty.classList.add("item-level");
-
-    const difficultyText = document.createElement("span");
-    difficultyText.id = "details-difficulty";
-
-    difficulty.append(difficultyText);
-    parent.append(difficulty);
-
     // Player Level
     const playerLvl = document.createElement("div");
 
@@ -53,14 +44,38 @@ function updateDetails(id) {
     
     parent.append(image);
 
-    // <span id="detail-player-level" class=" "></span>
-    // <img id="detail-image"/>
-    // <p id="detail-effect"></p>
-    // <div id="detail-ingredients"></div>
-    // $remove_button
-    // <span id="quantity_label"></span>
-    // $add_button
-    // $craft_button
+    // Name
+    const name = document.createElement("div");
+    name.id = "details-name";
+
+    parent.append(name);
+
+    // Ingredients
+    const ingredients = document.createElement("div");
+    ingredients.id = "details-ingredients-container";
+
+    parent.append(ingredients);
+
+    // Quantity
+    const make_container = document.createElement("div");
+    make_container.id = "details-make-container";
+
+    const quantity_input = document.createElement("input");
+    quantity_input.type = "number";
+    quantity_input.min = 1;
+    quantity_input.value = 1;
+    quantity_input.addEventListener("change", () => set_quantity(quantity_input.value));
+
+    make_container.append(quantity_input);
+    
+    // Craft
+    const craft_btn = document.createElement("button");
+    craft_btn.id = "craft-btn";
+    craft_btn.innerText = "Fabriquer";
+    craft_btn.addEventListener("click", () => craft());
+
+    make_container.append(craft_btn);
+    parent.append(make_container);
 
     // Loader
     const loader = document.createElement("div");
@@ -84,21 +99,11 @@ function updateDetails(id) {
  
 function update_ui(data) {
     // Get data
-    let difficulty = data.difficulty;
-    let difficulty_class = data.difficulty_class;
     let player_level = data.player_level;
     let image_src = data.image;
-
-    // Difficulty
-    //const difficultyText = $("#details-difficulty")[0];
-
-    //if (difficultyText != undefined) {
-    //    difficultyText.className = difficulty_class;
-    //    difficultyText.innerText = difficulty;
-    //    difficultyText.setAttribute("title", "Potion de difficulté: " + difficulty);
-    //}
-    //else
-    //    console.warn("No element has the id 'details-difficulty'");
+    let item_name = data.name;
+    let item_effect = data.effect;
+    let ingredients_list = data.ingredients;
 
     // Player Level
     const playerLvlText = $("#details-player-level")[0];
@@ -118,9 +123,49 @@ function update_ui(data) {
     else
         console.warn("No element has the id 'details-image'");
     
-    //effet
-    //$("#detail-effect").html(data.effect);
-    //ingredients
+    // Name
+    const name = $("#details-name")[0];
+
+    if (name != undefined) {
+        name.innerHTML = "";
+
+        if (item_effect != null)
+            name.innerHTML += '<i id="details-effect" class="fa-solid fa-wand-sparkles fa-fw" title="' + item_effect + '"></i>';
+
+        name.innerHTML += '<span>' + item_name + '</span>';
+    }
+    else
+        console.warn("No element has the id 'details-name'");
+    
+    // Ingredients
+    const ingredients = $("#details-ingredients-container")[0];
+
+    if (ingredients != undefined) {
+        ingredients.innerHTML = "";
+
+        ingredients_list.forEach(element => {
+
+            const container = document.createElement("div");
+            container.classList.add("ingredient");
+            container.setAttribute("title", element.name);
+
+            const img = document.createElement("div");
+            img.classList.add("ingredient-img");
+            img.style.backgroundImage = "url('" + element.image + "')";
+
+            const quantity = document.createElement("span");
+            quantity.classList.add("ingredient-label");
+            quantity.dataset.base = element.quantity;
+            quantity.dataset.own = element.inventory;
+
+            container.append(img);
+            container.append(quantity);
+            ingredients.append(container);
+        });
+    }
+    else 
+        console.warn("No element has the id 'details-ingredients-container'");
+
     // data.ingredients.forEach(ingredient => {
     //     let imageHtml = '<img class="" src="'+ ingredient.image +'"/>';
     //     let quantityHtml = '<p class="">'+ ingredient.name +'</p>';

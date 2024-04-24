@@ -9,6 +9,10 @@
     --medium: #FFFF00;
     --hard: #FF0000;
     --unknown: #666666;
+
+    /* QUANTITIES */
+    --enough: #008A00;
+    --missing: #8A0000;
 }
 
 *:has(#main) {

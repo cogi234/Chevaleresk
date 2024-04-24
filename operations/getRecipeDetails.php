@@ -21,22 +21,6 @@ $player = Player::getLocalPlayer();
 // Get recipe
 $recipe = Recipe::selectComplete(equals(Recipe::ID, $id));
 
-$difficulty_class = "";
-switch ($recipe->AlchemyLevel) {
-    case 1:
-        $difficulty_class = "easy";
-        break;
-    case 2:
-        $difficulty_class = "medium";
-        break;
-    case 3:
-        $difficulty_class = "hard";
-        break;
-    default:
-        $difficulty_class = "unknown";
-        break;
-}
-
 $playerLevel = "";
 switch ($player->AlchemyLevel) {
     case 1:
@@ -75,10 +59,19 @@ foreach($ingredients as $ingredient){
     if (is_bool($product))
         continue;
 
+    $inv = InventoryItem::select(
+        [InventoryItem::QUANTITY], 
+        _and(
+            equals(InventoryItem::ID_PLAYER, $player->Id),
+            equals(Item::ID, $ingredient->IdIngredient)
+        )
+    );
+
     array_push($result_ingredients, [
         "image" => $product->getImage(),
         "name" => $product->Name,
         "quantity" => $ingredient->Quantity,
+        "inventory" => $inv->Quantity ?? 0,
     ]);
 }
 $qtInventory = count(InventoryItem::selectAll(
@@ -94,7 +87,5 @@ echo json_encode([
     "quantityInventory" => $qtInventory,
     "effect" => $potion->Effect,
     "player_level" => $playerLevel,
-    "difficulty" => $recipe->getDifficulty(),
-    "difficulty_class" => $difficulty_class,
-    "ingredients" => $ingredients,
+    "ingredients" => $result_ingredients,
 ]);

@@ -6,32 +6,11 @@ require_once "php/model/recipe.php";
 // Title
 $page_title = "Panoramix";
 
-// Add quantity
-$add_button = "<button onclick='add_quantity(1)'>Add 1</button>";
-
-// Remove quantity
-$remove_button = "<button onclick='add_quantity(-1)'>Remove 1</button>";
-
-// Craft btn
-$craft_button = "<button id='craft-btn' onclick='craft()'>Craft</button>";
-
-$craft_html = <<<HTML
-
-HTML;
-
 // Show page
 $body_content = <<<HTML
     <div id="parent">
         <div id="items"></div>
-        <div id="details-container">
-            <!--
-            <p id="detail-effect"></p>
-            <div id="detail-ingredients"></div>
-            $remove_button
-            <span id="quantity_label"></span>
-            $add_button
-            $craft_button -->
-        </div>
+        <div id="details-container"></div>
     </div>
 HTML;
 

@@ -22,6 +22,8 @@ $multiplier = intval($_GET[TAG_MULTIPLIER]);
 isset_default($_GET[TAG_ID], -1);
 $id = intval($_GET[TAG_ID]);
 
-Player::getLocalPlayer()->craft_potion($id,$multiplier);
+try {
+    Player::getLocalPlayer()->craft_potion($id, $multiplier);
+} catch (\Throwable $th) {}
 
-redirect("../panoramix.php");
+redirect("../inventory.php");

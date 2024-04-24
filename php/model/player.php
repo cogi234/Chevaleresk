@@ -185,7 +185,10 @@ class Player extends PDO_Object
      */
     public function craft_potion(int $idRecette,int $quantity): void
     {
-        callProcedure('concocterRecette',$idRecette,$this->Id,$quantity);
+        if ($quantity <= 0)
+            return;
+
+        callProcedure('concocterRecette', $idRecette, $this->Id, $quantity);
     }
     #endregion
 }
