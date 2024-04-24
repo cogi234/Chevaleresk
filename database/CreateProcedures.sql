@@ -463,6 +463,7 @@ BEGIN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On manque d'ingredients!";
 		END IF;
         
+        OPEN ingredientCursor;
         ingredient_loop: LOOP
 			FETCH ingredientCursor INTO pIdIngredient, pQuantiteIngredient;
             IF done THEN
@@ -472,6 +473,8 @@ BEGIN
             SET pQuantiteIngredient = pQuantiteIngredient * pQuantite;
 			CALL enleverInventaire(pIdJoueur, pIdIngredient, pQuantiteIngredient);
         END LOOP;
+        
+        CLOSE ingredientCursor;
         
 		SELECT idProduit INTO pIdPotion FROM recettes WHERE idRecette = pIdRecette;
         CALL ajouterInventaire(pIdJoueur, pIdPotion, pQuantite);
