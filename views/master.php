@@ -49,6 +49,7 @@ echo <<<HTML
             <div id="main">
                 <div id="header">$header_content</div>
                 <div id="body">$body_content</div>
+                <div id="body-fade"></div>
             </div>
             
             $scripts_bundle

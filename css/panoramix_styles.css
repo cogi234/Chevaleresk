@@ -1,0 +1,304 @@
+#parent {
+    height: 100%;
+    overflow-y: hidden;
+
+    display: flex;
+}
+
+#parent>* {
+    display: inline-block;
+}
+
+/* ITEMS */
+#items>.loader:first-child {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+
+/* DETAILS LOADER */
+#details-loader {
+    display: flex;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--second);
+
+    transition: opacity 0.25s linear;
+
+    pointer-events: none;
+}
+
+#details-loader-panel {
+    position: relative;
+
+    width: 20em;
+    height: 20em;
+
+    margin: auto;
+
+    background-color: var(--main);
+    border: 0.25em solid var(--dark);
+    border-radius: 1em;
+}
+
+#details-loader-panel span {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 1em;
+
+    text-align: center;
+    font-size: 2em;
+}
+
+#details-loader-panel .loader {
+    position: absolute;
+    bottom: 25%;
+    left: calc(50% - 25px);
+}
+
+#details-player-level {
+    position: relative;
+    float: right;
+    padding: 1em;
+    margin: 1em;
+    border: solid 5px var(--dark);
+    background-color: var(--main);
+    border-radius: 2em;
+    font-weight: bold;
+    color: var(--dark);
+
+}
+
+/* ITEMS */
+#items {
+    position: relative;
+
+    height: 100%;
+    min-width: 240px;
+    width: fit-content;
+
+    direction: rtl;
+    overflow-y: scroll;
+}
+
+/* HEADER */
+#items-header {
+    position: fixed;
+
+    height: 4em;
+    width: -moz-available;
+
+    background-color: var(--main);
+    z-index: 1;
+}
+
+/* ITEM */
+.item {
+    position: relative;
+    left: -0.25em;
+
+    width: 200px;
+    height: 200px;
+
+    margin: 0.5em;
+
+    background-size: contain;
+    border: 0.2em solid var(--dark);
+    border-radius: 1em;
+
+    animation-name: item-appear;
+    animation-duration: 1s;
+
+    transition: left linear 0.1s;
+
+    cursor: pointer;
+}
+
+.item:hover {
+    left: 0.25em;
+}
+
+.item:is(.selected) {
+    border-color: var(--light);
+}
+
+@keyframes item-appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.item-level {
+    position: absolute;
+
+    top: 0.25em;
+    left: 0.25em;
+
+    user-select: none;
+}
+
+.easy {
+    color: black;
+    background-color: var(--easy);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
+}
+
+.medium {
+    color: black;
+    background-color: var(--medium);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
+}
+
+.hard {
+    color: black;
+    background-color: var(--hard);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
+}
+
+.unknown {
+    color: black;
+    background-color: var(--unknown);
+    border-radius: 1em;
+    padding: 0.2em;
+    border: solid black 2px;
+}
+
+.item-inventory-quantity {
+    position: absolute;
+
+    bottom: 0;
+    left: 0.5em;
+
+    color: var(--light);
+
+    user-select: none;
+}
+
+/* LOADER */
+.loader {
+    display: block;
+    margin: auto;
+}
+
+/* DETAILS */
+#details-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    overflow-y: scroll;
+}
+
+.product-image {
+    height: 50%;
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* NAME */
+#details-name {
+    width: fit-content;
+
+    margin: auto;
+    padding: 1em;
+
+    background-color: var(--main);
+
+    font-size: 1.5em;
+    font-weight: bold;
+
+    border-radius: 1em 1em 0 0;
+}
+
+#details-effect {
+    margin-right: 0.5em;
+
+    cursor: help;
+}
+
+#details-ingredients-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 40%;
+
+    margin: auto;
+    padding: 1em;
+
+    background-color: var(--dark);
+    border-radius: 1em;
+}
+
+.ingredient {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+
+    background-color: var(--main);
+    border-radius: 1em;
+}
+
+.ingredient>* {
+    margin: auto;
+}
+
+.ingredient-img {
+
+    width: 50px;
+    height: 50px;
+
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ingredient-label {
+    display: block;
+    text-align: center;
+
+    user-select: none;
+}
+
+#details-make-container {
+    margin: auto;
+    width: fit-content;
+
+    margin-top: 1em;
+}
+
+#details-make-container>input {
+    padding: 0.5em;
+    padding-right: 0;
+    border-radius: 0.5em;
+}
+
+#craft-btn {
+    margin-left: 1em;
+    padding: 0.5em;
+
+    background: var(--main);
+    border-color: var(--dark);
+    color: var(--second);
+    border-radius: 0.5em;
+}
