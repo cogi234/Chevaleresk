@@ -24,10 +24,10 @@ if (!is_connected()){
 isset_default($_GET[TAG_MULTIPLIER], 0);
 $multiplier = intval($_GET[TAG_MULTIPLIER]);
 
-$can_craft = true;
-
-if ($multiplier <= 0)
-    $can_craft = false;
+if ($multiplier <= 0){
+    echo json_encode(false);
+    exit();
+}
 
 // Get id
 isset_default($_GET[TAG_ID], -1);
@@ -35,28 +35,35 @@ $id = intval($_GET[TAG_ID]);
 
 // Check if exists
 $recipe = Recipe::select(
-    [Recipe::ID],
+    [Recipe::ID, Recipe::ALCHEMY_LEVEL],
     equals(Recipe::ID, $id)
 );
 
-if ($recipe != false && $can_craft) {
-    
+if ($recipe != false) {
+    $player = Player::getLocalPlayer();
+    if ($recipe->AlchemyLevel > $player->AlchemyLevel){
+        echo json_encode(false);
+        exit();
+    }
+
     $ingredients = $recipe->getIngredients();
     foreach($ingredients as $ingredient)
     {
         $quantity = InventoryItem::select(
             [InventoryItem::QUANTITY], 
-            _and( equals(Item::ID, $ingredient->IdIngredient), equals(InventoryItem::ID_PLAYER, Player::getLocalPlayer()->Id))
+            _and( equals(Item::ID, $ingredient->IdIngredient), equals(InventoryItem::ID_PLAYER, $player->Id))
         );
 
         if ($quantity == false || $quantity->Quantity < $ingredient->Quantity * $multiplier)
         {
-            $can_craft = false;
-            break;
+            echo json_encode(false);
+            exit();
         }
     }
     
-} else
-    $can_craft = false;
+} else{
+    echo json_encode(false);
+    exit();
+}
 
-echo json_encode($can_craft);
+echo json_encode(true);

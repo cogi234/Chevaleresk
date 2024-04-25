@@ -439,7 +439,8 @@ DELIMITER |
 CREATE PROCEDURE concocterRecette(in pIdRecette INT, in pIdJoueur INT, in pQuantite INT)
 BEGIN
 	DECLARE pExistant, pIngredientsManquants INT;
-    DECLARE pIdIngredient, pQuantiteIngredient, pIdPotion, pNiveauAlchimie, pNbPotionCree INT;
+    DECLARE pIdIngredient, pQuantiteIngredient, pIdPotion,  pNbPotionCree INT;
+    DECLARE pNiveauAlchimie, pNiveauJoueur INT;
     DECLARE done BOOLEAN DEFAULT FALSE;
     
     DECLARE ingredientCursor CURSOR FOR SELECT idIngredient, quantite FROM ingredientRecette WHERE idRecette = pIdRecette;
@@ -451,9 +452,15 @@ BEGIN
         END IF;
     
 		SELECT COUNT(*) INTO pExistant FROM recettes WHERE idRecette = pIdRecette;
+        SELECT niveauAlchimie INTO pNiveauAlchimie FROM recettes WHERE idRecette = pIdRecette;
+        SELECT niveauAlchimie INTO pNiveauJoueur FROM joueurs WHERE idJoueur = pIdJoueur;
 		SELECT COUNT(*) INTO pIngredientsManquants FROM ingredientRecette r INNER JOIN inventaire i ON i.idItem = r.idIngredient 
 			WHERE r.idRecette = pIdRecette AND i.idJoueur = pIdJoueur AND (r.quantite * pQuantite) > i.quantite;
 		
+        IF (pNiveauAlchimie > pNiveauJoueur) THEN
+			ROLLBACK;
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "La recette est trop difficile!";
+		END IF;
         IF (pExistant = 0) THEN
 			ROLLBACK;
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "La recette n'existe pas!";
