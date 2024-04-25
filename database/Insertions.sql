@@ -30,14 +30,111 @@ CALL ajouterIngredient("Ongles de goblins", "Les ongles d'un goblin.", 5, 150, T
 CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Dure comme l'acier et invincible à la chaleur.", 75, 50, TRUE, "default_ingredient.png", "écaille", 9, 10);
 
 -- Joueur
+-- Pas alchimistes
 CALL inscription("admin", "admin", TRUE);
+CALL ajouterInventaire(1, 16, 4);
+CALL ajouterInventaire(1, 17, 12);
+CALL ajouterInventaire(1, 18, 4);
+CALL ajouterInventaire(1, 19, 5);
+CALL ajouterInventaire(1, 20, 1);
 CALL inscription("colin", "123456", FALSE);
+CALL ajouterInventaire(2, 16, 4);
+CALL ajouterInventaire(2, 17, 12);
+CALL ajouterInventaire(2, 18, 4);
+CALL ajouterInventaire(2, 19, 5);
+CALL ajouterInventaire(2, 20, 1);
 CALL inscription("lorick", "123456", FALSE);
+CALL ajouterInventaire(3, 16, 4);
+CALL ajouterInventaire(3, 17, 12);
+CALL ajouterInventaire(3, 18, 4);
+CALL ajouterInventaire(3, 19, 5);
+CALL ajouterInventaire(3, 20, 1);
 CALL inscription("felix", "123456", FALSE);
+CALL ajouterInventaire(4, 16, 4);
+CALL ajouterInventaire(4, 17, 12);
+CALL ajouterInventaire(4, 18, 4);
+CALL ajouterInventaire(4, 19, 5);
+CALL ajouterInventaire(4, 20, 1);
 CALL inscription("samuel", "123456", FALSE);
+CALL ajouterInventaire(5, 16, 4);
+CALL ajouterInventaire(5, 17, 12);
+CALL ajouterInventaire(5, 18, 4);
+CALL ajouterInventaire(5, 19, 5);
+CALL ajouterInventaire(5, 20, 1);
+-- Debutants
+CALL inscription("debutant1", "123456", FALSE);
+CALL ajouterInventaire(6, 16, 4);
+CALL ajouterInventaire(6, 17, 12);
+CALL ajouterInventaire(6, 18, 4);
+CALL ajouterInventaire(6, 19, 5);
+CALL ajouterInventaire(6, 20, 1);
+CALL inscription("debutant2", "123456", FALSE);
+CALL ajouterInventaire(7, 16, 4);
+CALL ajouterInventaire(7, 17, 12);
+CALL ajouterInventaire(7, 18, 4);
+CALL ajouterInventaire(7, 19, 5);
+CALL ajouterInventaire(7, 20, 1);
+UPDATE joueurs SET niveauAlchimie = 1, nbQueteAlchimie = 3 WHERE alias IN("debutant1", "debutant2");
+-- Intermediaires
+CALL inscription("intermediaire1", "123456", FALSE);
+CALL ajouterInventaire(8, 16, 4);
+CALL ajouterInventaire(8, 17, 12);
+CALL ajouterInventaire(8, 18, 4);
+CALL ajouterInventaire(8, 19, 5);
+CALL ajouterInventaire(8, 20, 1);
+CALL inscription("intermediaire2", "123456", FALSE);
+CALL ajouterInventaire(9, 16, 4);
+CALL ajouterInventaire(9, 17, 12);
+CALL ajouterInventaire(9, 18, 4);
+CALL ajouterInventaire(9, 19, 5);
+CALL ajouterInventaire(9, 20, 1);
+UPDATE joueurs SET niveauAlchimie = 2, nbQueteAlchimie = 3, nbPotionCree = 3 WHERE alias IN("intermediaire1", "intermediaire2");
+-- Experts
+CALL inscription("expert1", "123456", FALSE);
+CALL ajouterInventaire(10, 16, 4);
+CALL ajouterInventaire(10, 17, 12);
+CALL ajouterInventaire(10, 18, 4);
+CALL ajouterInventaire(10, 19, 5);
+CALL ajouterInventaire(10, 20, 1);
+CALL inscription("expert2", "123456", FALSE);
+CALL ajouterInventaire(11, 16, 4);
+CALL ajouterInventaire(11, 17, 12);
+CALL ajouterInventaire(11, 18, 4);
+CALL ajouterInventaire(11, 19, 5);
+CALL ajouterInventaire(11, 20, 1);
+UPDATE joueurs SET niveauAlchimie = 3, nbQueteAlchimie = 3, nbPotionCree = 6 WHERE alias IN("expert1", "expert2");
 
 -- Enigmes
 -- Facile
+CALL ajouterEnigme("Mathématiques 1", "Quel est le résultat de 1 + 1?", 1, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "2", TRUE);
+CALL ajouterReponse(@lastIndex, "11", FALSE);
+CALL ajouterReponse(@lastIndex, "1", FALSE);
+CALL ajouterReponse(@lastIndex, "10", FALSE);
+
+CALL ajouterEnigme("Géographie 1", "Quelle est la capitale du Québec?", 1, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "Québec", TRUE);
+CALL ajouterReponse(@lastIndex, "Montréal", FALSE);
+CALL ajouterReponse(@lastIndex, "Val-d'or", FALSE);
+CALL ajouterReponse(@lastIndex, "Trois-Rivières", FALSE);
+
+CALL ajouterEnigme("Arbres", "La quelle de ces plantes n'est pas un arbre?", 1, TRUE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "Pissenlit", TRUE);
+CALL ajouterReponse(@lastIndex, "Érable", FALSE);
+CALL ajouterReponse(@lastIndex, "Chêne", FALSE);
+CALL ajouterReponse(@lastIndex, "Pin", FALSE);
+
+CALL ajouterEnigme("Potions", "Laquelle de ces potions demande une écaille de dragon?", 1, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "Potion d'écaille de dragon", TRUE);
+CALL ajouterReponse(@lastIndex, "Potion de peau de pierre", FALSE);
+CALL ajouterReponse(@lastIndex, "Potion de la force de l'ours", FALSE);
+CALL ajouterReponse(@lastIndex, "Potion du poisson", FALSE);
+CALL ajouterReponse(@lastIndex, "Potion d'intelligence", FALSE);
+
 CALL ajouterEnigme("Mathématiques 1", "Quel est le résultat de 1 + 1?", 1, FALSE);
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterReponse(@lastIndex, "2", TRUE);
@@ -75,7 +172,60 @@ CALL ajouterReponse(@lastIndex, "18", FALSE);
 CALL ajouterReponse(@lastIndex, "19", FALSE);
 CALL ajouterReponse(@lastIndex, "20", FALSE);
 
+CALL ajouterEnigme("Mathématiques 2", "Quel est le résultat de 1 + 2 X 3?", 2, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "7", TRUE);
+CALL ajouterReponse(@lastIndex, "9", FALSE);
+CALL ajouterReponse(@lastIndex, "6", FALSE);
+CALL ajouterReponse(@lastIndex, "50", FALSE);
+
+CALL ajouterEnigme("Mathématiques 2", "Quel est le résultat de 1 + 2 X 3?", 2, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "7", TRUE);
+CALL ajouterReponse(@lastIndex, "9", FALSE);
+CALL ajouterReponse(@lastIndex, "6", FALSE);
+CALL ajouterReponse(@lastIndex, "50", FALSE);
+
+CALL ajouterEnigme("Mathématiques 2", "Quel est le résultat de 1 + 2 X 3?", 2, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "7", TRUE);
+CALL ajouterReponse(@lastIndex, "9", FALSE);
+CALL ajouterReponse(@lastIndex, "6", FALSE);
+CALL ajouterReponse(@lastIndex, "50", FALSE);
+
 -- Difficile
+CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "5050", TRUE);
+CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1000", FALSE);
+CALL ajouterReponse(@lastIndex, "1100", FALSE);
+CALL ajouterReponse(@lastIndex, "2550", FALSE);
+
+CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "5050", TRUE);
+CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1000", FALSE);
+CALL ajouterReponse(@lastIndex, "1100", FALSE);
+CALL ajouterReponse(@lastIndex, "2550", FALSE);
+
+CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "5050", TRUE);
+CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1000", FALSE);
+CALL ajouterReponse(@lastIndex, "1100", FALSE);
+CALL ajouterReponse(@lastIndex, "2550", FALSE);
+
+CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterReponse(@lastIndex, "5050", TRUE);
+CALL ajouterReponse(@lastIndex, "500", FALSE);
+CALL ajouterReponse(@lastIndex, "1000", FALSE);
+CALL ajouterReponse(@lastIndex, "1100", FALSE);
+CALL ajouterReponse(@lastIndex, "2550", FALSE);
+
 CALL ajouterEnigme("Mathématiques 3", "Quel est la somme de tous les nombres de 1 à 100?", 3, FALSE);
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterReponse(@lastIndex, "5050", TRUE);
@@ -87,8 +237,14 @@ CALL ajouterReponse(@lastIndex, "2550", FALSE);
 -- Recettes
 CALL ajouterRecette(11, 1);
 SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 19, 3);
 CALL ajouterIngredientRecette(@lastIndex, 17, 10);
+CALL ajouterIngredientRecette(@lastIndex, 19, 3);
+
+CALL ajouterRecette(12, 1);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 17, 2);
+CALL ajouterIngredientRecette(@lastIndex, 18, 4);
+CALL ajouterIngredientRecette(@lastIndex, 19, 2);
 
 CALL ajouterRecette(13, 2);
 SET @lastIndex = LAST_INSERT_ID();
@@ -97,27 +253,5 @@ CALL ajouterIngredientRecette(@lastIndex, 18, 3);
 
 CALL ajouterRecette(14, 3);
 SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 20, 1);
 CALL ajouterIngredientRecette(@lastIndex, 16, 1);
-
--- TEMPORAIRE POUR TESTER
-CALL ajouterRecette(1, 3);
-SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterIngredientRecette(@lastIndex, 20, 1);
-
-CALL ajouterRecette(11, 1);
-SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 19, 3);
-CALL ajouterIngredientRecette(@lastIndex, 17, 10);
-CALL ajouterRecette(11, 1);
-SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 19, 3);
-CALL ajouterIngredientRecette(@lastIndex, 17, 10);
-CALL ajouterRecette(11, 1);
-SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 19, 3);
-CALL ajouterIngredientRecette(@lastIndex, 17, 10);
-CALL ajouterRecette(11, 1);
-SET @lastIndex = LAST_INSERT_ID();
-CALL ajouterIngredientRecette(@lastIndex, 19, 3);
-CALL ajouterIngredientRecette(@lastIndex, 17, 10);
