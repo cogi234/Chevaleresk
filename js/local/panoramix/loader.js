@@ -73,15 +73,15 @@ function checkLoader() {
         html = $.parseHTML(e);
         html.forEach(element => {
 
-            if ($("#" + element.id).length == 0){
+            if ($("#" + element.id).length == 0 && element.dataset != undefined) {
                 element.addEventListener("click", function () {
-                    set_recipe(element.dataset.id);
-
-                    $(".selected").removeClass("selected");
-                    element.classList.add("selected");
+                    click_element(element);
                 });
-                loader.before(element);
+                
+                if (current_recipe_id == -1)
+                    click_element(element);
 
+                loader.before(element);
             }
         });
 
@@ -89,6 +89,13 @@ function checkLoader() {
 
         index++;
     });
+}
+
+function click_element(element) {
+    set_recipe(element.dataset.id);
+
+    $(".selected").removeClass("selected");
+    element.classList.add("selected");
 }
 
 function setup_ui(parent) {
