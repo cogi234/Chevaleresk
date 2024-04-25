@@ -18,8 +18,10 @@
 }
 
 .store-item-holder>.store-item {
-    width: 160px;
-    height: 160px;
+    min-width: 150px;
+    min-height: 150px;
+    width: 15%;
+    height: 15%;
 
     transform: scale(80%);
 }
