@@ -343,8 +343,8 @@ DELIMITER |
 CREATE PROCEDURE ajouterEnigme(in pTitre TEXT, in pQuestion TEXT, in pDifficulte INT, in pAlchimie BOOLEAN)
 BEGIN
     START TRANSACTION;
-		INSERT INTO enigmes(titre, question, difficulte, alchimie)
-			VALUES(pTitre, pQuestion, pDifficulte, pAlchimie);
+		INSERT INTO enigmes(titre, question, difficulte, alchimie, active)
+			VALUES(pTitre, pQuestion, pDifficulte, pAlchimie, FALSE);
     COMMIT;
 END |
 DELIMITER ;
@@ -356,6 +356,9 @@ BEGIN
     START TRANSACTION;
 		INSERT INTO reponses(texte, correct, idEnigme)
 			VALUES(pTexte, pCorrect, pIdEnigme);
+		IF (pCorrect) THEN
+			UPDATE enigmes SET active = TRUE WHERE idEnigme = pIdEnigme;
+		END IF;
     COMMIT;
 END |
 DELIMITER ;
