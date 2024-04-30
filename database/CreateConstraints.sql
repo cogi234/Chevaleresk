@@ -43,3 +43,6 @@ ALTER TABLE enigmes ADD CONSTRAINT c_enigmes_alchimie CHECK (alchimie IN(0,1));
 
 -- Reponses
 ALTER TABLE reponses ADD CONSTRAINT c_reponses_correct CHECK (correct IN(0,1));
+
+-- Commentaires
+ALTER TABLE commentaires ADD CONSTRAINT c_commentaires_etoiles CHECK (nbEtoiles >= 1 AND nbEtoiles <= 5);
