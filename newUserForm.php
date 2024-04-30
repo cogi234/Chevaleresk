@@ -67,13 +67,13 @@ if (isset($_POST['alias'])) {
                         InvalidMessage = 'Identifiant invalide'
                         CustomErrorMessage ="Cet identifiant est déjà utilisé"/>
             </fieldset>
-    HTML;
+HTML;
     if ( isset($_SESSION['exists']) && $_SESSION['exists'] == true) {
         $body_content .= <<<HTML
         <div class="error-message">
             <span >Un joueur avec ce nom existe déjà</span>
         </div>
-        HTML;
+HTML;
     }
 
     $body_content .= <<<HTML
@@ -96,21 +96,21 @@ if (isset($_POST['alias'])) {
                         id="matchedPassword" 
                         placeholder="Vérification" 
                         InvalidMessage="Ne correspond pas au mot de passe" />
-        HTML;
+HTML;
 
         if (isset($_SESSION['different']) && $_SESSION['different'] == true) {
             $body_content .= <<<HTML
             <div class="error-message">
                 <span >Mot de passe de vérification différent</span>
             </div>
-            HTML;
+HTML;
         }
         if (isset($_SESSION['long']) && $_SESSION['long'] == true) {
             $body_content .= <<<HTML
             <div class="error-message">
                 <span >Mot de passe trop court <br> Il doit être au moins 6 caractère de long</span>
             </div>
-            HTML;
+HTML;
         }
     $body_content .= <<<HTML
             <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary confirm-btn">
@@ -122,9 +122,7 @@ if (isset($_POST['alias'])) {
         </div>
         
     </div>
-    HTML;
-    
-    
+HTML;
 } else {
     $body_content = <<<HTML
     <div class="">
@@ -172,7 +170,7 @@ if (isset($_POST['alias'])) {
             </a>
         </div>
     </div>
-    HTML;
+HTML;
 }
 
 $viewScript = <<<HTML

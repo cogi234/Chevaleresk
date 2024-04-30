@@ -80,7 +80,7 @@ foreach ($recipes as $key => $value) {
             <span class="item-level $difficulty_class" title="Potion de difficulté: $difficulty">$difficulty</span>
             <span class="item-inventory-quantity" title="Vous en possédez $qtInventory">En inventaire: $qtInventory</span>
         </div>
-    HTML;
+HTML;
 }
 
 echo $recipes_items;

@@ -151,7 +151,7 @@ $details_content = <<<HTML
             $buy_html
         </div>
     </div>
-HTML;
+    HTML;
 
 isset_default($scripts_view);
 $scripts_view .= <<<HTML

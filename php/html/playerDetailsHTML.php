@@ -47,21 +47,21 @@ switch ($player_alchemy) {
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
         <p>Nombre de potions créées : $player_potion </p>
-        HTML;
+HTML;
         break;
     case 2:
         $textAlchemist = "Alchimiste intermédiaire";
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
         <p>Nombre de potions créées : $player_potion </p>
-        HTML;
+HTML;
         break;
     case 3:
         $textAlchemist = "Alchimiste avancé";
         $statsAlchemist = <<<HTML
         <p>Nombre de quêtes d'alchimie réussies : $player_alchemyQuest</p>
         <p>Nombre de potions créées : $player_potion </p>
-        HTML;
+HTML;
         break;
 
     default:

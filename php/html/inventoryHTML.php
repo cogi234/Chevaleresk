@@ -44,5 +44,5 @@ function inventory_item(
                 <p class="store-item-quantity-label">$quantity</p>
             </div>
         </a>
-    HTML;
+HTML;
 }

@@ -33,7 +33,7 @@ if (is_connected()) {
     $money_section = <<<HTML
         <!-- MONEY -->
         <i id="header_money" class="header-icon fa-solid fa-money-bill" title="Vous avez $money_amount écus"></i>
-    HTML;
+HTML;
 
     // Cart amount
     $cart_array = CartItem::selectAll(
@@ -49,21 +49,21 @@ if (is_connected()) {
     $cart_section = <<<HTML
         <!-- CART -->
         <a id="header_cart" class="header-icon fa-solid fa-cart-shopping" href="$icon_cart_url" title="Panier" title="Vous avez $cart_amount objets dans votre panier"></a>
-    HTML;
+HTML;
     
     $scripts_view .= <<<HTML
         <script>
             let headerCartRefresh = new PartialRefresh("php/partial/cart_amount.php", "header_cart", 30);
             let headerMoneyRefresh = new PartialRefresh("php/partial/money_amount.php", "header_money", 30);
         </script>
-    HTML;
+HTML;
 
 
     // Inventory
     $inventory_section = <<<HTML
         <!-- INVENTORY -->
         <a id="header_inventory" class="header-icon fa-solid fa-briefcase" href="$icon_inventory_url" title="Votre inventaire"></a>
-    HTML;
+HTML;
 
     // Profile
     $avatar = $player->getAvatar();
@@ -73,7 +73,7 @@ if (is_connected()) {
         <a id="header_player_list" class="header-icon fa-solid fa-users" href="$icon_player_list_url" title="Liste des joueurs"></a>
         
         <i id="header_profile" class="header-icon" style="background: url('$avatar');" title="C'est vous!"></i>
-    HTML;
+HTML;
 
     $scripts_view .= <<<HTML
         <script>
@@ -81,7 +81,7 @@ if (is_connected()) {
                 .then(r => r.ok ? r.json() : [])
                 .then(d => create_slider("user_slider", "main", d, $("#header_profile")));
         </script>
-    HTML;
+HTML;
 }
 
 // Prevent crash

@@ -32,13 +32,13 @@ function store_item(
             <div class="store-item-oos-background">
                 <p class="store-item-oss-label">HORS STOCK</p>
             </div>
-        HTML;
+HTML;
     } else {
         $quantity_html = <<<HTML
             <div class="store-item-quantity">
                 <p class="store-item-quantity-label">$quantity</p>
             </div>
-        HTML;
+HTML;
     }
 
     return <<<HTML
@@ -66,5 +66,5 @@ function store_item(
             <!-- OUT OF STOCK -->
             $oos_html
         </a>
-    HTML;
+HTML;
 }

@@ -67,14 +67,14 @@ if (isset($_POST['alias'])) {
         </div>
         
     </div>
-    HTML;
+HTML;
 
     if (isset($_SESSION['error']) && $_SESSION['error'] == true) {
         $body_content .= <<<HTML
         <div class="error-message">
             <span >Erreur dans la connexion</span>
         </div>
-        HTML;
+HTML;
     }
 } else {
     $body_content = <<<HTML
@@ -115,9 +115,7 @@ if (isset($_POST['alias'])) {
         </div>
         
     </div>
-    HTML;
+HTML;
 }
-
-
 
 require "views/master.php";
