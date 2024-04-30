@@ -28,7 +28,7 @@ if ($type == Item::TYPES[0]) {
     $type_html = <<<HTML
         <p><i class="fa-solid fa-circle-info fa-fw" title="Type de l'arme"></i> $weapon_type</p>
         <p><i class="fa-solid fa-wrench fa-fw" title="Niveau d'efficacité de l'arme"></i> Niveau $efficacy</p>
-    HTML;
+HTML;
     return;
 }
 
@@ -42,7 +42,7 @@ if ($type == Item::TYPES[1]) {
     $type_html = <<<HTML
         <p><i class="fa-solid fa-circle-info fa-fw" title="Matériel de l'armure"></i> $material</p>
         <p><i class="fa-solid fa-weight-hanging fa-fw" title="Taille de l'armure"></i> $size</p>
-    HTML;
+HTML;
     return;
 }
 
@@ -58,7 +58,7 @@ if ($type == Item::TYPES[2]) {
         <p><i class="fa-solid fa-circle-info fa-fw" title="Type de l'ingrédient"></i> $ingredient_type</p>
         <p><i class="fa-regular fa-star fa-fw" title="Rareté de l'ingrédient"></i> Niveau $rarity</p>
         <p><i class="fa-solid fa-skull-crossbones fa-fw" title="Niveau de danger de l'ingrédient"></i> Niveau $danger</p>
-    HTML;
+HTML;
     return;
 }
 

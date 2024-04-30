@@ -39,5 +39,5 @@ function player_entry(
                 $display_name
             </div>
         </a>
-    HTML;
+HTML;
 }

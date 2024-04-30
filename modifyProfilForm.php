@@ -40,7 +40,7 @@ if ( isset($_SESSION['exists']) && $_SESSION['exists'] == true) {
         <div class="error-message">
                 <span >Un joueur avec ce nom existe déjà</span>
         </div>
-        HTML;
+HTML;
 }
 
 $body_content .= <<<HTML
@@ -90,14 +90,14 @@ if (isset($_SESSION['different']) && $_SESSION['different'] == true) {
         <div class="error-message">
         <span >Mot de passe de vérification différent</span>
         </div>
-        HTML;
+HTML;
 }
 if (isset($_SESSION['long']) && $_SESSION['long'] == true) {
         $body_content .= <<<HTML
         <div class="error-message">
         <span >Mot de passe trop court <br> Il doit être au moins 6 caractère de long</span>
         </div>
-        HTML;
+HTML;
 }
 $body_content .= <<<HTML
         <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary confirm-btn">

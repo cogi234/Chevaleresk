@@ -271,19 +271,19 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `dbchevalersk9`.`commentaires` ;
 
 CREATE TABLE IF NOT EXISTS `dbchevalersk9`.`commentaires` (
-  `joueurs_idJoueur` INT NOT NULL,
-  `items_idItem` INT NOT NULL,
-  `commentaire` TEXT NOT NULL,
+  `idJoueur` INT NOT NULL,
+  `idItem` INT NOT NULL,
+  `commentaire` TEXT,
   `nbEtoiles` INT NOT NULL COMMENT 'de 1 a 5',
-  PRIMARY KEY (`joueurs_idJoueur`, `items_idItem`),
-  INDEX `fk_commentaires_items1_idx` (`items_idItem` ASC),
+  PRIMARY KEY (`idJoueur`, `idItem`),
+  INDEX `fk_commentaires_items1_idx` (`idItem` ASC),
   CONSTRAINT `fk_commentaires_joueurs1`
-    FOREIGN KEY (`joueurs_idJoueur`)
+    FOREIGN KEY (`idJoueur`)
     REFERENCES `dbchevalersk9`.`joueurs` (`idJoueur`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_commentaires_items1`
-    FOREIGN KEY (`items_idItem`)
+    FOREIGN KEY (`idItem`)
     REFERENCES `dbchevalersk9`.`items` (`idItem`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -293,3 +293,5 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+ALTER TABLE enigmes ADD active BOOL NOT NULL DEFAULT TRUE;

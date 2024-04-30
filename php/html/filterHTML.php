@@ -20,5 +20,5 @@ function filter_render(string $content): string
                 $content
             </div>
         </div>
-    HTML;
+HTML;
 }

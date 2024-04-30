@@ -26,7 +26,7 @@ function dropdown(string $name, array $items = [], string $buttonClass = ""): st
 
         $itemsHTML .= <<<HTML
             <a href="$url">$text</a>
-        HTML;
+HTML;
     }
 
     return <<<HTML
@@ -36,7 +36,7 @@ function dropdown(string $name, array $items = [], string $buttonClass = ""): st
                 $itemsHTML
             </div>
         </div>
-    HTML;
+HTML;
 }
 
 /**

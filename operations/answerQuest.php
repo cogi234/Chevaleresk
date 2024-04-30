@@ -25,5 +25,5 @@ if(isset($_POST["id"])){
 } else {
     echo <<<HTML
         <p class="result-msg">Désolé! Il y a eu une erreur!...</p>
-    HTML;
+HTML;
 }

@@ -38,7 +38,7 @@ function cartItem(
                     <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
                 </div>
             </div>
-            HTML;
+HTML;
     } else {
         //if false show message
         $content .= <<<HTML
@@ -59,7 +59,7 @@ function cartItem(
                     <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
                 </div>
             </div>
-            HTML;
+HTML;
     }
 
     return $content;
@@ -111,7 +111,7 @@ function onDetailsCounter(int $idPlayer, int $idItem): string
                 hx-swap="innerHTML">
                 Ajouter au panier
             </button>
-        HTML;
+HTML;
     }
 
     $item = CartItem::selectComplete(
@@ -132,5 +132,5 @@ function onDetailsCounter(int $idPlayer, int $idItem): string
             hx-trigger="change"
             hx-target="#details-buy"
             hx-swap="innerHTML">
-    HTML;
+HTML;
 }

@@ -343,8 +343,8 @@ DELIMITER |
 CREATE PROCEDURE ajouterEnigme(in pTitre TEXT, in pQuestion TEXT, in pDifficulte INT, in pAlchimie BOOLEAN)
 BEGIN
     START TRANSACTION;
-		INSERT INTO enigmes(titre, question, difficulte, alchimie)
-			VALUES(pTitre, pQuestion, pDifficulte, pAlchimie);
+		INSERT INTO enigmes(titre, question, difficulte, alchimie, active)
+			VALUES(pTitre, pQuestion, pDifficulte, pAlchimie, FALSE);
     COMMIT;
 END |
 DELIMITER ;
@@ -356,6 +356,9 @@ BEGIN
     START TRANSACTION;
 		INSERT INTO reponses(texte, correct, idEnigme)
 			VALUES(pTexte, pCorrect, pIdEnigme);
+		IF (pCorrect) THEN
+			UPDATE enigmes SET active = TRUE WHERE idEnigme = pIdEnigme;
+		END IF;
     COMMIT;
 END |
 DELIMITER ;
@@ -495,6 +498,34 @@ BEGIN
         IF (pNiveauAlchimie = 2 AND pNbPotionCree >= 6) THEN
 			UPDATE joueurs SET niveauAlchimie = 3 WHERE idJoueur = pIdJoueur;
         END IF;
+    COMMIT;
+END |
+DELIMITER ;
+
+-- Evaluations
+DROP PROCEDURE IF EXISTS ajouterCommentaire;
+DELIMITER |
+CREATE PROCEDURE ajouterCommentaire(in pIdJoueur INT, in pIdItem INT, in pNbEtoiles INT, in pCommentaire TEXT)
+BEGIN
+	DECLARE pDansInventaire INT;
+    SELECT COUNT(*) INTO pDansInventaire FROM vInventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
+    
+    IF (pDansInventaire < 1) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On ne peut pas evaluer ce qu'on a pas!";
+    END IF;
+    
+    START TRANSACTION;
+		INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (pIdJoueur, pIdItem, pNbEtoiles, pCommentaire);
+    COMMIT;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS retirerCommentaire;
+DELIMITER |
+CREATE PROCEDURE retirerCommentaire(in pIdJoueur INT, in pIdItem INT)
+BEGIN
+    START TRANSACTION;
+		DELETE FROM commentaires WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     COMMIT;
 END |
 DELIMITER ;

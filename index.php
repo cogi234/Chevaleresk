@@ -1,5 +1,4 @@
 <?php
-
 // PDO
 require_once "php/pdo/pdo.php";
 require_once "php/model/item.php";
@@ -26,7 +25,7 @@ foreach (Item::TYPES as $key => $value) {
     $types_html .= <<<HTML
         <input type="checkbox" id="$value" name="types[]" checked value="$value">
         <label for="$value"> $displayName</label><br>
-    HTML;
+HTML;
 }
 
 $filter_html = filter_render(<<<HTML

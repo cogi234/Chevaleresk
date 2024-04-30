@@ -47,7 +47,7 @@ if (count($items) > 0) {
     $has_invalid_item = true;
     $cartItemList .= <<<HTML
         <p class="cart-empty-msg">Aucun item dans le panier...</p>
-    HTML;
+HTML;
 }
 
 // Show recept preview
@@ -60,7 +60,7 @@ foreach ($items as $item) {
     $price = $item->Item->Price;
     $cartRecept .= <<<HTML
         <p>$name : $item->Quantity x $price</p>
-    HTML;
+HTML;
     $total += $price * $item->Quantity;
 }
 
