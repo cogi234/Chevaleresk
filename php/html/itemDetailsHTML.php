@@ -16,10 +16,17 @@ require_once "php/session_manager.php";
 // Scripts
 isset_default($scripts_view);
 $scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
+$scripts_view .= <<<HTML
+    <script defer>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
+    </script>
+    <script src='js/local/partial/item-review.js' defer></script>
+HTML;
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
+$styles_view .= '<link rel="stylesheet" href="css/review_styles.css">';
 
 // Title
 $page_title = "Détails";
@@ -122,9 +129,6 @@ $details_content = <<<HTML
                     <p id="details-name">$name</p>
                 </div>
 
-                <!-- EVALUTION -->
-                <!-- <div></div> -->
-                
                 <!-- TYPE DETAILS -->
                 <div>
                     $type_html
@@ -135,12 +139,6 @@ $details_content = <<<HTML
         <!-- DESCRIPTION -->
         <div id="details-description">
             $description
-        </div>
-
-        <!-- REVIEWS -->
-        <div id="details-reviews">
-            <div id="new-review-container"></div>
-            <div id="reviews-container"></div>
         </div>
     </div>
 
@@ -154,11 +152,11 @@ $details_content = <<<HTML
             $buy_html
         </div>
     </div>
-    HTML;
 
-isset_default($scripts_view);
-$scripts_view .= <<<HTML
-    <script>
-        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
-    </script>
+    <!-- REVIEWS -->
+    <div id="details-reviews">
+        <div id="new-review-container"></div>
+        <div id="reviews-container"><!-- PARTIAL REFRESHED --></div>
+    </div>
 HTML;
+
