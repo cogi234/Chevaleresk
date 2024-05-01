@@ -260,3 +260,17 @@ CALL ajouterRecette(14, 3);
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterIngredientRecette(@lastIndex, 16, 1);
 CALL ajouterIngredientRecette(@lastIndex, 20, 1);
+
+
+-- TEMPORAIRE
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (1, 1, 5, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (2, 1, 4, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (3, 1, 3, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (4, 1, 2, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (5, 1, 1, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (6, 1, 5, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (7, 1, 5, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (8, 1, 4, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (9, 1, 3, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (10, 1, 1, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (11, 1, 1, "Ceci est un test.");
