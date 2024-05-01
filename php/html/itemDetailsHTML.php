@@ -138,7 +138,10 @@ $details_content = <<<HTML
         </div>
 
         <!-- REVIEWS -->
-        <!-- <div></div> -->
+        <div id="details-reviews">
+            <div id="new-review-container"></div>
+            <div id="reviews-container"></div>
+        </div>
     </div>
 
     <!-- PANIER -->
