@@ -6,7 +6,7 @@ require_once "../php/session_manager.php";
 
 userAccess();
 
-if (!isset($_POST["item_id"]) || !isset($_POST["stars"]) || !isset($_POST["comment"])){
+if (!isset($_POST["item_id"]) || !isset($_POST["stars"]) || !isset($_POST["comment"])) {
     echo <<<HTML
     <p class="new-review-text" style="color:red">ERREUR: Il manque un des valeurs de formulaire nécessaires!</p>
 HTML;
@@ -18,8 +18,14 @@ $item_id = $_POST["item_id"];
 $stars = $_POST["stars"];
 $comment_text = $_POST["comment"];
 
-Review::createReview($item_id, $stars, $comment_text);
+$result = Review::createReview($item_id, $stars, $comment_text);
 
-echo <<<HTML
-    <p class="new-review-text">Votre évaluation a été envoyée</p>
+if ($result) {
+    echo <<<HTML
+        <p class="new-review-text">Votre évaluation a été envoyée</p>
 HTML;
+} else {
+    echo <<<HTML
+    <p class="new-review-text" style="color:red">ERREUR: Il y a eu une erreur dans la création de l'évaluation!</p>
+HTML;
+}

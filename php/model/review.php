@@ -37,9 +37,9 @@ class Review extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public static function createReview(int $itemId, int $stars, string $comment) : void
+    public static function createReview(int $itemId, int $stars, string $comment) : bool
     {
-        callProcedure("ajouterCommentaire", Player::getLocalPlayer()->Id, $itemId, $stars, $comment);
+        return callProcedure("ajouterCommentaire", Player::getLocalPlayer()->Id, $itemId, $stars, $comment);
     }
     
     /**
@@ -47,9 +47,9 @@ class Review extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public static function removeReview(int $itemId) : void
+    public static function removeReview(int $itemId) : bool
     {
-        callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
+        return callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
     }
 
     #endregion
