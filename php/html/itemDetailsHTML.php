@@ -133,6 +133,9 @@ $details_content = <<<HTML
                 <div>
                     $type_html
                 </div>
+
+                <!--Stars avg-->
+                <div class="details-avg-reviews"></div>
             </div>
         </div>
 
