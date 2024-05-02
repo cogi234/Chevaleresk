@@ -5,6 +5,7 @@ require_once "php/model/player.php";
 require_once "php/model/item.php";
 require_once "php/model/inventory_item.php";
 require_once "php/model/cart_item.php";
+require_once "php/model/review.php";
 
 // Utilities
 require_once "php/pdo/pdo_utilities.php";
@@ -82,6 +83,26 @@ if (is_connected()) {
         $inventory_html = <<<HTML
             <p class="details-cart-text">$inventory en inventaire</p>
         HTML;
+        
+        $review = Review::selectComplete(_and(equals(Review::PLAYERID, $player_id), equals(Review::ITEMID, $item_id)));
+        if ($review == false) {
+            // Si on n'a pas deja une evaluation, on mets le bouton
+            $review_html = <<<HTML
+            <div class="new-review-div">
+                <button class="new-review-button"
+                    hx-post="operations/getReviewForm.php?id=$item_id"
+                    hx-trigger="click"
+                    hx-target="#new-review-container"
+                    hx-swap="innerHTML">
+                    Évaluer l'item
+                </button>
+            </div>
+HTML;
+        } else {
+            $review_html = <<<HTML
+                <p class="new-review-text">Vous avez déjà évalué cet item.</p>
+HTML;
+        }
     }
 
     // Fetch amount of this item in the cart
@@ -98,13 +119,17 @@ if (is_connected()) {
     $count = 0;
     if ($cart_item != false)
         $count = $cart_item->Quantity;
-    
+
     $buy_html = onDetailsCounter($player_id, $item_id);
 
     if ($type == "ingredient" && $alchemy_level == 0) {
         $buy_html = "";
     }
 }
+
+isset_default($review_html,<<<HTML
+    <p class="new-review-text">Vous ne pouvez pas évaluer un item que vous ne possédez pas.</p>
+HTML);
 
 $details_content = <<<HTML
     <div id="details-container">
@@ -137,11 +162,6 @@ $details_content = <<<HTML
             $description
         </div>
 
-        <!-- REVIEWS -->
-        <div id="details-reviews">
-            <div id="new-review-container"></div>
-            <div id="reviews-container"></div>
-        </div>
     </div>
 
     <!-- PANIER -->
@@ -153,6 +173,14 @@ $details_content = <<<HTML
         <div id="details-buy">
             $buy_html
         </div>
+    </div>
+    
+    <!-- REVIEWS -->
+    <div id="details-reviews">
+        <div id="new-review-container">
+            $review_html
+        </div>
+        <div id="reviews-container"></div>
     </div>
     HTML;
 

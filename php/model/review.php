@@ -6,7 +6,7 @@ require_path("php/pdo/pdo_utilities.php");
 require_path("php/model/pdo_object.php");
 require_path("php/model/inventory_item.php");
 
-class Evaluation extends PDO_Object
+class Review extends PDO_Object
 {
     #region PDO_Object
     protected const TABLE = "commentaires";
@@ -14,20 +14,20 @@ class Evaluation extends PDO_Object
 
     #region Properties
     public const PLAYERID = "idJoueur";
-    #[PDO_Object_Id(Evaluation::PLAYERID)]
+    #[PDO_Object_Id(Review::PLAYERID)]
     public int $PlayerId = -1;
     
     public const ITEMID = "idItem";
-    #[PDO_Object_Id(Evaluation::ITEMID)]
+    #[PDO_Object_Id(Review::ITEMID)]
     public int $ItemId = -1;
     
     public const STARS = "nbEtoiles";
-    #[PDO_Object_Id(Evaluation::STARS)]
+    #[PDO_Object_Id(Review::STARS)]
     public int $Stars = -1;
     
     public const COMMENT = "commentaire";
-    #[PDO_Object_Id(Evaluation::COMMENT)]
-    public int $Comment;
+    #[PDO_Object_Id(Review::COMMENT)]
+    public string $Comment;
     #endregion
 
     #region Functions
@@ -37,9 +37,9 @@ class Evaluation extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public function createEvaluation(int $itemId, int $stars, string $comment) : void
+    public static function createReview(int $itemId, int $stars, string $comment) : bool
     {
-        callProcedure("ajouterCommentaire", Player::getLocalPlayer()->Id, $itemId, $stars, $comment);
+        return callProcedure("ajouterCommentaire", Player::getLocalPlayer()->Id, $itemId, $stars, $comment);
     }
     
     /**
@@ -47,9 +47,9 @@ class Evaluation extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public function removeEvaluation(int $itemId) : void
+    public static function removeReview(int $itemId) : bool
     {
-        callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
+        return callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
     }
 
     #endregion
