@@ -111,6 +111,8 @@
     margin: 0.5em;
 
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     border: 0.2em solid var(--dark);
     border-radius: 1em;
 
@@ -120,6 +122,7 @@
     transition: left linear 0.1s;
 
     cursor: pointer;
+
 }
 
 .item:hover {

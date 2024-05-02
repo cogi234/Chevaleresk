@@ -44,7 +44,7 @@ HTML;
     return <<<HTML
         <a class="store-item" href="$url" title="Voir les détails de $name">
             <!-- IMAGE -->
-            <img class="store-item-image" src="$image">
+            <div class="store-item-image" style="background-image: url('$image');"></div>
 
             <!-- INFO -->
             <div class="store-item-info"> 
