@@ -5,6 +5,7 @@ require_once "php/model/player.php";
 require_once "php/model/item.php";
 require_once "php/model/inventory_item.php";
 require_once "php/model/cart_item.php";
+require_once "php/model/review.php";
 
 // Utilities
 require_once "php/pdo/pdo_utilities.php";
@@ -113,6 +114,8 @@ if (is_connected()) {
     }
 }
 
+$starAvgHTML = Review::averageStarsHTML($item_id, 5);
+
 $details_content = <<<HTML
     <div id="details-container">
         <div id="details">
@@ -134,8 +137,6 @@ $details_content = <<<HTML
                     $type_html
                 </div>
 
-                <!--Stars avg-->
-                <div class="details-avg-reviews"></div>
             </div>
         </div>
 
@@ -154,6 +155,11 @@ $details_content = <<<HTML
         <div id="details-buy">
             $buy_html
         </div>
+    </div>
+
+    <!--STARS AVG-->
+    <div class="details-avg-reviews">
+        $starAvgHTML
     </div>
 
     <!-- REVIEWS -->
