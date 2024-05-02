@@ -55,19 +55,11 @@ class Review extends PDO_Object
     public static function averageStarsHTML($itemId, $MAX_STARS){
         $avg = select("AVG(nbEtoiles)", "commentaires", "idItem = " . $itemId)["AVG(nbEtoiles)"];
         isset_default($avg, 0);
-        var_dump($avg);
         $stars_html = "";
-        if($avg > 0){
-            for ($i=0; $i < $MAX_STARS; $i++) { 
-                $star_class = $i < $avg ? "selected" : "";
-                $stars_html .= <<<HTML
-                    <i class="fa-solid fa-star review-star $star_class"></i>
-HTML;
-            }
-        }
-        else{
+        for ($i=0; $i < $MAX_STARS; $i++) { 
+            $star_class = $i < $avg ? "selected" : "";
             $stars_html .= <<<HTML
-                    <p class="details-avg-no-reviews">Cet item ne possède aucune notes...</p>
+                <i class="fa-solid fa-star review-star $star_class"></i>
 HTML;
         }
         return $stars_html;
