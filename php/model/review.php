@@ -55,6 +55,7 @@ class Review extends PDO_Object
     public static function averageStarsHTML($itemId, $MAX_STARS){
         $avg = select("AVG(nbEtoiles)", "commentaires", "idItem = " . $itemId)["AVG(nbEtoiles)"];
         isset_default($avg, 0);
+        $avg = round($avg);
         $stars_html = "";
         for ($i=0; $i < $MAX_STARS; $i++) { 
             $star_class = $i < $avg ? "selected" : "";
