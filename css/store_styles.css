@@ -18,10 +18,8 @@
 }
 
 .store-item-holder>.store-item {
-    min-width: 150px;
-    min-height: 150px;
-    width: 15%;
-    height: 15%;
+    width: 250px;
+    height: 250px;
 
     transform: scale(80%);
 }
@@ -48,10 +46,8 @@
 /* IMAGE */
 .store-item-image {
     
-    min-width: 150px;
-    min-height: 150px;
-    width: 100%;
-    height: 100%;
+    width: 250px;
+    height: 250px;
 
     border-radius: 20px;
 
