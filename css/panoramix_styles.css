@@ -120,6 +120,9 @@
     transition: left linear 0.1s;
 
     cursor: pointer;
+
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .item:hover {
