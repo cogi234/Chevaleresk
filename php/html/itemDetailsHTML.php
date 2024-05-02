@@ -98,6 +98,10 @@ if (is_connected()) {
                 </button>
             </div>
 HTML;
+        } else {
+            $review_html = <<<HTML
+                <p class="new-review-text">Vous avez déjà évalué cet item.</p>
+HTML;
         }
     }
 
@@ -123,7 +127,9 @@ HTML;
     }
 }
 
-isset_default($review_html);
+isset_default($review_html,<<<HTML
+    <p class="new-review-text">Vous ne pouvez pas évaluer un item que vous ne possédez pas.</p>
+HTML);
 
 $details_content = <<<HTML
     <div id="details-container">

@@ -8,7 +8,7 @@ userAccess();
 
 if (!isset($_POST["item_id"]) || !isset($_POST["stars"]) || !isset($_POST["comment"])){
     echo <<<HTML
-    <p style="color:red">ERREUR</p>
+    <p class="new-review-text" style="color:red">ERREUR: Il manque un des valeurs de formulaire nécessaires!</p>
 HTML;
     exit();
 }
@@ -21,5 +21,5 @@ $comment_text = $_POST["comment"];
 Review::createReview($item_id, $stars, $comment_text);
 
 echo <<<HTML
-    <p>Votre evaluation a ete envoyer</p>
+    <p class="new-review-text">Votre évaluation a été envoyée</p>
 HTML;

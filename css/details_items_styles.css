@@ -257,3 +257,9 @@
     margin-bottom: 1em;
     padding: 0.5em;
 }
+
+.new-review-text {
+    width: 100%;
+    text-align: center;
+    margin: 1em;
+}
