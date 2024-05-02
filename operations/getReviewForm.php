@@ -15,9 +15,9 @@ echo <<<HTML
         <h4>Nouvelle évaluation</h4>
         <input type="hidden" name="item_id" value="$item_id">
         <label for="new-review-stars">Étoiles</label>
-        <input id="new-review-stars" type="number" name="stars" value="1" min="1" max="5">
+        <input id="new-review-stars" type="number" name="stars" value="5" min="1" max="5">
         <label for="new-review-comment">Commentaire</label>
-        <textarea id="new-review-comment" name="comment" rows="4" placeholder="Entrez un commentaire"></textarea>
+        <textarea id="new-review-comment" name="comment" maxlength="1000" rows="4" placeholder="Entrez un commentaire"></textarea>
         <input id="new-review-submit" type="submit" value="Envoyer">
     </form>
 HTML;
