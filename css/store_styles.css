@@ -119,13 +119,12 @@
 }
 
 .store-item-name {
-    font-size: 17.5px;
-    margin-top: -3px;
+    font-size: 1.5em;
 }
 
 .store-item-price {
-    font-size: 13px;
-    margin-top: -5px;
+    font-size: 1.1em;
+    margin-top: 0.1em;
 }
 
 /* BORDER */
@@ -165,7 +164,7 @@
     transform: translateY(-50%);
     text-align: center;
 
-    font-size: 1.25em;
+    font-size: 150%;
 }
 
 /* OUT OF STOCK */
