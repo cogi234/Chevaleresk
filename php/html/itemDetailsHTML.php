@@ -32,6 +32,7 @@ $styles_view .= '<link rel="stylesheet" href="css/review_styles.css">';
 $page_title = "Détails";
 
 $item_id = $_GET[TAG_ID];
+$_SESSION["CHECKED_ID"] = $item_id;
 
 // Get item
 $item = Item::selectComplete(equals(Item::ID, $item_id));
@@ -111,6 +112,19 @@ if (is_connected()) {
     if ($type == "ingredient" && $alchemy_level == 0) {
         $buy_html = "";
     }
+
+    $cart = <<<HTML
+        <!-- PANIER -->
+        <div id="details-cart">
+            <i id="details-cart-collapse" class="fa-solid fa-minus"></i>
+            $price_html
+            $stock_html
+            $inventory_html
+            <div id="details-buy">
+                $buy_html
+            </div>
+        </div>
+HTML;
 }
 
 $details_content = <<<HTML
@@ -134,16 +148,7 @@ $details_content = <<<HTML
         </div>
     </div>
 
-    <!-- PANIER -->
-    <div id="details-cart">
-        <i id="details-cart-collapse" class="fa-solid fa-minus"></i>
-        $price_html
-        $stock_html
-        $inventory_html
-        <div id="details-buy">
-            $buy_html
-        </div>
-    </div>
+    $cart
 
     <!-- REVIEWS -->
     <div id="details-reviews">
