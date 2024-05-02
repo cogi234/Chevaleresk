@@ -118,26 +118,17 @@ $starAvgHTML = Review::averageStarsHTML($item_id, 5);
 
 $details_content = <<<HTML
     <div id="details-container">
-        <div id="details">
-            <!-- IMAGE -->
-            <div>
-                <img id="details-image" src="$image_url" >
-            </div>
+        <img id="details-image" src="$image_url" >
 
-            <!-- DETAILS -->
-            <div id="details-details">
-                <!-- TITLE -->
-                <div id="details-title">
-                    <i id="details-type-icon" style="mask-image: url('$icon_url');"></i>
-                    <p id="details-name">$name</p>
-                </div>
+        <!-- TITLE -->
+        <div id="details-title">
+            <i id="details-type-icon" style="mask-image: url('$icon_url');"></i>
+            <p id="details-name">$name</p>
+        </div>
 
-                <!-- TYPE DETAILS -->
-                <div>
-                    $type_html
-                </div>
-
-            </div>
+        <!-- TYPE DETAILS -->
+        <div id="details-type">
+            $type_html
         </div>
 
         <!-- DESCRIPTION -->
