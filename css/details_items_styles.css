@@ -190,7 +190,23 @@
 
     color: var(--light);
 }
+.avg-reviews{
 
+}
+.reviews-stats{
+    
+}
+/* MIN LAYOUT */
+@media (max-width:700px) {
+    #details-container {
+        grid-template-areas:
+            'image'
+            'name'
+            'details'
+            'description';
+        grid-template-columns: 1fr;
+    }
+}
 /* NEW REVIEW */
 #new-review-container {
     background-color: var(--second);
@@ -262,4 +278,9 @@
     width: 100%;
     text-align: center;
     margin: 1em;
+}
+
+.reviews-percent{
+    left: 0;
+    background-color: orange;
 }
