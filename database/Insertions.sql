@@ -20,7 +20,7 @@ CALL ajouterPotion("Potion de peau de pierre", "Une bouteille remplie d'un liqui
 CALL ajouterPotion("Potion de la force de l'ours", "Une bouteille remplie d'un liquide brun.", 100, 25, TRUE, "potion_ours.png", "offense", "Rend fort comme un ours", 180);
 CALL ajouterPotion("Potion du poisson", "Une bouteille remplie d'un liquide vert. Des algues luisantes sont visible à l'intérieur.", 125, 20, TRUE, "potion_poisson.png", "defense", "Permet de respirer sous l'eau", 600);
 CALL ajouterPotion("Potion d'écaille de dragon", "Une bouteille remplie d'un liquide rouge brulant.", 150, 0, TRUE, "potion_dragon.png", "defense", "Rend résistant à la chaleur", 120);
-CALL ajouterPotion("Potion d'intelligence", "Une bouteille remplie d'un liquide presque invisible.", 300, 0, FALSE, "big_brain.png", "defense", "Rend plus intelligent", 600);
+CALL ajouterPotion("Potion d'intelligence", "Une bouteille remplie d'un liquide presque invisible.", 1000, 0, FALSE, "big_brain.png", "defense", "Rend plus intelligent", 600);
 
 -- Ingrédients
 CALL ajouterIngredient("Algues magiques", "Des algues venant d'eau infusée de magie.", 15, 100, TRUE, "algue_magique.png", "plante", 4, 2);
@@ -260,6 +260,13 @@ CALL ajouterRecette(14, 3);
 SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterIngredientRecette(@lastIndex, 16, 1);
 CALL ajouterIngredientRecette(@lastIndex, 20, 1);
+
+CALL ajouterRecette(15, 3);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 11, 1);
+CALL ajouterIngredientRecette(@lastIndex, 12, 1);
+CALL ajouterIngredientRecette(@lastIndex, 13, 1);
+CALL ajouterIngredientRecette(@lastIndex, 14, 1);
 
 
 -- TEMPORAIRE
