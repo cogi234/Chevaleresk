@@ -2,10 +2,13 @@
 
 const MAX_STARS = 5;
 
-function show_review($review): string
+function show_review(Review $review): string
 {
     $star = $review->Stars;
     $comment = $review->Comment;
+
+    $date_string = date("Y/m/d", $review->getDate());
+    $date_tooltip = date("H:i:s", $review->getDate());
 
     $playerId = $review->PlayerId;
 
@@ -42,7 +45,10 @@ HTML;
             </div>
 
             <div class="review-content" style="flex: 9;">
-                <div class="review-stars" title="$star étoiles">$stars_html</div>
+                <div class="review-stars" title="$star étoiles">
+                    $stars_html
+                    <span title="$date_tooltip">$date_string</span>
+                </div>
                 <hr>
                 <div class="review-comment" style="flex: 1;">$comment</div>
             </div>

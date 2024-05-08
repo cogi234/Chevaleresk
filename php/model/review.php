@@ -31,11 +31,21 @@ class Review extends PDO_Object
 
     public const DATE = "date";
     #[PDO_Object_Id(Review::DATE)]
-    public int $Date;
+    public string $Date;
 
     #endregion
 
     #region Functions
+
+    /**
+     * @author Colin Bougie
+     * Date of creation    : 2024/05/08
+     * Date of modification: 2024/05/08
+     */
+    public function getDate() : int
+    {
+        return strtotime($this->Date);
+    }
 
     /**
      * @author Colin Bougie
