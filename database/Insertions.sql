@@ -2,32 +2,32 @@ CREATE SCHEMA IF NOT EXISTS dbchevalersk9 DEFAULT CHARACTER SET utf8 ;
 USE dbchevalersk9 ;
 
 -- Armes
-CALL ajouterArme("Épée courte en bronze", "Une épée courte pour les aventuriers débutants.", 75, 40, TRUE, "default_weapon.png", 1, "Une main");
-CALL ajouterArme("Épée longue en bronze", "Une épée longue pour les aventuriers débutants.", 150, 25, TRUE, "default_weapon.png", 2, "Deux mains");
-CALL ajouterArme("Arc simple", "Un arc simple pour les aventuriers débutants.", 100, 35, TRUE, "default_weapon.png", 1, "Deux mains");
-CALL ajouterArme("Flèche de bronze", "Une flèche simple en bronze.", 5, 999, TRUE, "default_weapon.png", 1, "Munition");
-CALL ajouterArme("Baguette magique de chêne", "Une baguette magique pour l'apprentit sorcier.", 150, 30, TRUE, "default_weapon.png", 1, "Une main");
+CALL ajouterArme("Épée courte en bronze", "Une épée courte pour les aventuriers débutants.", 75, 40, TRUE, "epee_courte_bronze.png", 1, "Une main");
+CALL ajouterArme("Épée longue en bronze", "Une épée longue pour les aventuriers débutants.", 150, 25, TRUE, "epee_longue_bronze.webp", 2, "Deux mains");
+CALL ajouterArme("Arc simple", "Un arc simple pour les aventuriers débutants.", 100, 35, TRUE, "arc.webp", 1, "Deux mains");
+CALL ajouterArme("Flèche de bronze", "Une flèche simple en bronze.", 5, 999, TRUE, "fleche_bronze.webp", 1, "Munition");
+CALL ajouterArme("Baguette magique de chêne", "Une baguette magique pour l'apprentit sorcier.", 150, 30, TRUE, "baguette_magique.png", 1, "Une main");
 
 -- Armures
-CALL ajouterArmure("Casque de bronze", "Un casque pour protéger la tête.", 50, 30, TRUE, "default_armor.png", "Bronze", "moyen");
-CALL ajouterArmure("Cuirasse de bronze", "Une cuirasse pour protéger le torse.", 100, 20, TRUE, "default_armor.png", "Bronze", "moyen");
-CALL ajouterArmure("Bottes de cuir", "Des bottes simples mais fiables.", 50, 40, TRUE, "default_armor.png", "Cuir", "moyen");
-CALL ajouterArmure("Robe de magicien", "Une robe magique pour l'apprentit sorcier.", 100, 15, TRUE, "default_armor.png", "Soie", "moyen");
-CALL ajouterArmure("Chapeau de magicien", "Un chapeau conique classique pour tout magicien.", 75, 15, TRUE, "default_armor.png", "Soie", "moyen");
+CALL ajouterArmure("Casque de bronze", "Un casque pour protéger la tête.", 50, 30, TRUE, "casque_bronze.webp", "Bronze", "moyen");
+CALL ajouterArmure("Cuirasse de bronze", "Une cuirasse pour protéger le torse.", 100, 20, TRUE, "cuirasse_bronze.png", "Bronze", "moyen");
+CALL ajouterArmure("Bottes de cuir", "Des bottes simples mais fiables.", 50, 40, TRUE, "bottes_cuir.webp", "Cuir", "moyen");
+CALL ajouterArmure("Robe de magicien", "Une robe magique pour l'apprentit sorcier.", 100, 15, TRUE, "robe_magicien.png", "Soie", "moyen");
+CALL ajouterArmure("Chapeau de magicien", "Un chapeau conique classique pour tout magicien.", 75, 15, TRUE, "chapeau_magicien.png", "Soie", "moyen");
 
 -- Potions
-CALL ajouterPotion("Potion de peau de pierre", "Une bouteille remplie d'un liquide gris brillant.", 100, 25, TRUE, "default_potion.png", "defense", "Rend la peau dure comme la pierre", 180);
-CALL ajouterPotion("Potion de la force de l'ours", "Une bouteille remplie d'un liquide brun.", 100, 25, TRUE, "default_potion.png", "offense", "Rend fort comme un ours", 180);
-CALL ajouterPotion("Potion du poisson", "Une bouteille remplie d'un liquide vert. Des algues luisantes sont visible à l'intérieur.", 125, 20, TRUE, "default_potion.png", "defense", "Permet de respirer sous l'eau", 600);
-CALL ajouterPotion("Potion d'écaille de dragon", "Une bouteille remplie d'un liquide rouge brulant.", 150, 0, TRUE, "default_potion.png", "defense", "Rend résistant à la chaleur", 120);
-CALL ajouterPotion("Potion d'intelligence", "Une bouteille remplie d'un liquide presque invisible.", 300, 0, FALSE, "default_potion.png", "defense", "Rend plus intelligent", 600);
+CALL ajouterPotion("Potion de peau de pierre", "Une bouteille remplie d'un liquide gris brillant.", 100, 25, TRUE, "potion_pierre.png", "defense", "Rend la peau dure comme la pierre", 180);
+CALL ajouterPotion("Potion de la force de l'ours", "Une bouteille remplie d'un liquide brun.", 100, 25, TRUE, "potion_ours.png", "offense", "Rend fort comme un ours", 180);
+CALL ajouterPotion("Potion du poisson", "Une bouteille remplie d'un liquide vert. Des algues luisantes sont visible à l'intérieur.", 125, 20, TRUE, "potion_poisson.png", "defense", "Permet de respirer sous l'eau", 600);
+CALL ajouterPotion("Potion d'écaille de dragon", "Une bouteille remplie d'un liquide rouge brulant.", 150, 0, TRUE, "potion_dragon.png", "defense", "Rend résistant à la chaleur", 120);
+CALL ajouterPotion("Potion d'intelligence", "Une bouteille remplie d'un liquide presque invisible.", 1000, 0, FALSE, "big_brain.png", "defense", "Rend plus intelligent", 600);
 
 -- Ingrédients
-CALL ajouterIngredient("Algues magiques", "Des algues venant d'eau infusée de magie.", 15, 100, TRUE, "default_ingredient.png", "plante", 4, 2);
-CALL ajouterIngredient("Ail", "De l'ail normal.", 3, 200, TRUE, "default_ingredient.png", "plante", 1, 1);
-CALL ajouterIngredient("Sang de sangsue", "Du sang pris d'une sangsue juste après qu'elle l'aie mangée.", 10, 100, TRUE, "default_ingredient.png", "sang", 2, 2);
-CALL ajouterIngredient("Ongles de goblins", "Les ongles d'un goblin.", 5, 150, TRUE, "default_ingredient.png", "ongle", 2, 3);
-CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Dure comme l'acier et invincible à la chaleur.", 75, 50, TRUE, "default_ingredient.png", "écaille", 9, 10);
+CALL ajouterIngredient("Algues magiques", "Des algues venant d'eau infusée de magie.", 15, 100, TRUE, "algue_magique.png", "plante", 4, 2);
+CALL ajouterIngredient("Ail", "De l'ail normal.", 3, 200, TRUE, "ail.png", "plante", 1, 1);
+CALL ajouterIngredient("Sang de sangsue", "Du sang pris d'une sangsue juste après qu'elle l'aie mangée.", 10, 100, TRUE, "sang_sangsue.png", "sang", 2, 2);
+CALL ajouterIngredient("Ongles de goblins", "Les ongles d'un goblin.", 5, 150, TRUE, "ongles_goblin.png", "ongle", 2, 3);
+CALL ajouterIngredient("Écaille de dragon", "Une écaille prise d'un dragon. Dure comme l'acier et invincible à la chaleur.", 75, 50, TRUE, "ecaille_dragon.png", "écaille", 9, 10);
 
 -- Joueur
 -- Pas alchimistes
@@ -261,16 +261,23 @@ SET @lastIndex = LAST_INSERT_ID();
 CALL ajouterIngredientRecette(@lastIndex, 16, 1);
 CALL ajouterIngredientRecette(@lastIndex, 20, 1);
 
+CALL ajouterRecette(15, 3);
+SET @lastIndex = LAST_INSERT_ID();
+CALL ajouterIngredientRecette(@lastIndex, 11, 1);
+CALL ajouterIngredientRecette(@lastIndex, 12, 1);
+CALL ajouterIngredientRecette(@lastIndex, 13, 1);
+CALL ajouterIngredientRecette(@lastIndex, 14, 1);
+
 
 -- TEMPORAIRE
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (1, 1, 5, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (2, 1, 4, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (3, 1, 3, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (4, 1, 2, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (5, 1, 1, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (6, 1, 5, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (7, 1, 5, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (8, 1, 4, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (9, 1, 3, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (10, 1, 1, "Ceci est un test.");
-INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (11, 1, 1, "Ceci est un test.");
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (1, 1, 5, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (2, 1, 4, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (3, 1, 3, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (4, 1, 2, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (5, 1, 1, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (6, 1, 5, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (7, 1, 5, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (8, 1, 4, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (9, 1, 3, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (10, 1, 1, "Ceci est un test.", NOW());
+INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (11, 1, 1, "abcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxy", NOW());

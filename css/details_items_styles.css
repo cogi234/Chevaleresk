@@ -5,7 +5,7 @@
     margin: auto;
     padding: 1.5em;
 
-    background: var(--main);
+    background-color: var(--main);
 
     border-radius: 1em;
     border: 0.1em solid var(--dark);
@@ -51,7 +51,7 @@
     margin-bottom: 1em;
     padding: 0.5em 1em;
 
-    background: var(--second);
+    background-color: var(--second);
 
     border-radius: 1em;
     border: 0.1em solid var(--dark);
@@ -196,6 +196,21 @@
 
     margin-top: 1.5em;
 }
+/* REVIEWS CONTAINER*/
+#details-reviews {
+    width: 90%;
+    margin: 1em auto;
+    padding: 1em;
+
+    background-color: var(--main);
+
+    border-radius: 1em;
+    border: 0.1em solid var(--dark);
+
+    color: var(--light);
+
+    margin-top: 1.5em;
+}
 .avg-reviews{
     
 }
@@ -217,4 +232,77 @@
         width: 100%;
         margin: auto;
     }
+}
+
+/* NEW REVIEW */
+#new-review-container {
+    background-color: var(--second);
+
+    border-radius: 1em;
+    border: 0.1em solid var(--dark);
+
+    display: flex;
+}
+
+.new-review-div {
+    margin: 1em auto;
+}
+
+.new-review-button {
+    background-color: var(--light);
+    border: solid var(--dark) 3px;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+#new-review-form {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+#new-review-form>h4 {
+    display: block;
+    margin-top: 0.5em;
+    width: 100%;
+    text-align: center;
+}
+
+#new-review-form>label {
+    display: block;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+#new-review-stars {
+    display: block;
+    margin-left: 1em;
+    width: 2.5em;
+
+    border-radius: 0.5em;
+}
+
+#new-review-comment {
+    display: block;
+    width: calc(100% - 2em);
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+
+    border-radius: 0.5em;
+}
+
+#new-review-submit {
+    display: block;
+    margin: auto;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+.new-review-text {
+    width: 100%;
+    text-align: center;
+    margin: 1em;
 }

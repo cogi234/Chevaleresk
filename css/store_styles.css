@@ -18,10 +18,8 @@
 }
 
 .store-item-holder>.store-item {
-    min-width: 150px;
-    min-height: 150px;
-    width: 15%;
-    height: 15%;
+    width: 250px;
+    height: 250px;
 
     transform: scale(80%);
 }
@@ -47,10 +45,15 @@
 
 /* IMAGE */
 .store-item-image {
-    width: 100%;
-    height: 100%;
+    
+    width: 250px;
+    height: 250px;
 
     border-radius: 20px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 /* INFO */
@@ -119,13 +122,12 @@
 }
 
 .store-item-name {
-    font-size: 17.5px;
-    margin-top: -3px;
+    font-size: 1.5em;
 }
 
 .store-item-price {
-    font-size: 13px;
-    margin-top: -5px;
+    font-size: 1.1em;
+    margin-top: 0.1em;
 }
 
 /* BORDER */
@@ -165,7 +167,7 @@
     transform: translateY(-50%);
     text-align: center;
 
-    font-size: 1.25em;
+    font-size: 150%;
 }
 
 /* OUT OF STOCK */

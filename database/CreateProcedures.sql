@@ -505,7 +505,7 @@ DELIMITER ;
 -- Evaluations
 DROP PROCEDURE IF EXISTS ajouterCommentaire;
 DELIMITER |
-CREATE PROCEDURE ajouterCommentaire(in pIdJoueur INT, in pIdItem INT, in pNbEtoiles INT, in pCommentaire TEXT)
+CREATE PROCEDURE ajouterCommentaire(in pIdJoueur INT, in pIdItem INT, in pNbEtoiles INT, in pCommentaire VARCHAR(1000))
 BEGIN
 	DECLARE pDansInventaire INT;
     SELECT COUNT(*) INTO pDansInventaire FROM vInventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
@@ -515,7 +515,7 @@ BEGIN
     END IF;
     
     START TRANSACTION;
-		INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire) VALUES (pIdJoueur, pIdItem, pNbEtoiles, pCommentaire);
+		INSERT INTO commentaires(idJoueur, idItem, nbEtoiles, commentaire, date) VALUES (pIdJoueur, pIdItem, pNbEtoiles, pCommentaire, NOW());
     COMMIT;
 END |
 DELIMITER ;
