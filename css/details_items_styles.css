@@ -3,7 +3,7 @@
     width: 90%;
 
     margin: auto;
-    padding: 1em;
+    padding: 1.5em;
 
     background-color: var(--main);
 
@@ -13,29 +13,33 @@
     color: var(--light);
 
     margin-top: 1.5em;
+
+    display: grid;
+    grid-gap: 1.5em;
+    grid-template-areas:
+        'image name'
+        'image details'
+        'description description';
+    grid-template-columns: min-content 1fr;
+}
+
+#details-image,
+#details-type,
+#details-title,
+#details-description {
+    display: flex;
+    padding: 1em;
+    background-color: var(--second);
+    border-radius: 1.5em;
+    border: 0.1em solid var(--dark);
 }
 
 /* DETAILS */
-#details {
-    display: flex;
-}
-
-#details>div {
-    display: flex;
-    flex-direction: column;
-}
-
 #details-image {
     max-height: 15em;
     max-width: 15em;
 
-    padding: 1em;
-    margin: auto 1.5em 1em auto;
-
-    background-color: var(--second);
-
-    border-radius: 4.5em;
-    border: 0.1em solid var(--dark);
+    grid-area: image;
 }
 
 /* MAIN DETAILS */
@@ -58,6 +62,8 @@
     display: flex;
 
     align-items: center;
+
+    grid-area: name;
 }
 
 /* NAME */
@@ -71,6 +77,12 @@
 }
 
 /* TYPE */
+#details-type {
+    grid-area: details;
+    background-color: var(--second);
+    flex-direction: column;
+}
+
 #details-type-icon {
     height: 2em;
     width: 2em;
@@ -88,15 +100,7 @@
 
 /* DESCRIPTION */
 #details-description {
-    width: 90%;
-
-    padding: 1em;
-    margin: 2em auto;
-
-    border: 0.1em solid var(--dark);
-    border-radius: 1em;
-
-    background: var(--second);
+    grid-area: description;
 }
 
 /* CART */
@@ -177,13 +181,13 @@
     line-height: 1.5;
 }
 
-/* REVIEWS CONTAINER*/
-#details-reviews {
+.details-avg-reviews{
     width: 90%;
-    margin: 1em auto;
+
+    margin: auto;
     padding: 1em;
 
-    background-color: var(--main);
+    background: var(--main);
 
     border-radius: 1em;
     border: 0.1em solid var(--dark);
@@ -219,102 +223,42 @@
     border-radius: 1em;
     border: 0.1em solid var(--dark);
 
-    display: flex;
+    margin-top: 1.5em;
 }
-
-.new-review-div {
+/* REVIEWS CONTAINER*/
+#details-reviews {
+    width: 90%;
     margin: 1em auto;
-}
-
-.new-review-button {
-    background-color: var(--light);
-    border: solid var(--dark) 3px;
-    font-weight: bold;
-    border-radius: 10px;
     padding: 1em;
-}
 
-#new-review-form {
-    width: 100%;
-    height: 100%;
+    background-color: var(--main);
 
-    display: block;
-}
+    border-radius: 1em;
+    border: 0.1em solid var(--dark);
 
-#new-review-form>h4 {
-    display: block;
-    margin-top: 0.5em;
-    width: 100%;
-    text-align: center;
-}
+    color: var(--light);
 
-#new-review-form>label {
-    display: block;
-    margin-left: 1em;
-    margin-top: 0.5em;
+    margin-top: 1.5em;
 }
+.avg-reviews{
+    
+}
+/* MIN LAYOUT */
+@media (max-width:700px) {
+    #details-container {
+        grid-template-areas:
+            'image'
+            'name'
+            'details'
+            'description';
+        grid-template-columns: 1fr;
+    }
 
-#new-review-stars {
-    display: block;
-    margin-left: 1em;
-    width: 2.5em;
-
-    border-radius: 0.5em;
-}
-
-#new-review-comment {
-    display: block;
-    width: calc(100% - 2em);
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-bottom: 1em;
-
-    border-radius: 0.5em;
-}
-
-#new-review-submit {
-    display: block;
-    margin: auto;
-    margin-bottom: 1em;
-    padding: 0.5em;
-}
-
-.new-review-text {
-    width: 100%;
-    text-align: center;
-    margin: 1em;
-}
-
-.reviews-percent{
-    left: 0;
-    background-color: orange;
-    height: 1.5em;
-    border: solid var(--dark) 2px;
-    border-radius: 5em;
-}
-
-.reviews-stats-container{
-    margin: 0.5em;
-    padding: 0.5em;
-}
-.reviews-percent-container{
-    display: flex;
-    margin: 0, 0.5em;
-    align-items: center;
-}
-.reviews-percent-label{
-    display: flex;
-    margin: 0, 0.5em;
-    padding: 0.5em;
-    align-items: center;
-}
-.reviews-percent-label>*{
-    margin: 0.1em;
-    padding: 0.1em;
-}
-.reviews-percent-full{
-    width: 100%;
-    background-color: var(--second);
-    border: solid var(--dark) 2px;
-    border-radius: 5em;
+    #details-image,
+    #details-type,
+    #details-title,
+    #details-description {
+        width: 100%;
+        margin: auto;
+    }
 }

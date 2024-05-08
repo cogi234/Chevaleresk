@@ -511,7 +511,7 @@ BEGIN
     SELECT COUNT(*) INTO pDansInventaire FROM vInventaire WHERE idJoueur = pIdJoueur AND idItem = pIdItem;
     
     IF (pDansInventaire < 1) THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On ne peut pas evaluer ce qu'on a pas!";
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "On ne peut pas evaluer ce qu'on a pas!";
     END IF;
     
     START TRANSACTION;

@@ -2,7 +2,9 @@
 
 require_once "../php/model/player.php";
 require_once "../php/model/review.php";
+require_once "../php/html/itemsReviewHTML.php";
 require_once "../php/session_manager.php";
+require_once "../php/pdo/pdo_utilities.php";
 
 userAccess();
 
@@ -21,9 +23,13 @@ $comment_text = $_POST["comment"];
 $result = Review::createReview($item_id, $stars, $comment_text);
 
 if ($result) {
-    echo <<<HTML
-        <p class="new-review-text">Votre évaluation a été envoyée</p>
-HTML;
+    $review = Review::selectComplete(
+        _and(
+            equals(Review::ITEMID, $item_id),
+            equals(Review::PLAYERID, $player_id)
+        )
+    );
+    echo show_review($review);
 } else {
     echo <<<HTML
     <p class="new-review-text" style="color:red">ERREUR: Il y a eu une erreur dans la création de l'évaluation!</p>

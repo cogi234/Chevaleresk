@@ -28,9 +28,24 @@ class Review extends PDO_Object
     public const COMMENT = "commentaire";
     #[PDO_Object_Id(Review::COMMENT)]
     public string $Comment;
+
+    public const DATE = "date";
+    #[PDO_Object_Id(Review::DATE)]
+    public string $Date;
+
     #endregion
 
     #region Functions
+
+    /**
+     * @author Colin Bougie
+     * Date of creation    : 2024/05/08
+     * Date of modification: 2024/05/08
+     */
+    public function getDate() : int
+    {
+        return strtotime($this->Date);
+    }
 
     /**
      * @author Colin Bougie
@@ -50,21 +65,6 @@ class Review extends PDO_Object
     public static function removeReview(int $itemId): bool
     {
         return callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
-    }
-
-    public static function averageStarsHTML($itemId, $MAX_STARS): string
-    {
-        $avg = select("AVG(nbEtoiles)", "commentaires", "idItem = " . $itemId)["AVG(nbEtoiles)"];
-        isset_default($avg, 0);
-        $avg = round($avg);
-        $stars_html = "";
-        for ($i = 0; $i < $MAX_STARS; $i++) {
-            $star_class = $i < $avg ? "selected" : "";
-            $stars_html .= <<<HTML
-                <i class="fa-solid fa-star review-star $star_class"></i>
-HTML;
-        }
-        return $stars_html;
     }
 
     public static function reviewsStats(int $itemId): string
@@ -130,6 +130,5 @@ HTML;
         </div>
 HTML;
     }
-
     #endregion
 }
