@@ -28,6 +28,11 @@ class Review extends PDO_Object
     public const COMMENT = "commentaire";
     #[PDO_Object_Id(Review::COMMENT)]
     public string $Comment;
+
+    public const DATE = "date";
+    #[PDO_Object_Id(Review::DATE)]
+    public int $Date;
+
     #endregion
 
     #region Functions
