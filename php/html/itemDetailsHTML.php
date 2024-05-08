@@ -158,6 +158,7 @@ HTML;
 }
 
 $starAvgHTML = showAverageStars($item_id);
+$starPercentages = Review::reviewsStats($item_id);
 isset_default($cart);
 isset_default($new_review_html);
 
@@ -187,6 +188,7 @@ $details_content = <<<HTML
     <!--STARS AVG-->
     <div class="details-avg-reviews">
         $starAvgHTML
+        $starPercentages
     </div>
 
     <!-- REVIEWS -->
