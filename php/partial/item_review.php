@@ -1,7 +1,5 @@
 <?php
 
-const MAX_STARS = 5;
-
 // Model
 require_once "../model/review.php";
 require_once "../model/player.php";

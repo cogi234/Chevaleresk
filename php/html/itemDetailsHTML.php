@@ -148,7 +148,7 @@ HTML;
 HTML;
 }
 
-$starAvgHTML = Review::averageStarsHTML($item_id, 5);
+$starAvgHTML = showAverageStars($item_id);
 isset_default($review_html,<<<HTML
     <p class="new-review-text">Vous ne pouvez pas évaluer un item que vous ne possédez pas.</p>
 HTML);
