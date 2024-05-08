@@ -5,6 +5,8 @@
     min-height: 10em;
     height: fit-content;
 
+    margin: 0.5em 0;
+
     padding: 1em;
 
     background: var(--main);
