@@ -17,15 +17,23 @@ require_once "php/session_manager.php";
 // Scripts
 isset_default($scripts_view);
 $scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
+$scripts_view .= <<<HTML
+    <script defer>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
+    </script>
+    <script src='js/local/partial/item-review.js' defer></script>
+HTML;
 
 // Styles
 isset_default($styles_view);
 $styles_view .= '<link rel="stylesheet" href="css/details_items_styles.css">';
+$styles_view .= '<link rel="stylesheet" href="css/review_styles.css">';
 
 // Title
 $page_title = "Détails";
 
 $item_id = $_GET[TAG_ID];
+$_SESSION["CHECKED_ID"] = $item_id;
 
 // Get item
 $item = Item::selectComplete(equals(Item::ID, $item_id));
@@ -125,68 +133,62 @@ HTML;
     if ($type == "ingredient" && $alchemy_level == 0) {
         $buy_html = "";
     }
+
+    $cart = <<<HTML
+        <!-- PANIER -->
+        <div id="details-cart">
+            <i id="details-cart-collapse" class="fa-solid fa-minus"></i>
+            $price_html
+            $stock_html
+            $inventory_html
+            <div id="details-buy">
+                $buy_html
+            </div>
+        </div>
+HTML;
 }
 
+$starAvgHTML = Review::averageStarsHTML($item_id, 5);
 isset_default($review_html,<<<HTML
     <p class="new-review-text">Vous ne pouvez pas évaluer un item que vous ne possédez pas.</p>
 HTML);
+$starPercentages = Review::reviewsStats($item_id);
 
 $details_content = <<<HTML
     <div id="details-container">
-        <div id="details">
-            <!-- IMAGE -->
-            <div>
-                <img id="details-image" src="$image_url" >
-            </div>
+        <img id="details-image" src="$image_url" >
 
-            <!-- DETAILS -->
-            <div id="details-details">
-                <!-- TITLE -->
-                <div id="details-title">
-                    <i id="details-type-icon" style="mask-image: url('$icon_url');"></i>
-                    <p id="details-name">$name</p>
-                </div>
+        <!-- TITLE -->
+        <div id="details-title">
+            <i id="details-type-icon" style="mask-image: url('$icon_url');"></i>
+            <p id="details-name">$name</p>
+        </div>
 
-                <!-- EVALUTION -->
-                <!-- <div></div> -->
-                
-                <!-- TYPE DETAILS -->
-                <div>
-                    $type_html
-                </div>
-            </div>
+        <!-- TYPE DETAILS -->
+        <div id="details-type">
+            $type_html
         </div>
 
         <!-- DESCRIPTION -->
         <div id="details-description">
             $description
         </div>
-
     </div>
 
-    <!-- PANIER -->
-    <div id="details-cart">
-        <i id="details-cart-collapse" class="fa-solid fa-minus"></i>
-        $price_html
-        $stock_html
-        $inventory_html
-        <div id="details-buy">
-            $buy_html
-        </div>
+    $cart
+
+    <!--STARS AVG-->
+    <div class="avg-reviews">
+        $starAvgHTML
+        $starPercentages
     </div>
-    
+
     <!-- REVIEWS -->
     <div id="details-reviews">
         <div id="new-review-container">
             $review_html
         </div>
-        <div id="reviews-container"></div>
+        <div id="reviews-container"><!-- PARTIAL REFRESHED --></div>
     </div>
-    HTML;
-
-isset_default($scripts_view);
-$scripts_view .= <<<HTML
-    <script>
-        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
-    </script>
 HTML;
+

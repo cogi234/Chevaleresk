@@ -98,35 +98,34 @@ HTML;
             }
         }
 
-        $count5 = 100 * $count5 / $countTotal;
-        $count4 = 100 * $count4 / $countTotal;
-        $count3 = 100 * $count3 / $countTotal;
-        $count2 = 100 * $count2 / $countTotal;
-        $count1 = 100 * $count1 / $countTotal;
-
-        $style5 = 100 - $count5;
-        $style4 = 100 - $count4;
-        $style3 = 100 - $count3;
-        $style2 = 100 - $count2;
-        $style1 = 100 - $count1;
+        $count5 = round( 100 * $count5 / $countTotal , 2);
+        $count4 = round( 100 * $count4 / $countTotal , 2);
+        $count3 = round( 100 * $count3 / $countTotal , 2);
+        $count2 = round( 100 * $count2 / $countTotal , 2);
+        $count1 = round( 100 * $count1 / $countTotal , 2);
 
         return <<<HTML
-        <div>
-            <p class="nb-total-reviews">$countTotal</p>
-            <div>
-                <div class="reviews-percent" style="right: $style5%"></div>
+        <p class="nb-total-reviews">$countTotal évaluations</p>
+        <div class="reviews-stats-container">
+            <div class="reviews-percent-container" title="$count5%">
+                <div class="reviews-percent-label"><p>5</p><i class="fa-solid fa-star"></i></div>
+                <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count5%"></div></div>
             </div>
-            <div>
-                <div class="reviews-percent" style="right: $style4%"></div>
+            <div class="reviews-percent-container" title="$count4%">
+                <div class="reviews-percent-label"><p>4</p><i class="fa-solid fa-star"></i></div>
+                <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count4%"></div></div>
             </div>
-            <div>
-                <div class="reviews-percent" style="right: $style3%"></div>
+            <div class="reviews-percent-container" title="$count3%">
+                <div class="reviews-percent-label"><p>3</p><i class="fa-solid fa-star"></i></div>
+                <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count3%"></div></div>
             </div>
-            <div>
-                <div class="reviews-percent" style="right: $style2%"></div>
+            <div class="reviews-percent-container" title="$count2%">
+                <div class="reviews-percent-label"><p>2</p><i class="fa-solid fa-star"></i></div>
+                <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count2%"></div></div>
             </div>
-            <div>
-                <div class="reviews-percent" style="right: $style1%"></div>
+            <div class="reviews-percent-container" title="$count1%">
+                <div class="reviews-percent-label"><p>1</p><i class="fa-solid fa-star"></i></div>
+                <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count1%"></div></div>
             </div>
         </div>
 HTML;
