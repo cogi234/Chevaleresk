@@ -3,7 +3,7 @@
     width: 90%;
 
     margin: auto;
-    padding: 1em;
+    padding: 1.5em;
 
     background-color: var(--main);
 
@@ -13,29 +13,33 @@
     color: var(--light);
 
     margin-top: 1.5em;
+
+    display: grid;
+    grid-gap: 1.5em;
+    grid-template-areas:
+        'image name'
+        'image details'
+        'description description';
+    grid-template-columns: min-content 1fr;
+}
+
+#details-image,
+#details-type,
+#details-title,
+#details-description {
+    display: flex;
+    padding: 1em;
+    background-color: var(--second);
+    border-radius: 1.5em;
+    border: 0.1em solid var(--dark);
 }
 
 /* DETAILS */
-#details {
-    display: flex;
-}
-
-#details>div {
-    display: flex;
-    flex-direction: column;
-}
-
 #details-image {
     max-height: 15em;
     max-width: 15em;
 
-    padding: 1em;
-    margin: auto 1.5em 1em auto;
-
-    background-color: var(--second);
-
-    border-radius: 4.5em;
-    border: 0.1em solid var(--dark);
+    grid-area: image;
 }
 
 /* MAIN DETAILS */
@@ -58,6 +62,8 @@
     display: flex;
 
     align-items: center;
+
+    grid-area: name;
 }
 
 /* NAME */
@@ -71,6 +77,12 @@
 }
 
 /* TYPE */
+#details-type {
+    grid-area: details;
+    background-color: var(--second);
+    flex-direction: column;
+}
+
 #details-type-icon {
     height: 2em;
     width: 2em;
@@ -88,15 +100,7 @@
 
 /* DESCRIPTION */
 #details-description {
-    width: 90%;
-
-    padding: 1em;
-    margin: 2em auto;
-
-    border: 0.1em solid var(--dark);
-    border-radius: 1em;
-
-    background: var(--second);
+    grid-area: description;
 }
 
 /* CART */
@@ -177,6 +181,21 @@
     line-height: 1.5;
 }
 
+.details-avg-reviews{
+    width: 90%;
+
+    margin: auto;
+    padding: 1em;
+
+    background: var(--main);
+
+    border-radius: 1em;
+    border: 0.1em solid var(--dark);
+
+    color: var(--light);
+
+    margin-top: 1.5em;
+}
 /* REVIEWS CONTAINER*/
 #details-reviews {
     width: 90%;
@@ -189,6 +208,30 @@
     border: 0.1em solid var(--dark);
 
     color: var(--light);
+
+    margin-top: 1.5em;
+}
+.avg-reviews{
+    
+}
+/* MIN LAYOUT */
+@media (max-width:700px) {
+    #details-container {
+        grid-template-areas:
+            'image'
+            'name'
+            'details'
+            'description';
+        grid-template-columns: 1fr;
+    }
+
+    #details-image,
+    #details-type,
+    #details-title,
+    #details-description {
+        width: 100%;
+        margin: auto;
+    }
 }
 
 /* NEW REVIEW */
