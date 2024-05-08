@@ -96,10 +96,10 @@ if (is_connected()) {
         HTML;
 
         $review = Review::selectComplete(_and(equals(Review::PLAYERID, $player_id), equals(Review::ITEMID, $item_id)));
+        $new_review_html = "<div id='new-review-container'>";
         if ($review == false) {
             // Si on n'a pas deja une evaluation, on mets le bouton
-            $new_review_html = <<<HTML
-            <div id="new-review-container">
+            $new_review_html .= <<<HTML
                 <div class="new-review-div">
                     <button class="new-review-button"
                         hx-post="operations/getReviewForm.php?id=$item_id"
@@ -109,11 +109,11 @@ if (is_connected()) {
                         Évaluer l'item
                     </button>
                 </div>
-            </div>
 HTML;
         } else {
-            $new_review_html = show_review($review);
+            $new_review_html .= show_review($review);
         }
+        $new_review_html .= "</div>";
     } else {
         $new_review_html = <<<HTML
         <div id="new-review-container">
