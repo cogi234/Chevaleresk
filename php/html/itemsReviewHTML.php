@@ -1,6 +1,9 @@
 <?php
 
-function show_review($review):string {
+const MAX_STARS = 5;
+
+function show_review($review): string
+{
     $star = $review->Stars;
     $comment = $review->Comment;
 
@@ -17,7 +20,7 @@ function show_review($review):string {
     $name = $player->getFullname();
 
     $stars_html = "";
-    for ($i=0; $i < MAX_STARS; $i++) { 
+    for ($i = 0; $i < MAX_STARS; $i++) {
         $star_class = $i < $star ? "selected" : "";
         $stars_html .= <<<HTML
             <i class="fa-solid fa-star review-star $star_class"></i>
@@ -45,4 +48,19 @@ HTML;
             </div>
         </div>
 HTML;
+}
+
+function showAverageStars($itemId)
+{
+    $avg = select("AVG(nbEtoiles)", "commentaires", "idItem = " . $itemId)["AVG(nbEtoiles)"];
+    isset_default($avg, 0);
+    $avg = round($avg);
+    $stars_html = "";
+    for ($i = 0; $i < MAX_STARS; $i++) {
+        $star_class = $i < $avg ? "selected" : "";
+        $stars_html .= <<<HTML
+            <i class="fa-solid fa-star review-star $star_class"></i>
+HTML;
+    }
+    return $stars_html;
 }

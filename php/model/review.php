@@ -56,19 +56,5 @@ class Review extends PDO_Object
     {
         return callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
     }
-
-    public static function averageStarsHTML($itemId, $MAX_STARS){
-        $avg = select("AVG(nbEtoiles)", "commentaires", "idItem = " . $itemId)["AVG(nbEtoiles)"];
-        isset_default($avg, 0);
-        $avg = round($avg);
-        $stars_html = "";
-        for ($i=0; $i < $MAX_STARS; $i++) { 
-            $star_class = $i < $avg ? "selected" : "";
-            $stars_html .= <<<HTML
-                <i class="fa-solid fa-star review-star $star_class"></i>
-HTML;
-        }
-        return $stars_html;
-    }
     #endregion
 }
