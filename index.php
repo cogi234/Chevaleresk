@@ -28,7 +28,8 @@ foreach (Item::TYPES as $key => $value) {
 HTML;
 }
 
-$filter_html = filter_render(<<<HTML
+
+$filter_html = <<<HTML
 <form 
     id="store-filter"
     hx-get='php/partial/store_items.php' 
@@ -48,11 +49,12 @@ $filter_html = filter_render(<<<HTML
     <!-- <br>
     <input type="submit" value="Filtrer"> -->
 </form>
-HTML);
+HTML;
+$filter_render = filter_render($filter_html);
 
 // Body
 $body_content = <<<HTML
-    $filter_html
+    $filter_render
 
     <div style="display: flex;">
         <!-- ITEMS -->
