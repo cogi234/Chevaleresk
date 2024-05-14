@@ -62,9 +62,9 @@ class Review extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public static function removeReview(int $itemId): bool
+    public static function removeReview(int $playerId, int $itemId): bool
     {
-        return callProcedure("retirerCommentaire", Player::getLocalPlayer()->Id, $itemId);
+        return callProcedure("retirerCommentaire", $playerId, $itemId);
     }
     #endregion
 }

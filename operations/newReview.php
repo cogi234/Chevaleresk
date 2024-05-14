@@ -29,7 +29,7 @@ if ($result) {
             equals(Review::PLAYERID, $player_id)
         )
     );
-    echo show_review($review);
+    echo show_review($review, true);
 } else {
     echo <<<HTML
     <p class="new-review-text" style="color:red">ERREUR: Il y a eu une erreur dans la création de l'évaluation!</p>

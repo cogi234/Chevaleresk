@@ -2,7 +2,7 @@
 
 const MAX_STARS = 5;
 
-function show_review(Review $review): string
+function show_review(Review $review, bool $can_delete = false): string
 {
     $star = $review->Stars;
     $comment = $review->Comment;
@@ -11,6 +11,7 @@ function show_review(Review $review): string
     $date_tooltip = date("H:i:s", $review->getDate());
 
     $playerId = $review->PlayerId;
+    $itemId = $review->ItemId;
 
     $player = Player::select([
         Player::ALIAS,
@@ -30,9 +31,17 @@ function show_review(Review $review): string
 HTML;
     }
 
+    $delete_html = "";
+    if ($can_delete){
+        $delete_html = <<<HTML
+            <a class="delete-icon fa-solid fa-trash"
+                title="Retirer cette évaluation"
+                href="operations/removeReview.php?item=$itemId&player=$playerId"></a>
+HTML;
+    }
+
     return <<<HTML
         <div class="review-parent">
-            
             <div style="flex: 1;">
                 <div class="review-player" >
                     <a 
@@ -43,11 +52,11 @@ HTML;
                     <div class="review-author-name">$name</div>
                 </div>
             </div>
-
             <div class="review-content" style="flex: 9;">
                 <div class="review-stars" title="$star étoiles">
                     $stars_html
                     <span title="$date_tooltip">$date_string</span>
+                    $delete_html
                 </div>
                 <hr>
                 <div class="review-comment" style="flex: 1;">$comment</div>
