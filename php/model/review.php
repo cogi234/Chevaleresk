@@ -52,7 +52,7 @@ class Review extends PDO_Object
      * Date of creation    : 2024/05/01
      * Date of modification: 2024/05/01
      */
-    public static function createReview(int $itemId, int $stars, string $comment): bool
+    public static function createReview(int $itemId, int $stars, string $comment = ""): bool
     {
         return callProcedure("ajouterCommentaire", Player::getLocalPlayer()->Id, $itemId, $stars, $comment);
     }
