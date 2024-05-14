@@ -206,3 +206,12 @@ hr {
     color: var(--dark);
     height: 2px !important;
 }
+
+.delete-icon {
+    font-size: 1.5em;
+    height: fit-content;
+    width: fit-content;
+    margin-left: calc(100% - 10em);
+    text-align: right;
+    cursor: pointer;
+}
