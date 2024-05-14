@@ -111,7 +111,7 @@ if (is_connected()) {
                 </div>
 HTML;
         } else {
-            $new_review_html .= show_review($review);
+            $new_review_html .= show_review($review, true);
         }
         $new_review_html .= "</div>";
     } else {
