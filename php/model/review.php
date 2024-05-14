@@ -97,9 +97,8 @@ class Review extends PDO_Object
             }
         }
 
-        if($countTotal <= 0){
+        if ($countTotal <= 0)
             return "";
-        }
     
         $count5 = round( 100 * $count5 / $countTotal , 2);
         $count4 = round( 100 * $count4 / $countTotal , 2);
