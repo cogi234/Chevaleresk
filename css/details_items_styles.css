@@ -131,7 +131,8 @@
     position: relative !important;
     top: 0 !important;
     right: 0 !important;
-    margin: 1em 2em;
+    margin: 1em auto;
+    width: 90%;
 }
 
 #details-cart-collapse {
@@ -225,6 +226,7 @@
 
     margin-top: 1.5em;
 }
+
 /* REVIEWS CONTAINER*/
 #details-reviews {
     width: 90%;
@@ -240,9 +242,7 @@
 
     margin-top: 1.5em;
 }
-.avg-reviews{
-    
-}
+
 /* MIN LAYOUT */
 @media (max-width:700px) {
     #details-container {

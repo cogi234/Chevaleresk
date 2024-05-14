@@ -15,7 +15,7 @@ $DB_CONNECTION = connect();
 function connect(): PDO
 {
     // Create the connection if not set
-    isset_default($DB_CONNECTION, new PDO('mysql:host=167.114.152.54;dbname=dbchevalersk9;charset=utf8', 'chevalier9', 's748jcs2'));
+    isset_default($DB_CONNECTION, new PDO('mysql:host=vps-8588f101.vps.ovh.ca;dbname=dbchevalersk9;charset=utf8', 'chevalier9', 's748jcs2'));
 
     return $DB_CONNECTION;
 }

@@ -21,10 +21,10 @@ require_once "php/session_manager.php";
 isset_default($scripts_view);
 $scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
 $scripts_view .= <<<HTML
-    <script defer>
-        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
-    </script>
     <script src='js/local/partial/item-review.js' defer></script>
+    <script defer>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true); reviewRefresh.refresh(true); });
+    </script>
 HTML;
 
 // Styles
