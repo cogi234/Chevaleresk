@@ -21,10 +21,10 @@ require_once "php/session_manager.php";
 isset_default($scripts_view);
 $scripts_view .= "<script defer src='js/local/toggle_details_cart.js'></script>";
 $scripts_view .= <<<HTML
-    <script defer>
-        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true) });
-    </script>
     <script src='js/local/partial/item-review.js' defer></script>
+    <script defer>
+        htmx.on("htmx:after-request", function(evt){ headerCartRefresh.refresh(true); reviewRefresh.refresh(true); });
+    </script>
 HTML;
 
 // Styles
@@ -158,7 +158,15 @@ HTML;
 }
 
 $starAvgHTML = showAverageStars($item_id);
-$starPercentages = showReviewStats($item_id);
+$starPercentages = Review::reviewsStats($item_id);
+$stars_html =  $starPercentages == "" ? "" : <<<HTML
+    <!--STARS AVG-->
+    <div class="details-avg-reviews">
+        $starAvgHTML
+        $starPercentages
+    </div>
+HTML;
+
 isset_default($cart);
 isset_default($new_review_html);
 
@@ -185,11 +193,7 @@ $details_content = <<<HTML
 
     $cart
 
-    <!--STARS AVG-->
-    <div class="details-avg-reviews">
-        $starAvgHTML
-        $starPercentages
-    </div>
+    $stars_html
 
     <!-- REVIEWS -->
     <div id="details-reviews">

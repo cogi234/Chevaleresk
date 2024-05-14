@@ -3,8 +3,13 @@
 // PDO
 require_once "../php/model/player.php";
 
-$name = Player::getLocalPlayer()->getFullname();
-$player_id = Player::getLocalPlayer()->Id;
+$player = Player::getLocalPlayer();
+
+if (is_bool($player))
+    return;
+
+$name = $player->getFullname();
+$player_id = $player->Id;
 
 echo json_encode(<<<HTML
     <a id="header_disconnect" class="header-icon fa-solid fa-arrow-right-from-bracket" href="operations/disconnect.php" title="Se déconnecter"></a>
