@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($bool != 0) {
         Player::refreshLocalPlayer($connectionName);
         $_SESSION['connected'] = true;
+        $_SESSION["isAdmin"] = Player::getLocalPlayer()->IsAdmin;
 
         redirect('index.php');
     }
