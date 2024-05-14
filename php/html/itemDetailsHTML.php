@@ -158,7 +158,7 @@ HTML;
 }
 
 $starAvgHTML = showAverageStars($item_id);
-$starPercentages = showReviewStats($item_id);
+$starPercentages = Review::reviewsStats($item_id);
 isset_default($cart);
 isset_default($new_review_html);
 
