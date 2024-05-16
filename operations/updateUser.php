@@ -10,7 +10,7 @@ isset_default($_POST["id"], -1);
 $userId = intval($_POST["id"]);
 
 if(!Player::getLocalPlayer()->IsAdmin && $userId != Player::getLocalPlayer()->Id)
-    redirect("forbidden");
+    redirect("../forbidden.php");
 
 $user = Player::selectComplete(equals(Player::ID, $userId));
 
