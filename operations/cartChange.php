@@ -20,8 +20,12 @@ userAccess();
 $idPlayer = Player::getLocalPlayer()->Id;
 $alchemyLevel = Player::getLocalPlayer()->AlchemyLevel;
 $idItem = $_GET['id'];
-isset_default($_POST['quantity'], 1);
-$quantity = intval($_POST['quantity']);
+if (isset($_POST['quantity']))
+    $quantity = intval($_POST['quantity']);
+else if (isset($_GET["quantity"]))
+    $quantity = intval($_GET['quantity']);
+else
+    $quantity = 1;
 $operation = $_GET['operation'];
 $itemType = Item::select([Item::TYPE], equals(Item::ID, $idItem))->Type;
 
