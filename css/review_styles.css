@@ -43,7 +43,7 @@
     display: inline;
 
     width: 80%;
-    padding: 0.25em;
+    padding: 0.5em;
 
     background-color: var(--dark);
     border-radius: 1em;
@@ -55,6 +55,7 @@
     display: flex;
     flex-flow: column;
     height: fit-content;
+    margin-left: 0.5em;
 
     overflow-wrap: break-word;
 }
@@ -208,6 +209,7 @@ hr {
 }
 
 .delete-icon {
+    color: var(--dark);
     font-size: 1.5em;
     height: fit-content;
     width: fit-content;
