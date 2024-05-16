@@ -48,6 +48,7 @@
     margin: 0em auto;
     display: grid;
     grid-template-columns: auto auto auto auto;
+    display: inline;
 }
 .receive-quest-button{
     background-color: var(--light);
@@ -56,6 +57,7 @@
     border-radius: 10px;
     margin: 0.5em 1em;
     padding: 1em 0.5em;
+    width: 90%;
 }
 .result-msg{
     font-weight: bold;
