@@ -31,6 +31,8 @@ if (isset($_POST["alias"]))
 
 if (isset($_POST["password"]) && !ctype_space($_POST["password"]))
     $user->Password = $_POST["password"];
+else
+    $user->Password = "";
 
 $user->update();
 

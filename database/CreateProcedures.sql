@@ -140,8 +140,19 @@ CREATE PROCEDURE modifierJoueur(
     in pEstAdmin BOOLEAN)
 BEGIN
 	DECLARE pMotDePasseEncrypte TEXT;
+    DECLARE pVieuxMotDePasse TEXT;
     START TRANSACTION;
 		SET pMotDePasseEncrypte = sha2(pMotDePasse, 512);
+        SELECT motDePasse INTO pVieuxMotDePasse FROM joueurs WHERE idJoueur = pId;
+        IF (pMotDePasse = "" OR pMotDePasse = pVieuxMotDePasse) THEN
+        UPDATE joueurs SET 
+			alias = pAlias,
+            prenom = pPrenom,
+            nom = pNom,
+            avatar = pAvatar,
+            estAdmin = pEstAdmin
+            WHERE idJoueur = pId;
+        ELSE
         UPDATE joueurs SET 
 			alias = pAlias,
             prenom = pPrenom,
@@ -150,6 +161,7 @@ BEGIN
             motDePasse = pMotDePasseEncrypte,
             estAdmin = pEstAdmin
             WHERE idJoueur = pId;
+		END IF;
     COMMIT;
 END |
 DELIMITER ;
