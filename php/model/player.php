@@ -98,7 +98,7 @@ class Player extends PDO_Object
             $this->LastName,
             $this->Avatar,
             $this->Password,
-            $this->IsAdmin
+            $this->IsAdmin ? 1 : 0
         );
     }
 
