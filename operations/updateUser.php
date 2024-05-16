@@ -29,7 +29,7 @@ if (isset($_FILES["avatar"]) && str_contains($_FILES["avatar"]["type"], "image")
 if (isset($_POST["alias"]))
     $user->Alias = $_POST["alias"];
 
-if (isset($_POST["password"]))
+if (isset($_POST["password"]) && !ctype_space($_POST["password"]))
     $user->Password = $_POST["password"];
 
 $user->update();
