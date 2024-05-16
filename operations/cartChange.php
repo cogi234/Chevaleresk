@@ -30,6 +30,8 @@ if ($operation == "remove") {
     $result = CartItem::remove_from_cart($idPlayer, $idItem, $quantity);
     if ($result = false)
         throw new Exception("Error Processing Request", 1);
+    if (isset($_GET["redirect"]))
+        redirect("../cart.php");
 } else if ($operation == "add") {
     if ($itemType == "ingredient" && $alchemyLevel == 0) {
         exit();
