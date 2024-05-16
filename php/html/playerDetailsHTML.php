@@ -18,10 +18,16 @@ $styles_view .= "<link rel='stylesheet' href='css/profile_styles.css'>";
 
 $page_title = "Profil";
 
-$localPlayer = Player::getLocalPlayer();
 
 $player_id = $_GET[TAG_ID];
-$isCurrentUser = $player_id == $localPlayer->Id || $localPlayer->IsAdmin;
+
+if (is_connected()) {
+    $localPlayer = Player::getLocalPlayer();
+    $isCurrentUser = $player_id == $localPlayer->Id || $localPlayer->IsAdmin;
+} else {
+    $isCurrentUser = false;
+}
+
 $player = Player::selectComplete(equals(Player::ID, $player_id));
 
 $player_alias = $player->Alias;
@@ -70,7 +76,7 @@ HTML;
         break;
 }
 
-$editHTML = $isCurrentUser  ? <<<HTML
+$editHTML = $isCurrentUser ? <<<HTML
     <form class="modify-button-form" method="post" action="modifyProfilForm.php">
         <input type="hidden" name="id" value="$player_id"/>
         <button class="modify-button fa-solid fa-pen-to-square"></button>

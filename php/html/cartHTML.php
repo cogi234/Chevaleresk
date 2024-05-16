@@ -11,7 +11,8 @@ function cartItem(
     string $name,
     int $quantity,
     int $quantityStock,
-    int $idItem
+    int $idItem,
+    int $price
 ): string {
     isset_default($content);
 
@@ -36,6 +37,7 @@ function cartItem(
                 <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
+                    <p id="item-price">$price Écus</p>
                 </div>
             </div>
 HTML;
@@ -57,6 +59,7 @@ HTML;
                 <div class="cart-item-remove-error">
                     <p class="item-errorMessage" color="red">Hors Stock...</p>
                     <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
+                    <p id="item-price">$price Écus</p>
                 </div>
             </div>
 HTML;
@@ -89,7 +92,8 @@ function onCartItem(int $idPlayer, int $idItem): string
         $item->Item->Name,
         $item->Quantity,
         $item->Item->Quantity,
-        $item->Item->Id
+        $item->Item->Id,
+        $item->Item->Price
     );
 }
 

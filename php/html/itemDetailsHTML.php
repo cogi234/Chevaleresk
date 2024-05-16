@@ -111,7 +111,7 @@ if (is_connected()) {
                 </div>
 HTML;
         } else {
-            $new_review_html .= show_review($review);
+            $new_review_html .= show_review($review, true);
         }
         $new_review_html .= "</div>";
     } else {
@@ -159,6 +159,14 @@ HTML;
 
 $starAvgHTML = showAverageStars($item_id);
 $starPercentages = Review::reviewsStats($item_id);
+$stars_html =  $starPercentages == "" ? "" : <<<HTML
+    <!--STARS AVG-->
+    <div class="details-avg-reviews">
+        $starAvgHTML
+        $starPercentages
+    </div>
+HTML;
+
 isset_default($cart);
 isset_default($new_review_html);
 
@@ -185,11 +193,7 @@ $details_content = <<<HTML
 
     $cart
 
-    <!--STARS AVG-->
-    <div class="details-avg-reviews">
-        $starAvgHTML
-        $starPercentages
-    </div>
+    $stars_html
 
     <!-- REVIEWS -->
     <div id="details-reviews">

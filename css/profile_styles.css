@@ -64,3 +64,13 @@
     margin: 0;
     padding: 0.5em 0;
 }
+
+@media (max-width: 650px) {
+    #profile-pic{
+        margin: auto;
+        display: block;
+    }
+    .profile-container{
+        display: block;
+    }
+}
