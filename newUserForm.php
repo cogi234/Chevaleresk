@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $bool = true;
     }
     if ($bool == false && isset($_POST['Password']) && isset($_POST['alias'])) {
-        callProcedure("inscription", $_POST['alias'], $_POST['Password'], false);
+        callProcedure("inscription", $_POST['alias'], $_POST['Password'], 0);
         redirect('index.php');
     }
 }

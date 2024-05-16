@@ -36,7 +36,7 @@ function cartItem(
                 </div>
                 <div class="cart-item-remove-error">
                     <p hidden class="item-errorMessage" color="red">Hors Stock...</p>
-                    <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity"></a>
+                    <a class="remove-item fa fa-xmark" href="operations/cartChange.php?operation=remove&id=$idItem&quantity=$quantity&redirect=true"></a>
                     <p id="item-price">$price Écus</p>
                 </div>
             </div>
