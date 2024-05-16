@@ -105,29 +105,35 @@ class Review extends PDO_Object
         $count3 = round( 100 * $count3 / $countTotal , 2);
         $count2 = round( 100 * $count2 / $countTotal , 2);
         $count1 = round( 100 * $count1 / $countTotal , 2);
+
+        $display5 = $count5 > 3 ? "display: none" : "";
+        $display4 = $count4 > 3 ? "display: none" : "";
+        $display3 = $count3 > 3 ? "display: none" : "";
+        $display2 = $count2 > 3 ? "display: none" : "";
+        $display1 = $count1 > 3 ? "display: none" : "";
     
         return <<<HTML
             <p class="nb-total-reviews">$countTotal évaluations</p>
             <div class="reviews-stats-container">
                 <div class="reviews-percent-container" title="$count5%">
                     <div class="reviews-percent-label"><p>5</p><i class="fa-solid fa-star"></i></div>
-                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count5%"></div></div>
+                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count5%; $display5"></div></div>
                 </div>
                 <div class="reviews-percent-container" title="$count4%">
                     <div class="reviews-percent-label"><p>4</p><i class="fa-solid fa-star"></i></div>
-                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count4%"></div></div>
+                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count4%; $display4"></div></div>
                 </div>
                 <div class="reviews-percent-container" title="$count3%">
                     <div class="reviews-percent-label"><p>3</p><i class="fa-solid fa-star"></i></div>
-                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count3%"></div></div>
+                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count3%; $display3"></div></div>
                 </div>
                 <div class="reviews-percent-container" title="$count2%">
                     <div class="reviews-percent-label"><p>2</p><i class="fa-solid fa-star"></i></div>
-                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count2%"></div></div>
+                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count2%; $display2"></div></div>
                 </div>
                 <div class="reviews-percent-container" title="$count1%">
                     <div class="reviews-percent-label"><p>1</p><i class="fa-solid fa-star"></i></div>
-                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count1%"></div></div>
+                    <div class="reviews-percent-full"><div class="reviews-percent" style="width: $count1%; $display1"></div></div>
                 </div>
             </div>
     HTML;
