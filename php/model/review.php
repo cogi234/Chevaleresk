@@ -106,11 +106,11 @@ class Review extends PDO_Object
         $count2 = round( 100 * $count2 / $countTotal , 2);
         $count1 = round( 100 * $count1 / $countTotal , 2);
 
-        $display5 = $count5 > 3 ? "display: none" : "";
-        $display4 = $count4 > 3 ? "display: none" : "";
-        $display3 = $count3 > 3 ? "display: none" : "";
-        $display2 = $count2 > 3 ? "display: none" : "";
-        $display1 = $count1 > 3 ? "display: none" : "";
+        $display5 = $count5 < 3 ? "opacity: 0" : "";
+        $display4 = $count4 < 3 ? "opacity: 0" : "";
+        $display3 = $count3 < 3 ? "opacity: 0" : "";
+        $display2 = $count2 < 3 ? "opacity: 0" : "";
+        $display1 = $count1 < 3 ? "opacity: 0" : "";
     
         return <<<HTML
             <p class="nb-total-reviews">$countTotal évaluations</p>
